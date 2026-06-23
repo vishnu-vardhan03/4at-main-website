@@ -26,7 +26,7 @@ export function SecuritySection() {
             Enterprise-Grade <span className="grad-v">Protection</span>
           </h2>
           <p className="text-white/55 mx-auto" style={{ maxWidth: 560 }}>
-            Your financial data deserves the highest standard. AWS infrastructure (EC2, RDS, ElastiCache, CloudFront) — all under your control.
+            4AT AI is designed for environments where auditability, data protection, and access control are non-negotiable.
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -102,7 +102,7 @@ export function PricingSection() {
               style={plan.popular ? { border: "1px solid rgba(167,139,250,.35)" } : {}}
             >
               {plan.popular && (
-                <div className="absolute -top-[13px] left-1/2 -translate-x-1/2
+                <div className="absolute top-[4px] left-1/2 -translate-x-1/2
                   px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest whitespace-nowrap"
                   style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc)", color: "#fff" }}>
                   Most Popular
@@ -143,86 +143,6 @@ export function PricingSection() {
   );
 }
 
-/* ── ACADEMY ─────────────────────────────────────────── */
-const courses = [
-  {
-    title: "AI Reconciliation Fundamentals",
-    level: "Beginner", duration: "4 hrs",
-    img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
-    imgAlt: "Finance professional learning reconciliation on digital dashboard",
-  },
-  {
-    title: "FastAPI AI Service Layer Deep Dive",
-    level: "Advanced", duration: "6 hrs",
-    img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80",
-    imgAlt: "Python FastAPI code for AI financial analysis service",
-  },
-  {
-    title: "NestJS + ERP Integration Patterns",
-    level: "Intermediate", duration: "5 hrs",
-    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80",
-    imgAlt: "NestJS API architecture code connecting ERP integrations",
-  },
-  {
-    title: "SOX Compliance & Audit Automation",
-    level: "Intermediate", duration: "3 hrs",
-    img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80",
-    imgAlt: "Compliance documentation and audit trail review process",
-  },
-];
-
-export function AcademySection() {
-  return (
-    <section id="academy" className="section" style={{ background: "#04060f" }}>
-      <AmbientBackground variant="violet" intensity={0.4} />
-      <div className="section-inner">
-        <div className="text-center mb-14">
-          <div className="eyebrow mb-6 justify-center"><span className="dot" />Academy</div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
-            Learn to Master <span className="grad-v">Finance AI</span>
-          </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 560 }}>
-            Structured courses for finance teams, developers, and administrators — from AI reconciliation basics to advanced FastAPI service configuration.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {courses.map((c) => (
-            <TiltCard
-              key={c.title}
-              className="glass-card rounded-2xl overflow-hidden transition-all duration-300
-                hover:border-violet-500/25 hover:-translate-y-1 cursor-pointer"
-            >
-              <div className="relative" style={{ height: 140 }}>
-                <Image
-                  src={c.img}
-                  alt={c.imgAlt}
-                  fill
-                  className="object-cover opacity-65"
-                  sizes="300px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(8,11,26,.9)]" />
-                <div className="absolute bottom-3 left-3 flex gap-2">
-                  <span className="text-[11px] font-bold px-2 py-1 rounded-md"
-                    style={{ background: "rgba(167,139,250,.2)", color: "#c4b5fd" }}>
-                    {c.level}
-                  </span>
-                  <span className="text-[11px] font-bold px-2 py-1 rounded-md"
-                    style={{ background: "rgba(255,255,255,.08)", color: "rgba(255,255,255,.55)" }}>
-                    {c.duration}
-                  </span>
-                </div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-sm font-bold leading-snug">{c.title}</h3>
-              </div>
-            </TiltCard>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ── FAQ ─────────────────────────────────────────────── */
 const faqs = [

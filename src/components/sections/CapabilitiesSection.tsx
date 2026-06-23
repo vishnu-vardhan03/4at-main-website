@@ -7,13 +7,13 @@ import AmbientBackground from "@/components/3d/AmbientBackground";
 const capabilities = [
   {
     icon: "🔄", title: "Reconciliation Engine",
-    desc: "Multi-ledger transaction matching with configurable tolerances, variance analysis, and auto-posted journal entries. FX reconciliation, bank statement matching, and inter-company eliminations.",
+    desc: "Automate transaction matching, variance review, and journal preparation across multi-entity workflows",
     stat: "99.7%", statLabel: "Match accuracy", wide: true, color: "t",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     imgAlt: "Real-time ledger reconciliation dashboard showing matched transactions",
   },
   {
-    icon: "🔍", title: "Fraud Detection",
+    icon: "🔍", title: "Anomaly  Detection",
     desc: "Python/FastAPI behavioural AI trained on financial patterns. Surfaces duplicate payments, policy violations, and anomalous transactions in real-time.",
     stat: "<200ms", statLabel: "Detection latency", color: "v",
   },
@@ -24,7 +24,7 @@ const capabilities = [
   },
   {
     icon: "📊", title: "Forecasting Models",
-    desc: "Rolling cash flow, expense prediction, and P&L variance — surfaced as interactive dashboards synced to your ERP data.",
+    desc: "Turn operational finance data into forward-looking visibility across cash flow, spend, and variance.",
     stat: "±2.1%", statLabel: "Forecast variance", color: "v", chart: true,
   },
   {
@@ -34,7 +34,7 @@ const capabilities = [
   },
   {
     icon: "⚡", title: "ERP Integration",
-    desc: "Live bidirectional sync with SAP, Oracle, NetSuite via NestJS backend layer. Sub-10s posting latency.",
+    desc: "Connect ERP and adjacent systems so AI runs inside live workflows, not in isolated exports.",
     color: "b",
   },
 ];
@@ -63,7 +63,7 @@ export default function CapabilitiesSection() {
             Finance AI <span className="grad-v">Built Different</span>
           </h2>
           <p className="text-white/55 mx-auto" style={{ maxWidth: 580, fontSize: "1.05rem" }}>
-            Purpose-engineered for the complexity, compliance, and precision finance demands. Connected to your NestJS API and FastAPI AI layers.
+            Most AI tools are built horizontally and then adapted for finance. 4AT starts with accounting logic, controls, review workflows, and implementation realities from the beginning.
           </p>
         </div>
 

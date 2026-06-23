@@ -22,9 +22,9 @@ export default function NeuralGlobe() {
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
     let W = 0, H = 0;
 
-    const POINT_COUNT = 120;
+    const POINT_COUNT = 180;
     const RADIUS = 0.38; // fraction of min(W,H)
-    const CONNECTION_DIST = 0.14;
+    const CONNECTION_DIST = 0.16;
     const PULSE_RADIUS = 0.22;
 
     const points: Point[] = [];
@@ -178,18 +178,19 @@ export default function NeuralGlobe() {
         const p = projected[i];
         const pt = points[i];
         const depth = (p.z + RADIUS * Math.min(W, H)) / (2 * RADIUS * Math.min(W, H));
-        const r = (1.4 + pt.pulseStrength * 4) * depth * p.scale;
+        const r =  Math.max(0.5, (1.4 + pt.pulseStrength * 4) * depth * p.scale);
 
-        // Glow halo when pulsing
-        if (pt.pulseStrength > 0.1) {
-          const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 8);
-          grd.addColorStop(0, `rgba(167,139,250,${pt.pulseStrength * 0.6})`);
-          grd.addColorStop(1, "rgba(167,139,250,0)");
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, r * 8, 0, Math.PI * 2);
-          ctx.fillStyle = grd;
-          ctx.fill();
-        }
+        // // Glow halo when pulsing
+        // if (pt.pulseStrength > 0.1) {
+        //   const glowRadius = Math.max(1, r * 8);
+        //   const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius);
+        //   grd.addColorStop(0, `rgba(167,139,250,${pt.pulseStrength * 0.6})`);
+        //   grd.addColorStop(1, "rgba(167,139,250,0)");
+        //   ctx.beginPath();
+        //   ctx.arc(p.x, p.y, r * 8, 0, Math.PI * 2);
+        //   ctx.fillStyle = grd;
+        //   ctx.fill();
+        // }
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, Math.max(0.5, r), 0, Math.PI * 2);

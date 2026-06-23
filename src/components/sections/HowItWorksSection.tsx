@@ -50,7 +50,7 @@ export default function HowItWorksSection() {
       <AmbientBackground variant="violet" intensity={0.5} />
 
       <div className="section-inner">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Process</div>
           <h2 className="font-bold tracking-tight mb-4"
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
@@ -64,110 +64,122 @@ export default function HowItWorksSection() {
 
         {/* Flow layout */}
         <div className="relative">
-          {/* SVG connecting lines */}
-          <svg
-            className="absolute top-9 left-0 right-0 w-full pointer-events-none"
-            height="4"
-            preserveAspectRatio="none"
-            aria-hidden="true"
+          {/* Timeline */}
+<div className="relative mb-12">
+
+  {/* Center Line */}
+  <div
+    className="absolute top-[38px] left-[12.5%] right-[12.5%] h-[2px]"
+    style={{
+      background:
+        "linear-gradient(90deg,#a78bfa,#c084fc,#7dd3fc,#2dd4bf)",
+      opacity: 0.7,
+    }}
+  />
+
+  {/* Timeline Nodes */}
+  <div className="grid grid-cols-4 relative z-10">
+    {steps.map((step) => (
+      <div
+        key={step.id}
+        className="flex justify-center"
+        onMouseEnter={() => setActive(step.id)}
+        onMouseLeave={() => setActive(null)}
+      >
+        <div
+          className="w-[76px] h-[76px] rounded-full flex items-center justify-center text-2xl transition-all duration-300"
+          style={{
+            background:
+              "linear-gradient(160deg,rgba(16,12,34,.98),rgba(8,11,26,.98))",
+            border: `2px solid ${
+              active === step.id
+                ? step.color
+                : "rgba(167,139,250,.35)"
+            }`,
+            boxShadow:
+              active === step.id
+                ? `0 0 30px ${step.glow}`
+                : "none",
+            transform:
+              active === step.id
+                ? "scale(1.08)"
+                : "scale(1)",
+          }}
+        >
+          {step.icon}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+{/* Content */}
+<div className="grid grid-cols-4 gap-8">
+  {steps.map((step) => (
+    <div
+      key={step.id}
+      className="text-center"
+      onMouseEnter={() => setActive(step.id)}
+      onMouseLeave={() => setActive(null)}
+    >
+      <h3
+        className="text-[19px] font-bold mb-4"
+        style={{
+          color:
+            active === step.id
+              ? step.color
+              : "#fff",
+        }}
+      >
+        {step.title}
+      </h3>
+
+      <p
+        className="mx-auto text-white/55 leading-relaxed"
+        style={{
+          maxWidth: "280px",
+        }}
+      >
+        {step.desc}
+      </p>
+
+      {active === step.id && (
+        <div
+          className="mt-5 p-4 rounded-xl text-xs text-left"
+          style={{
+            background: "rgba(16,12,34,.9)",
+            border: `1px solid ${step.color}40`,
+            color: "rgba(255,255,255,.65)",
+          }}
+        >
+          <span
+            style={{
+              color: step.color,
+              fontWeight: 700,
+            }}
           >
-            <defs>
-              <linearGradient id="line-grad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%"   stopColor="#a78bfa" />
-                <stop offset="33%"  stopColor="#c084fc" />
-                <stop offset="66%"  stopColor="#7dd3fc" />
-                <stop offset="100%" stopColor="#2dd4bf" />
-              </linearGradient>
-            </defs>
-            <line
-              x1="12.5%" y1="2" x2="87.5%" y2="2"
-              stroke="url(#line-grad)"
-              strokeWidth="1.5"
-              strokeDasharray="6 3"
-              className="flow-line"
-            />
-          </svg>
-
-          <div
-            className="grid gap-5"
-            style={{ gridTemplateColumns: "repeat(4, 1fr)" }}
-          >
-            {steps.map((step) => (
-              <div
-                key={step.id}
-                className="relative z-10 flex flex-col items-center text-center cursor-pointer
-                  group transition-all duration-300"
-                onMouseEnter={() => setActive(step.id)}
-                onMouseLeave={() => setActive(null)}
-              >
-                {/* Number circle */}
-                <div
-                  className="w-[76px] h-[76px] rounded-full flex items-center justify-center
-                    text-2xl mb-6 transition-all duration-400"
-                  style={{
-                    background: "linear-gradient(160deg,rgba(16,12,34,.95),rgba(8,11,26,.95))",
-                    border: `2px solid ${active === step.id ? step.color : "rgba(167,139,250,.3)"}`,
-                    boxShadow: active === step.id ? `0 0 30px ${step.glow}` : "none",
-                    transform: active === step.id ? "scale(1.12)" : "scale(1)",
-                  }}
-                >
-                  {step.icon}
-                </div>
-
-                <h3 className="text-[19px] font-bold mb-3"
-                  style={{ color: active === step.id ? step.color : "#fff" }}>
-                  {step.title}
-                </h3>
-                <p className="text-sm text-white/52 leading-relaxed">
-                  {step.desc}
-                </p>
-
-                {/* Tooltip on hover */}
-                <div
-                  className="mt-4 px-4 py-3 rounded-xl text-xs text-left leading-relaxed transition-all duration-300"
-                  style={{
-                    background: "rgba(16,12,34,.9)",
-                    border: `1px solid ${step.color}40`,
-                    color: "rgba(255,255,255,.6)",
-                    opacity: active === step.id ? 1 : 0,
-                    transform: active === step.id ? "translateY(0)" : "translateY(6px)",
-                  }}
-                >
-                  <span className="font-bold" style={{ color: step.color }}>Tech layer: </span>
-                  {step.detail}
-                </div>
-
-                {/* Neon pulse glow below icon when active */}
-                {active === step.id && (
-                  <div
-                    className="absolute top-6 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle, ${step.glow} 0%, transparent 70%)`,
-                      animation: "pulseStep .8s ease-in-out infinite alternate",
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+            Tech layer:
+          </span>{" "}
+          {step.detail}
+        </div>
+      )}
+    </div>
+  ))}
+</div>
         </div>
       </div>
 
       <style jsx>{`
         @media (max-width: 760px) {
-          [style*="grid-template-columns: repeat(4"] {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 28px !important;
+          .grid-cols-4 {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
+
         @media (max-width: 460px) {
-          [style*="grid-template-columns: repeat(4"] {
-            grid-template-columns: 1fr !important;
+          .grid-cols-4 {
+            grid-template-columns: 1fr;
           }
-        }
-        @keyframes pulseStep {
-          from { opacity: .5; transform: translateX(-50%) scale(.8); }
-          to   { opacity: 1;  transform: translateX(-50%) scale(1.2); }
         }
       `}</style>
     </section>

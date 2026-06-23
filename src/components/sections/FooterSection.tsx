@@ -26,17 +26,22 @@ export default function FooterSection() {
           <div className="eyebrow mb-7 justify-center">
             <span className="dot" />Get Started
           </div>
-          <h2
-            className="font-bold tracking-tight mb-5"
-            style={{ fontSize: "clamp(2.2rem,5vw,4rem)", lineHeight: 1.1 }}
-          >
-            Ready to Automate the{" "}
-            <span className="grad-v">Intelligence Layer?</span>
-          </h2>
+       <h1 className="font-black leading-[0.88] tracking-[-0.05em]">
+  <span className="block text-[clamp(3rem,5vw,4.5rem)] text-white">
+    Bring AI into
+  </span>
+
+  <span className="block whitespace-nowrap text-[clamp(3.5rem,15vw,5rem)] bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">
+    Finance Workflows
+  </span>
+
+  <span className="block text-[clamp(3rem,5vw,4.5rem)] text-white">
+    that matters most
+  </span>
+</h1>
           <p className="text-white/55 mx-auto mb-10"
             style={{ fontSize: "1.1rem", maxWidth: 560 }}>
-            Join 50+ enterprise finance teams running reconciliation, compliance, and reporting
-            on autopilot — powered by NestJS + FastAPI + AWS.
+            See how 4AT helps teams automate high-friction processes, strengthen control, and turn finance operations into a faster, more scalable system. 
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a

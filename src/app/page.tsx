@@ -6,54 +6,94 @@ import WhySection from "@/components/sections/WhySection";
 import AgentsSection from "@/components/sections/AgentsSection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import IntegrationsSection from "@/components/sections/IntegrationsSection";
-import {
-  SecuritySection,
-  PricingSection,
-  FaqSection,
-} from "@/components/sections/OtherSections";
+import {SecuritySection, PricingSection, FaqSection,} from "@/components/sections/OtherSections";
 import HybridSection from "@/components/sections/HybridSection";
 import FooterSection from "@/components/sections/FooterSection";
+import Reveal from "@/components/ui/Reveal";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import MouseGlow from "@/components/ui/MouseGlow";
+import SectionWrapper from "@/components/ui/SectionWrapper";
+
 
 export default function HomePage() {
   return (
     <main>
+       <ScrollProgress />
+       <MouseGlow />
       {/* ── Sticky nav ────────────────── */}
       <Nav />
 
       {/* ── 1. Hero ───────────────────── */}
-      <HeroSection />
-
+        <HeroSection />
+        
       {/* ── 2. Product Glimpse ────────── */}
-      <GlimpseSection />
+      <SectionWrapper>
+      <Reveal>
+        <GlimpseSection />
+      </Reveal>
+       </SectionWrapper>
 
       {/* ── 3. Core Capabilities ─────── */}
-      <CapabilitiesSection />
+      <SectionWrapper>
+      <Reveal>
+        <CapabilitiesSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 4. Why 4AT ───────────────── */}
-      <WhySection />
+      <SectionWrapper>
+      <Reveal>
+        <WhySection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 5. AI Agents ─────────────── */}
-      <AgentsSection />
+      <SectionWrapper>
+      <Reveal>
+        <AgentsSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 6. How It Works ──────────── */}
-      <HowItWorksSection />
+      <SectionWrapper>
+      <Reveal>
+        <HowItWorksSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 7. Integrations ──────────── */}
-      <IntegrationsSection />
+      <SectionWrapper>
+      <Reveal>
+        <IntegrationsSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 8. Pricing ───────────────── */}
-      <PricingSection />
+      <SectionWrapper>
+      <Reveal>
+        <PricingSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 9. Security ──────────────── */}
-      <SecuritySection />
+      <SectionWrapper>
+      <Reveal>
+        <SecuritySection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 10. Hybrid Support ───────── */}
-      <HybridSection />
+      <SectionWrapper>
+      <Reveal>
+        <HybridSection />
+      </Reveal>
+      </SectionWrapper>
 
       {/* ── 12. FAQ ──────────────────── */}
       <FaqSection />
 
       {/* ── 13. CTA + Footer ─────────── */}
+
       <FooterSection />
     </main>
   );

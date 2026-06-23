@@ -64,7 +64,7 @@ export default function IntegrationsSection() {
             Unified Across <span className="grad-v">All Your Systems</span>
           </h2>
           <p className="text-white/55 mx-auto" style={{ maxWidth: 600 }}>
-            Pre-built NestJS connectors for Banking APIs (Open Banking), Payment Gateways (Razorpay / Stripe), and Accounting Tools (QuickBooks, Zoho). Live bidirectional sync — not batch imports.
+            4AT AI connects with ERP, banking, payroll, billing, and custom platforms so automation happens inside real finance operations — not in disconnected exports. 
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export default function IntegrationsSection() {
             <div className="text-center">
               <div className="text-sm text-white/40 mb-2 uppercase tracking-widest">Architecture</div>
               <div className="text-lg font-bold text-white/70">
-                NestJS API Layer → FastAPI AI Layer → PostgreSQL → ElastiCache (Redis) → CloudFront CDN
+                {/* NestJS API Layer → FastAPI AI Layer → PostgreSQL → ElastiCache (Redis) → CloudFront CDN */}
               </div>
             </div>
           </div>

@@ -219,3 +219,14 @@ html.lenis { height: auto; }
     transition-duration: .01ms !important;
   }
 }
+/* ── Integrations Marquee ───────────────────────────── */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+} 

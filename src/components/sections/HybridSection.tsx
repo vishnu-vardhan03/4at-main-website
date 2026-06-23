@@ -56,12 +56,12 @@ export default function HybridSection() {
             AI Speed. <span className="grad-v">Human Judgment.</span>
           </h2>
           <p className="text-white/55 mx-auto" style={{ maxWidth: 640 }}>
-            4AT isn&apos;t an AI tool you&apos;re left alone with. It&apos;s an always-on partnership — autonomous AI intelligence paired with finance-specialized humans who know your stack.
+           4AT combines automation with finance-specialized human support, so teams move faster without losing control, context, or judgment.  
           </p>
         </div>
 
         {/* Human experts row */}
-        <div className="flex justify-center gap-5 mb-12 flex-wrap">
+        {/* <div className="flex justify-center gap-5 mb-12 flex-wrap">
           {humanExperts.map((e) => (
             <div
               key={e.name}
@@ -93,7 +93,7 @@ export default function HybridSection() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -157,7 +157,7 @@ export default function HybridSection() {
               background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))" }}
           >
             {/* Human-in-the-loop label */}
-            <div className="absolute top-[-12px] left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold
+            <div className="absolute top-[-px] left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold
               uppercase tracking-wide z-10"
               style={{ background: "linear-gradient(90deg,#2dd4bf,#7dd3fc)", color: "#04060f" }}>
               Human-in-the-Loop
