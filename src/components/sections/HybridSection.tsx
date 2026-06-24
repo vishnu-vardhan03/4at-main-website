@@ -100,8 +100,7 @@ export default function HybridSection() {
           {/* AI Column */}
           <TiltCard
             glowColor="rgba(167,139,250,0.16)"
-            className="rounded-[20px] overflow-hidden"
-            style={{ border: "1px solid rgba(167,139,250,.2)",
+            className="rounded-[20px] overflow-hidden"style={{ border: "1px solid rgba(167,139,250,.2)",
               background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))" }}
           >
             {/* Header */}

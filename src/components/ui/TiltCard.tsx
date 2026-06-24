@@ -6,9 +6,10 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   glowColor?: string;
+  style?: React.CSSProperties;
 }
 
-export default function TiltCard({ children, className = "", glowColor = "rgba(167,139,250,0.18)" }: Props) {
+export default function TiltCard({ children, className = "", glowColor = "rgba(167,139,250,0.18)" , style, }: Props) {
   const { ref, onMove, onLeave } = useTilt(10);
 
   return (
@@ -17,7 +18,8 @@ export default function TiltCard({ children, className = "", glowColor = "rgba(1
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={`relative overflow-hidden ${className}`}
-      style={{ transformStyle: "preserve-3d" }}
+       style={style}
+      // style={{ transformStyle: "preserve-3d" }}
     >
       {/* Mouse-follow glow */}
       <div

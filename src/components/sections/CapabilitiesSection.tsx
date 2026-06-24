@@ -81,7 +81,7 @@ export default function CapabilitiesSection() {
               glowColor={glowMap[cap.color]}
               className={`glass-card rounded-[18px] p-7 flex flex-col transition-colors duration-300
                 hover:border-white/14 ${cap.wide ? "col-span-2" : ""}`}
-              style={{ ["--glow-opacity" as string]: 0 } as React.CSSProperties}
+              // style={{ ["--glow-opacity" as string]: 0 } as React.CSSProperties}
             >
               {/* Icon */}
               <div
