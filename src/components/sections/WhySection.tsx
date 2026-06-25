@@ -44,7 +44,7 @@ export default function WhySection() {
       <AmbientBackground variant="violet" intensity={0.5} />
       <div className="section-inner">
         <div className="text-center mb-14">
-          <div className="eyebrow mb-6 justify-center"><span className="dot" />Why 4AT</div>
+          <div className="eyebrow mb-6 justify-center"><span className="dot" />The unfair advantage</div>
           <h2 className="font-bold tracking-tight mb-4"
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             The Only AI Built for{" "}
