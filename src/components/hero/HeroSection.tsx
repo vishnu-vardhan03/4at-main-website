@@ -6,9 +6,26 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#04060f]"
     >
-      {/* Background */}
-      <div className="absolute inset-0">
-        {/* Stars */}
+     {/* Background */}
+<div className="absolute inset-0">
+
+  {/* Video Background */}
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    className="absolute inset-0 w-full h-full object-cover "
+  >
+   <source src="/hero-bg.mp4" type="video/mp4" />
+  </video>
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-[#04060f]/70" />
+
+
+        {/* Stars
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -16,7 +33,7 @@ export default function HeroSection() {
               "radial-gradient(rgba(255,255,255,.15) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
           }}
-        />
+        /> */}
 
         {/* Purple Glow */}
         <div

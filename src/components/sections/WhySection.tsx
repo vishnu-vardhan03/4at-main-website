@@ -51,7 +51,8 @@ export default function WhySection() {
             <span className="grad-v">Finance Teams</span>
           </h2>
           <p className="text-white/55 mx-auto" style={{ maxWidth: 580 }}>
-            Generic AI breaks on accounting edge cases. 4AT was built from first principles for your numbers — with the engineering stack to match.
+            Most AI tools are built horizontally and then adapted for finance.
+             4AT starts with accounting logic, controls, review workflows, and implementation realities from the beginning. 
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
