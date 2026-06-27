@@ -13,5 +13,5 @@ import { Contact } from "@/components/home/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function HomeClient() {
-  return <div className="home-page min-h-screen bg-[#04060f] text-white"><Nav /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /></div>;
+  return <div className="home-page constant-site-background min-h-screen text-white"><Nav /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /></div>;
 }

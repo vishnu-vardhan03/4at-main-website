@@ -60,7 +60,7 @@ const leadershipPrinciples = [
 
 export default function AboutClient() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#04060f] text-white">
+    <div className="about-page constant-site-background min-h-screen overflow-x-hidden text-white">
       <Nav />
 
       <main>
