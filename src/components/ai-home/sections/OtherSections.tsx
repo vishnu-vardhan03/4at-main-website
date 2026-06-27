@@ -114,7 +114,7 @@ export function PricingSection() {
                 <span className="text-base font-normal text-white/40">{plan.period}</span>
               </div>
               <p className="text-sm text-white/42 mt-4 mb-7 flex-grow-0">{plan.desc}</p>
-              <a href="#cta-final"
+              <a href="/contact"
                 className={`w-full flex items-center justify-center gap-2 px-6 py-3.5
                   rounded-xl text-sm font-bold transition-all duration-250 mb-7
                   ${plan.ctaStyle === "primary"

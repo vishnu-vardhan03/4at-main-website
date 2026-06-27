@@ -125,7 +125,7 @@ export default function IntegrationsSection() {
             </div>
           </div>
           <a
-            href="#cta-final"
+            href="/contact"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white transition-all duration-250 hover:-translate-y-0.5 flex-shrink-0 hover:shadow-[0_12px_30px_rgba(167,139,250,.4)]"
             style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc)" }}
           >

@@ -444,7 +444,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .hero-ecosystem-orbit-ring-two {
-  inset: 13%;
+  inset: 9%;
   border-color: rgba(167, 139, 250, .32);
   border-bottom-color: #a78bfa;
   border-left-color: #c084fc;
@@ -468,7 +468,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .home-page .hero-ecosystem-orbit-ring-three {
-  inset: 20%;
+  inset: 17%;
   border-color: rgba(45, 212, 191, .46);
   border-right-color: #2dd4bf;
   box-shadow: 0 0 28px rgba(45, 212, 191, .16), inset 0 0 28px rgba(45, 212, 191, .07);

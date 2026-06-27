@@ -153,25 +153,27 @@ export default function HeroSection() {
 
           {/* CTA */}
           <div className="flex flex-col md:flex-row justify-center gap-4 mt-10">
-            <button
-              className="px-8 py-4 rounded-xl text-white font-semibold transition-all hover:-translate-y-1"
+            <a
+              href="/contact"
+              className="px-8 py-4 rounded-xl text-white font-semibold transition-all hover:-translate-y-1 text-center"
               style={{
                 background:
                   "linear-gradient(90deg,#a78bfa,#c084fc)",
               }}
             >
               Explore AI Solutions →
-            </button>
+            </a>
 
-            <button
-              className="px-8 py-4 rounded-xl text-white font-semibold border"
+            <a
+              href="/contact"
+              className="px-8 py-4 rounded-xl text-white font-semibold border text-center"
               style={{
                 borderColor: "rgba(255,255,255,.15)",
                 background: "rgba(255,255,255,.03)",
               }}
             >
               Book a Demo
-            </button>
+            </a>
           </div>
         </div>
       </div>

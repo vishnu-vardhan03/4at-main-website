@@ -20,6 +20,7 @@ import MouseGlow from "@/components/ai-home/ui/MouseGlow";
 import Reveal from "@/components/ai-home/ui/Reveal";
 import ScrollProgress from "@/components/ai-home/ui/ScrollProgress";
 import SectionWrapper from "@/components/ai-home/ui/SectionWrapper";
+import ProductCTA from "@/components/ai-home/sections/FooterSection";
 
 export const metadata: Metadata = {
   title: "4AT AI — Finance Automation Platform",
@@ -90,6 +91,7 @@ export default function ProductPage() {
       </SectionWrapper>
 
       <FaqSection />
+      <ProductCTA />
       <Footer />
       <ParallaxObserver />
     </main>

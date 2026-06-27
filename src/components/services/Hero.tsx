@@ -189,7 +189,7 @@ export function Hero() {
               className="mt-8 flex flex-row items-center gap-4 pointer-events-auto whitespace-nowrap"
             >
               <a
-                href="#services"
+                href="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-sky-400 hover:text-black transition-all duration-300 shadow-lg shadow-white/5 hover:shadow-sky-400/20 active:scale-95"
               >
                 Start your subscription
