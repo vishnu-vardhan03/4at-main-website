@@ -83,7 +83,7 @@ export function PricingSection() {
       <AmbientBackground variant="violet" intensity={0.55} />
       <div className="section-inner">
         <div className="text-center mb-14">
-          <div className="eyebrow mb-6 justify-center"><span className="dot" />Pricing</div>
+          <div className="eyebrow mb-6 justify-center"><span className="dot" />Flexible ways to adopt 4AT AI </div>
           <h2 className="font-bold tracking-tight mb-4"
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             Transparent <span className="grad-v">Plans</span>

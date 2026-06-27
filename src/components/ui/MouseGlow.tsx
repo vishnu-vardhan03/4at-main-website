@@ -28,7 +28,7 @@ export default function MouseGlow() {
       style={{
         background: `radial-gradient(
           400px at ${position.x}px ${position.y}px,
-          rgba(99,102,241,0.08),
+          rgba(167,139,250,0.06),
           transparent 400%
         )`,
       }}

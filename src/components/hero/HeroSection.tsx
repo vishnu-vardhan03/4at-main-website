@@ -11,18 +11,21 @@ export default function HeroSection() {
 
   {/* Video Background */}
   <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    preload="metadata"
-    className="absolute inset-0 w-full h-full object-cover "
-  >
-   <source src="/hero-bg.mp4" type="video/mp4" />
-  </video>
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  className="absolute inset-0 w-full h-full object-cover"
+  style={{
+    objectPosition: "center center",
+  }}
+>
+  <source src="/hero-bg.mp4" type="video/mp4" />
+</video>
 
   {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-[#04060f]/70" />
+  <div className="absolute inset-0 bg-[#04060f]/55 md:bg-[#04060f]/65" />
 
 
         {/* Stars
@@ -93,27 +96,26 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-black leading-[0.8] tracking-[-0.05em]">
-  <span className="block text-white text-[clamp(3rem,7vw,6rem)]">
-    FINANCE-NATIVE
+          <h1 className="font-black tracking-[-0.05em] leading-[0.9]">
+  <span className="block text-white text-5xl md:text-7xl lg:text-8xl">
+    FINANCE-NATIVE AI
   </span>
 
-  <span className="block text-[clamp(3rem,7vw,6rem)] bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent">
-    AI FOR ACCOUNTING
+  <span className="block bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl">
+    FOR ACCOUNTING &
   </span>
 
-  <span className="block text-violet-400 text-[1.5em] my-2">
-    ✦
+  <span className="block text-violet-400 text-3xl md:text-5xl my-2">
+    {/* ✦  */} 
   </span>
 
-  <span className="block text-[clamp(2.6rem,6vw,5rem)] text-white/35">
+  <span className="block text-white/35 text-4xl md:text-6xl lg:text-7xl">
     FINANCE WORKFLOWS
   </span>
 </h1>
-
           {/* Description */}
           <p
-            className="mx-auto mt-10 max-w-4xl leading-relaxed"
+            className="mx-auto mt-8 max-w-3xl leading-relaxed px-4"
             style={{
               fontSize: "clamp(1.1rem,1.6vw,1.35rem)",
               color: "rgba(255,255,255,.72)",
@@ -126,7 +128,7 @@ export default function HeroSection() {
           </p>
 
           {/* Capability Pills */}
-          <div className="flex flex-wrap justify-center gap-3 mt-10">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-8">
             {[
               "Reconciliation",
               "Exception Review",
@@ -137,7 +139,7 @@ export default function HeroSection() {
             ].map((item) => (
               <span
                 key={item}
-                className="px-5 py-2 rounded-xl text-sm"
+                className="px-3 md:px-5 py-2 rounded-xl text-xs md:text-sm"
                 style={{
                   border: "1px solid rgba(167,139,250,.2)",
                   background: "rgba(255,255,255,.02)",
@@ -150,7 +152,7 @@ export default function HeroSection() {
           </div>
 
           {/* CTA */}
-          <div className="flex flex-wrap justify-center gap-4 mt-12">
+          <div className="flex flex-col md:flex-row justify-center gap-4 mt-10">
             <button
               className="px-8 py-4 rounded-xl text-white font-semibold transition-all hover:-translate-y-1"
               style={{

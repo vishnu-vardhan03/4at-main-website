@@ -156,7 +156,7 @@ export default function HybridSection() {
               background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))" }}
           >
             {/* Human-in-the-loop label */}
-            <div className="absolute top-[-px] left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold
+            <div className="absolute -top-3 left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold
               uppercase tracking-wide z-10"
               style={{ background: "linear-gradient(90deg,#2dd4bf,#7dd3fc)", color: "#04060f" }}>
               Human-in-the-Loop

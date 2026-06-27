@@ -1,6 +1,7 @@
  import type { Metadata,  } from "next";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
+import { ParallaxObserver } from '@/components/sections/ParallaxObserver';
 
 export const metadata: Metadata = {
   title: "4AT AI — Finance Automation Platform",
@@ -19,11 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body>
-        {/* Fixed background grid */}
-        <div className="bg-grid" aria-hidden="true" />
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        {children}
+        <ParallaxObserver />  {/* Replace the entire <script> block with this */}
       </body>
     </html>
   );

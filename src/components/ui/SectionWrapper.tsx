@@ -15,11 +15,7 @@ export default function SectionWrapper({
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [80, -80]
-  );
+ 
 
   const opacity = useTransform(
     scrollYProgress,
@@ -31,7 +27,7 @@ export default function SectionWrapper({
     <motion.div
       ref={ref}
       style={{
-        y,
+      
         opacity,
       }}
     >

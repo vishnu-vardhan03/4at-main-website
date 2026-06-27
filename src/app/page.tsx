@@ -81,8 +81,7 @@ export default function HomePage() {
         <SecuritySection />
       </Reveal>
       </SectionWrapper>
-
-      {/* ── 10. Hybrid Support ───────── */}
+{/* ── 10. Hybrid Support ───────── */}
       <SectionWrapper>
       <Reveal>
         <HybridSection />

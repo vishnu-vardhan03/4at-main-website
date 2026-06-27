@@ -145,7 +145,7 @@ body {
 /* ── Section base ────────────────────────────────────── */
 .section {
   position: relative;
-  padding: 130px 20px;
+  padding: 30px 20px;  
   overflow: hidden;
 }
 .section-inner {
@@ -153,6 +153,12 @@ body {
   margin: 0 auto;
   position: relative;
   z-index: 10;
+}
+
+/* Remove the section bridges entirely */
+.section::before,
+.section::after {
+  display: none;
 }
 
 /* ── Metric bar ──────────────────────────────────────── */
@@ -229,4 +235,19 @@ html.lenis { height: auto; }
   to {
     transform: translateX(calc(-50% - 8px));
   }
-} 
+}
+@keyframes parallaxFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(100px) scale(0.90);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.parallax-section {
+  animation: parallaxFadeIn 1s ease-out forwards;
+  opacity: 0;
+}

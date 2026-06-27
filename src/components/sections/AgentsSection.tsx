@@ -70,7 +70,7 @@ const glowColorMap: Record<string, string> = {
 
 export default function AgentsSection() {
   return (
-    <section id="agents" className="section" style={{ background: "#04060f" }}>
+    <section id="agents" className="section" style={{ background: "#04060f", padding: "8" }}>
       <AmbientBackground variant="mixed" intensity={0.6} />
 
       <div className="section-inner">
