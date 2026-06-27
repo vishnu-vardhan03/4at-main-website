@@ -73,12 +73,11 @@ export default function GlimpseSection() {
               aria-label="Play demo video"
             >
               <span
-                className="w-20 h-20 rounded-full flex items-center justify-center text-2xl
-                  transition-transform duration-200 group-hover:scale-110"
+                className="w-20 h-20 rounded-full flex items-center justify-center text-2xl transition-transform duration-200 group-hover:scale-110"
                 style={{
                   background: "linear-gradient(135deg,#a78bfa,#c084fc)",
                   boxShadow: "0 0 0 16px rgba(167,139,250,.12), 0 0 0 32px rgba(167,139,250,.05)",
-                  animation: "product-demo-ring 3s ease-in-out infinite",
+                  animation: "ring 3s ease-in-out infinite",
                 }}
               >
                 ▶
@@ -87,6 +86,7 @@ export default function GlimpseSection() {
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity"
+              src={undefined} /* Replace with actual video URL */
               playsInline
             />
           </div>
@@ -106,6 +106,13 @@ export default function GlimpseSection() {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes ring {
+          0%,100% { box-shadow: 0 0 0 16px rgba(167,139,250,.12), 0 0 0 32px rgba(167,139,250,.05); }
+          50%      { box-shadow: 0 0 0 22px rgba(167,139,250,.18), 0 0 0 44px rgba(167,139,250,.08); }
+        }
+      `}</style>
     </section>
   );
 }

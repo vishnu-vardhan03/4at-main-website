@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import TiltCard from "@/components/ui/TiltCard";
+import TiltCard from "@/components/ai-home/ui/TiltCard";
 import AmbientBackground from "@/components/ai-home/3d/AmbientBackground";
 
 const agents = [
@@ -70,7 +70,7 @@ const glowColorMap: Record<string, string> = {
 
 export default function AgentsSection() {
   return (
-    <section id="agents" className="section" style={{ background: "#04060f" }}>
+    <section id="agents" className="section" style={{ background: "#04060f", padding: "8" }}>
       <AmbientBackground variant="mixed" intensity={0.6} />
 
       <div className="section-inner">
@@ -106,8 +106,7 @@ export default function AgentsSection() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(8,11,26,.95)]" />
 
                   {/* Service tag */}
-                  <div className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1.5 rounded-lg
-                    bg-black/50 backdrop-blur-sm text-white/50 border border-white/10">
+                  <div className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1.5 rounded-lg bg-black/50 backdrop-blur-sm text-white/50 border border-white/10">
                     {agent.service}
                   </div>
                 </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import AmbientBackground from "@/components/ai-home/3d/AmbientBackground";
 
 const integrations = [
@@ -28,8 +27,7 @@ const row2 = integrations.slice(8);
 function IntCard({ i }: { i: typeof integrations[0] }) {
   return (
     <div
-      className="flex-shrink-0 flex items-center gap-3 px-5 py-3.5 rounded-xl
-        border transition-colors duration-300 hover:border-violet-500/30 cursor-default"
+      className="flex-shrink-0 flex items-center gap-3 px-5 py-3.5 rounded-xl border transition-colors duration-300 hover:border-violet-500/30 cursor-default"
       style={{
         border: "1px solid rgba(255,255,255,.08)",
         background: "linear-gradient(160deg,rgba(16,12,34,.85),rgba(8,11,26,.85))",
@@ -68,13 +66,12 @@ export default function IntegrationsSection() {
           </p>
         </div>
 
-        {/* Architecture reference image */}
+       {/* /* Architecture reference image */}
         <div className="relative mx-auto mb-10 rounded-xl overflow-hidden"
           style={{ maxWidth: 860, height: 200 }}>
-          <Image
+          <img
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80"
             alt="System integration architecture showing ERP, banking API, and payment gateway connections"
-            fill
             className="object-cover opacity-35"
             sizes="860px"
           />
@@ -86,7 +83,7 @@ export default function IntegrationsSection() {
               </div>
             </div>
           </div>
-        </div>
+        </div> 
 
         {/* Marquee rows */}
         <div className="relative overflow-hidden" style={{ marginBottom: 16 }}>
@@ -96,31 +93,40 @@ export default function IntegrationsSection() {
           <div className="absolute top-0 bottom-0 right-0 w-28 z-10 pointer-events-none"
             style={{ background: "linear-gradient(to left, #04060f, transparent)" }} />
 
-          <div className="flex gap-4 mb-4" style={{ animation: "marquee 25s linear infinite" }}>
+          <div className="flex gap-4 mb-4" style={{ animation: "product-marquee 25s linear infinite" }}>
             {[...row1, ...row1].map((i, idx) => <IntCard key={`r1-${idx}`} i={i} />)}
           </div>
-          <div className="flex gap-4" style={{ animation: "marquee 30s linear infinite reverse" }}>
+          <div className="flex gap-4" style={{ animation: "product-marquee 30s linear infinite reverse" }}>
             {[...row2, ...row2].map((i, idx) => <IntCard key={`r2-${idx}`} i={i} />)}
           </div>
         </div>
 
-        {/* CTA box */}
+        {/* Inline custom-connection strip */}
         <div
-          className="mt-14 p-12 rounded-2xl text-center"
+          className="mt-10 px-6 py-5 rounded-2xl flex items-center justify-between gap-5 flex-wrap"
           style={{
-            border: "1.5px dashed rgba(167,139,250,.2)",
-            background: "radial-gradient(ellipse at 50% 100%, rgba(167,139,250,.05), transparent 60%)",
+            border: "1px solid rgba(167,139,250,.18)",
+            background: "linear-gradient(90deg, rgba(167,139,250,.08), rgba(125,211,252,.04))",
           }}
         >
-          <h3 className="text-3xl font-bold mb-3">Don&apos;t see your integration?</h3>
-          <p className="text-white/52 text-[15px] mx-auto mb-7" style={{ maxWidth: 480 }}>
-            Our NestJS integration team can connect virtually any system — internal databases, custom APIs, legacy platforms, and industry-specific ERPs.
-          </p>
+          <div className="flex items-center gap-4 flex-1" style={{ minWidth: 260 }}>
+            <div className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center"
+              style={{ background: "rgba(167,139,250,.14)", color: "#c4b5fd" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-[17px] font-bold">Don&apos;t see your integration?</h3>
+              <p className="text-white/50 text-[13px] mt-0.5" style={{ maxWidth: 560 }}>
+                Our NestJS integration team can connect virtually any system — internal databases, custom APIs, legacy platforms, and industry-specific ERPs.
+              </p>
+            </div>
+          </div>
           <a
             href="#cta-final"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold
-              text-white transition-all duration-250 hover:-translate-y-0.5
-              hover:shadow-[0_12px_30px_rgba(167,139,250,.4)]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white transition-all duration-250 hover:-translate-y-0.5 flex-shrink-0 hover:shadow-[0_12px_30px_rgba(167,139,250,.4)]"
             style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc)" }}
           >
             Request a custom connection →

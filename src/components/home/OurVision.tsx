@@ -13,11 +13,15 @@ export function OurVision() {
       <div className="relative mx-auto max-w-[1200px]">
         <div className="max-w-4xl">
           <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">The market gap</span>
-          <h2 className="mt-5 max-w-3xl text-4xl font-black leading-tight tracking-tight md:text-6xl">CFOs have been stuck between <span className="text-brand-gradient-flow">two bad options.</span></h2>
+          <h2 className="mt-5 max-w-3xl text-4xl font-black leading-tight tracking-tight md:text-6xl">
+            Beyond the <span className="text-brand-gradient-flow">Trade-off.</span>
+          </h2>
           <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/75 md:text-lg">
-            Traditional firms bring expertise — but charge by the hour and scale slowly. Pure AI promises speed — but can&apos;t handle judgment, exceptions, or the work an auditor will actually sign off on.
+            Traditional firms are too slow. Pure AI is too risky. We engineered a third way.
           </p>
-          <p className="mt-5 text-lg font-semibold text-white md:text-xl"><span className="text-brand-gradient">4AT Hybrid</span> is the third option.</p>
+          <p className="mt-5 text-lg font-semibold text-white md:text-xl">
+            <span className="text-brand-gradient">4AT Hybrid Services</span> is the third option.
+          </p>
         </div>
 
         <div className="mt-12 overflow-x-auto rounded-2xl border border-[#2dd4bf]/30 bg-[#0b1020]/90 shadow-2xl shadow-black/30 ring-1 ring-[#2dd4bf]/10">
