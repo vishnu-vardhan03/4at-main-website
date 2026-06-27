@@ -44,7 +44,9 @@ const steps = [
 
 export default function HowItWorksSection() {
   const [active, setActive] = useState<number | null>(null);
-
+<div className="bg-red-500 md:bg-blue-500 lg:bg-green-500 p-8 text-white text-center">
+  BREAKPOINT TEST
+</div>
   return (
     <section id="howitworks" className="section" style={{ background: "#060916" }}>
       <AmbientBackground variant="violet" intensity={0.5} />
@@ -61,15 +63,42 @@ export default function HowItWorksSection() {
             Connect → Understand → Automate → Govern. Hover each step to see the tech layer behind it.
           </p>
         </div>
+        {/* Mobile Layout */}
+        <div className="flex flex-col gap-10 md:hidden">
+          {steps.map((step) => (
+            <div key={step.id} className="text-center">
+      <div className="w-[76px] h-[76px] mx-auto mb-4 rounded-full flex items-center justify-center text-2xl"
+        style={{
+          background:
+            "linear-gradient(160deg,rgba(16,12,34,.98),rgba(8,11,26,.98))",
+          border: `2px solid ${step.color}`,
+        }}
+      >
+        {step.icon}
+      </div>
 
-        {/* Flow layout */}
-        <div className="relative">
+      <h3
+        className="text-[22px] font-bold mb-3"
+        style={{ color: step.color }}
+      >
+        {step.title}
+      </h3>
+
+      <p className="text-white/55 leading-relaxed max-w-[320px] mx-auto">
+        {step.desc}
+      </p>
+    </div>
+  ))}
+</div>
+
+        {/* desktop layout */}
+        <div className="relative hidden md:block">
           {/* Timeline */}
 <div className="relative mb-12">
 
   {/* Center Line */}
   <div
-    className="absolute top-[38px] left-[12.5%] right-[12.5%] h-[2px]"
+    className="hidden lg:block absolute top-[38px] left-[12.5%] right-[12.5%] h-[2px]"
     style={{
       background:
         "linear-gradient(90deg,#a78bfa,#c084fc,#7dd3fc,#2dd4bf)",
@@ -78,7 +107,7 @@ export default function HowItWorksSection() {
   />
 
   {/* Timeline Nodes */}
-  <div className="grid grid-cols-4 relative z-10">
+  <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
     {steps.map((step) => (
       <div
         key={step.id}
@@ -114,7 +143,7 @@ export default function HowItWorksSection() {
 </div>
 
 {/* Content */}
-<div className="grid grid-cols-4 gap-8">
+<div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
   {steps.map((step) => (
     <div
       key={step.id}
@@ -168,20 +197,6 @@ export default function HowItWorksSection() {
 </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @media (max-width: 760px) {
-          .grid-cols-4 {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 460px) {
-          .grid-cols-4 {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
     </section>
   );
 }

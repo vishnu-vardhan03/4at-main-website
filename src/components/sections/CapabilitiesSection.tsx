@@ -67,20 +67,13 @@ export default function CapabilitiesSection() {
           </p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 20,
-          }}
-          className="bento-grid"
-        >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
           {capabilities.map((cap, idx) => (
             <TiltCard
               key={cap.title}
               glowColor={glowMap[cap.color]}
               className={`glass-card rounded-[18px] p-7 flex flex-col transition-colors duration-300
-                hover:border-white/14 ${cap.wide ? "col-span-2" : ""}`}
+                hover:border-white/14${cap.wide ? "lg:col-span-2" : ""}`}
               // style={{ ["--glow-opacity" as string]: 0 } as React.CSSProperties}
             >
               {/* Icon */}
@@ -147,16 +140,6 @@ export default function CapabilitiesSection() {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @media (max-width: 900px) {
-          .bento-grid { grid-template-columns: 1fr 1fr !important; }
-          .col-span-2 { grid-column: span 1 !important; }
-        }
-        @media (max-width: 560px) {
-          .bento-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }
