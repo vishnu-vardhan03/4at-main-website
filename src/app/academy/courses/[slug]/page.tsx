@@ -4,8 +4,8 @@ import { use, useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { Star, Clock, Award, CheckCircle, ChevronDown, BookOpen, AlertCircle, Sparkles, UserCheck } from "lucide-react";
 import { lmsCourses, type LmsCourse } from "@/lib/site-data";
-import { SubpageNavbar } from "@/components/academy/SubpageNavbar";
-import { Footer } from "@/components/academy/Footer";
+import { Nav } from "@/components/home/Nav";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/academy/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { client, urlFor } from "@/lib/sanity";
@@ -439,7 +439,7 @@ export default function CourseDetailsPage({
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col justify-between pt-[72px]">
-        <SubpageNavbar />
+        <Nav />
         <div className="max-w-md mx-auto text-center flex flex-col items-center justify-center py-20 px-4">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
           <p className="text-slate-400 text-xs mt-4">Loading course details...</p>
@@ -452,7 +452,7 @@ export default function CourseDetailsPage({
   if (!course || !curriculum) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col justify-between pt-[72px]">
-        <SubpageNavbar />
+        <Nav />
         <div className="max-w-md mx-auto text-center flex flex-col items-center justify-center py-20 px-4">
           <AlertCircle className="size-12 text-rose-500 mb-4" />
           <h2 className="text-2xl font-bold font-sans mb-2">Course Not Found</h2>
@@ -474,7 +474,7 @@ export default function CourseDetailsPage({
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col pt-0">
-      <SubpageNavbar />
+      <Nav />
 
       {/* Main Dynamic Header Banner */}
       <section className="relative bg-[#0a0a0a] border-b border-white/5 pt-[120px] pb-12 md:pt-[132px] lg:pt-[132px] lg:pb-16 overflow-hidden">
@@ -727,7 +727,7 @@ export default function CourseDetailsPage({
                 {/* Main CTAs */}
                 <div className="flex flex-col gap-3">
                   <Button
-                    href="https://lms.4at-academy.com/#/register/user"
+                    href="/academy/register"
                     variant="primary"
                     className="w-full font-bold tracking-wider py-4 shadow-[0_0_20px_rgba(0,229,195,0.2)] text-center justify-center"
                   >

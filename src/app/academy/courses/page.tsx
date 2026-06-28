@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Star, Search, Filter, BookOpen, Clock, Award, Lock } from "lucide-react";
 import { lmsCourses, type LmsCourse } from "@/lib/site-data";
 import Image from "next/image";
-import { SubpageNavbar } from "@/components/academy/SubpageNavbar";
-import { Footer } from "@/components/academy/Footer";
+import { Nav } from "@/components/home/Nav";
+import { Footer } from "@/components/Footer";
 
 const getCourseSlug = (title: string) => {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -35,7 +35,7 @@ export default function CoursesPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col pt-0">
-      <SubpageNavbar />
+      <Nav />
 
       {/* Hero Banner Section */}
       <section className="relative pt-[120px] pb-16 sm:pt-[132px] sm:pb-20 border-b border-white/5 bg-[#0a0a0a]">

@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { SubpageNavbar } from "@/components/academy/SubpageNavbar";
+import { Nav } from "@/components/home/Nav";
 import { Footer } from "@/components/academy/Footer";
 import { RegisterForm } from "@/components/academy/RegisterForm";
 
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#04060f] text-white flex flex-col pt-0">
-      <SubpageNavbar />
+      <Nav />
 
       {/* Main Form Section */}
       <section className="relative pt-[120px] pb-24 sm:pt-[140px] sm:pb-32 flex-grow overflow-hidden">

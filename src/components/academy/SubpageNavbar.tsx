@@ -37,7 +37,7 @@ export function SubpageNavbar() {
           </Link>
         </nav>
         <div className="flex items-center gap-4">
-          <Button href="https://lms.4at-academy.com/#/register/user" variant="primary" size="sm" className="hidden sm:inline-flex">
+          <Button href="/academy/register" variant="primary" size="sm" className="hidden sm:inline-flex">
             Login / Register
           </Button>
           <button type="button" className="inline-flex rounded-full p-2.5 bg-white/[0.06] text-white lg:hidden">
