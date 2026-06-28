@@ -12,6 +12,7 @@ interface ServiceItem {
 }
 
 interface Group {
+  id: string;
   title: string;
   forText: string;
   triggerText: string;
@@ -22,6 +23,7 @@ interface Group {
 
 const serviceGroups: Group[] = [
   {
+    id: "run-finance-operations",
     title: "Group 1: Run my finance operations",
     forText: "CFOs and Controllers at fast-growing companies.",
     triggerText: "I need books closed, AP/AR running, payroll done without hiring.",
@@ -53,6 +55,7 @@ const serviceGroups: Group[] = [
     ]
   },
   {
+    id: "audit-ready",
     title: "Group 2: Get audit-ready and stay that way",
     forText: "CFOs heading into audits, post-acquisition entities, PE-backed companies.",
     triggerText: "Auditor's coming and we're not ready.",
@@ -92,6 +95,7 @@ const serviceGroups: Group[] = [
     ]
   },
   {
+    id: "prepare-transaction",
     title: "Group 3: Prepare for a transaction",
     forText: "Pre-IPO companies, M&A targets, PE portfolio companies.",
     triggerText: "We have 12 months to be ready.",
@@ -123,6 +127,7 @@ const serviceGroups: Group[] = [
     ]
   },
   {
+    id: "modernize-finance-stack",
     title: "Group 4: Modernize your finance stack",
     forText: "CFOs picking ERP, automating, or evaluating AI for finance.",
     triggerText: "Our tech stack isn't keeping up.",
@@ -765,7 +770,8 @@ export function Services() {
           {serviceGroups.map((group, gIdx) => (
             <div 
               key={group.title}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-white/10"
+              id={group.id}
+              className="grid scroll-mt-28 grid-cols-1 lg:grid-cols-12 gap-12 pt-12 border-t border-white/10"
             >
               {/* Left Column: Group Info (Sticky) */}
               <div className="lg:col-span-4 flex flex-col items-start lg:sticky lg:top-28 h-fit">
