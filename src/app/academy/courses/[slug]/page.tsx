@@ -459,7 +459,7 @@ export default function CourseDetailsPage({
           <p className="text-slate-400 text-xs leading-relaxed mb-6">
             We couldn&apos;t find any course with the path &quot;{slug}&quot;. Please verify the URL or explore our full curriculum directory.
           </p>
-          <Button href="/courses" variant="primary">
+          <Button href="/academy/courses" variant="primary">
             Explore All Courses
           </Button>
         </div>
@@ -489,7 +489,7 @@ export default function CourseDetailsPage({
             <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono uppercase mb-4">
               <Link href="/" className="hover-fine:text-accent">Home</Link>
               <span>&gt;</span>
-              <Link href="/courses" className="hover-fine:text-accent">Courses</Link>
+              <Link href="/academy/courses" className="hover-fine:text-accent">Courses</Link>
               <span>&gt;</span>
               <span className="text-slate-400">{course.category}</span>
             </div>

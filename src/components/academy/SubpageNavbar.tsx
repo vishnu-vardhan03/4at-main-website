@@ -29,7 +29,7 @@ export function SubpageNavbar() {
           <Link href="/#features" className="hover-fine:text-accent transition-colors">
             Features
           </Link>
-          <Link href="/courses" className="hover-fine:text-accent transition-colors text-white font-semibold">
+          <Link href="/academy/courses" className="hover-fine:text-accent transition-colors text-white font-semibold">
             Courses
           </Link>
           <Link href="/#contact-us" className="hover-fine:text-accent transition-colors">

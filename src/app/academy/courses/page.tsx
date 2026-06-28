@@ -125,7 +125,7 @@ export default function CoursesPage() {
                   return (
                     <Link
                       key={course.title}
-                      href={`/courses/${slug}`}
+                      href={`/academy/courses/${slug}`}
                       className="group flex flex-col justify-between border border-white/8 bg-[#0b0e1a]/40 hover-fine:border-accent/30 rounded-2xl p-4 transition-[border-color,box-shadow,transform] duration-300 hover-fine:shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover-fine:-translate-y-1 relative"
                     >
                       {/* Thumbnail */}

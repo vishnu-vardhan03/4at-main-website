@@ -210,7 +210,7 @@ export const impactStats = [
   { value: "5", label: "specialized tracks aligned to distinct finance functions" },
 ];
 
-export const ctaRoute = "/register";
+export const ctaRoute = "/academy/register";
 
 export const navigationItems = ["About", "Features", "Courses", "Contact Us"];
 

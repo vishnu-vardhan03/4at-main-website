@@ -267,7 +267,7 @@ export function LmsCourses({ sectionId = "courses" }: { sectionId?: string }) {
                   onMouseLeave={handleMouseLeave}
                   onClick={() => {
                     const slug = course.slug?.current || course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                    router.push(`/courses/${slug}`);
+                    router.push(`/academy/courses/${slug}`);
                   }}
                   className={`snap-start shrink-0 w-[230px] sm:w-[260px] md:w-[290px] group relative flex flex-col justify-between p-4 rounded-2xl border border-white/8 bg-[#121212] hover:border-accent/20 cursor-pointer transition-[border-color,transform,opacity,box-shadow] duration-300 min-h-[390px] ${
                     isMobile ? "active:scale-[0.98] transition-transform duration-200" : ""
@@ -369,7 +369,7 @@ export function LmsCourses({ sectionId = "courses" }: { sectionId?: string }) {
                         className="!px-4.5 !py-2 rounded-full !text-[11px] !tracking-[0.12em] uppercase font-bold text-[#003830]"
                         onClick={() => {
                           const slug = course.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-                          router.push(`/courses/${slug}`);
+                          router.push(`/academy/courses/${slug}`);
                         }}
                       >
                         Enroll
