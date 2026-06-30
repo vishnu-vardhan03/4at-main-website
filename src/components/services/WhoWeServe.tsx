@@ -109,7 +109,7 @@ export function WhoWeServe() {
                         <div className="absolute inset-2 rounded-2xl bg-gradient-to-br from-sky-400/20 to-purple-500/20 opacity-40 blur-sm group-hover:opacity-80 group-hover:scale-110 transition-all duration-500" />
                         
                         {/* Core Icon Box */}
-                        <div className="relative h-12 w-12 rounded-xl bg-[#0b1020] border border-white/10 flex items-center justify-center text-sky-400 group-hover:border-sky-500/50 group-hover:text-white transition-all duration-500">
+                        <div className="relative h-12 w-12 rounded-xl bg-[#0b1020] border border-white/10 flex items-center justify-center text-white group-hover:border-sky-500/50 group-hover:text-sky-400 transition-all duration-500">
                           <s.icon className="h-5 w-5 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" />
                         </div>
                       </div>
