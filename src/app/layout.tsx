@@ -1,6 +1,7 @@
  import type { Metadata,  } from "next";
 import "./globals.css";
 import { ParallaxObserver } from '@/components/sections/ParallaxObserver';
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "4AT AI — Finance Automation Platform",
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <Analytics/>
         <ParallaxObserver />  {/* Replace the entire <script> block with this */}
       </body>
     </html>
