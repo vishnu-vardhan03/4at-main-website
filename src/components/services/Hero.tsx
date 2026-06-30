@@ -188,24 +188,34 @@ export function Hero() {
               SERVICES
             </motion.div>
 
-            <h1 className="mt-8 text-[clamp(2.2rem,5.2vw,4.8rem)] font-black tracking-tight leading-[0.95] text-foreground max-w-5xl select-none">
+            <motion.h1
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 text-[clamp(2.2rem,5.2vw,4.8rem)] font-black tracking-tight leading-[0.95] text-foreground max-w-5xl select-none"
+            >
               <span className="block text-white opacity-95">
-                Eleven services.
+                Eleven services
               </span>
               <span className="block py-2.5 px-1 bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_4px_20px_rgba(99,102,241,0.25)] animate-gradient-x">
-                One subscription.
+                One subscription
               </span>
               <span className="block text-zinc-700 text-[clamp(1.1rem,2.5vw,2.2rem)] font-black tracking-tight mt-2">
-                AI and humans on every engagement.
+                AI and humans on every engagement
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <div className="mt-6 max-w-2xl">
-              <p className="text-base md:text-lg text-zinc-400 leading-relaxed font-light">
+            <motion.div
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 max-w-2xl"
+            >
+              <p className="text-base md:text-lg text-white leading-relaxed font-light">
                 Whether you need your books closed, controls remediated, an audit prepared, or a CFO role filled, you get the same hybrid model: AI agents handle the science, and senior practitioners handle the art. You get one bill.
               </p>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
             <motion.div
@@ -229,12 +239,11 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Trust Bar */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-8 inline-flex flex-wrap items-center gap-y-2 rounded-lg border border-white/15 bg-[#0b1020]/85 p-1.5 text-[13px] font-medium tracking-wide text-zinc-400"
+              className="mt-8 inline-flex flex-nowrap items-center rounded-lg border border-white/15 bg-[#0b1020]/85 p-1.5 text-[13px] font-medium tracking-wide text-white whitespace-nowrap overflow-x-auto max-w-full no-scrollbar"
             >
               <span className="px-4 py-2 border-r border-white/15 last:border-r-0">
                 99.7% reconciliation accuracy

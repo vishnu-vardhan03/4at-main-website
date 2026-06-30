@@ -17,7 +17,7 @@ export function HybridReminder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-sm uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6"
+            className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6"
           >
             The same hybrid model on every service
           </motion.div>
@@ -29,9 +29,9 @@ export function HybridReminder() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]"
           >
-            Pick any service.
+            Pick any service
             <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-              We deliver it the same way.
+              We deliver it the same way
             </span>
           </motion.h2>
         </div>
@@ -140,7 +140,7 @@ export function HybridReminder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl text-zinc-400 text-sm md:text-base leading-relaxed font-light"
+            className="max-w-2xl text-white text-sm md:text-base leading-relaxed font-light"
           >
             Every service below runs on this same model. The only thing that changes is what we're doing for you.
           </motion.p>

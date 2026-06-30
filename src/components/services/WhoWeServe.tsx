@@ -59,17 +59,17 @@ export function WhoWeServe() {
           {/* Header Block */}
           <div className="grid md:grid-cols-12 gap-8 mb-12">
             <div className="md:col-span-7">
-              <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6">
                 Who we serve
               </div>
               <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
                 Built for the four kinds of teams
                 <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-                  who can't afford to get this wrong.
+                  who can't afford to get this wrong
                 </span>
               </h2>
             </div>
-            <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white/60 leading-relaxed">
+            <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white leading-relaxed">
               The teams who switch to 4AT Hybrid all share one thing: they're done choosing between expensive firms and risky AI.
             </p>
           </div>

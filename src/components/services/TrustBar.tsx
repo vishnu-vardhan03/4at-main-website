@@ -59,7 +59,7 @@ export function TrustBar() {
               </span>
             </motion.div>
             {index < items.length - 1 && (
-              <span className="hidden md:inline text-zinc-700 ml-8 lg:ml-12 select-none">·</span>
+              <span className="hidden md:inline ml-8 lg:ml-12 select-none" />
             )}
           </div>
         ))}

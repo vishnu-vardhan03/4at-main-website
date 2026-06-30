@@ -4,7 +4,7 @@ import { GlowLine } from "./GlowLine";
 
 export function Footer() {
   return (
-    <footer className="relative bg-transparent text-white">
+    <footer className="relative bg-[#01030e] text-white">
       <GlowLine className="absolute top-0" />
       
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row">

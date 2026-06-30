@@ -748,23 +748,23 @@ export function Services() {
   return (
     <section id="services" className="relative bg-transparent py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6">
-        {/* Section Header */}
-        <div className="grid lg:grid-cols-12 gap-8 mb-24 items-end">
-          <div className="lg:col-span-7">
-            <div className="text-sm uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
-              Services
+          {/* Section Header */}
+          <div className="grid lg:grid-cols-12 gap-8 mb-24 items-end">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6">
+                Services
+              </div>
+              <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
+                Eleven services
+                <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+                  Grouped by what's keeping you up at night
+                </span>
+              </h2>
             </div>
-            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
-              Eleven services.
-              <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-                Grouped by what's keeping you up at night.
-              </span>
-            </h2>
+            <p className="lg:col-span-4 lg:col-start-9 self-end text-lg text-white leading-relaxed font-light">
+              Most buyers don't shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here's the shortcut.
+            </p>
           </div>
-          <p className="lg:col-span-4 lg:col-start-9 self-end text-lg text-zinc-400 leading-relaxed font-light">
-            Most buyers don't shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here's the shortcut.
-          </p>
-        </div>
 
         {/* Rows by Group */}
         <div className="space-y-24 lg:space-y-32">
@@ -929,13 +929,13 @@ export function Services() {
 
                       {/* Intro & Sections */}
                       <div className="space-y-6">
-                        <p className="text-zinc-300 font-light leading-relaxed text-base md:text-lg">{detail.intro}</p>
+                        <p className="text-white font-light leading-relaxed text-base md:text-lg">{detail.intro}</p>
                         
                         <div className="grid md:grid-cols-2 gap-6">
                           {detail.sections.map((sec, idx) => (
                             <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-5 hover:border-white/10 transition-colors">
                               <h4 className="text-sm font-semibold uppercase tracking-wider text-sky-400 mb-2">{sec.title}</h4>
-                              <p className="text-sm text-zinc-400 font-light leading-relaxed whitespace-pre-line">{sec.content}</p>
+                              <p className="text-sm text-white font-light leading-relaxed whitespace-pre-line">{sec.content}</p>
                             </div>
                           ))}
                         </div>
@@ -950,13 +950,13 @@ export function Services() {
                           {detail.capabilities.map((cap, idx) => (
                             <div key={idx} className="border-b border-white/5 pb-6 last:border-b-0">
                               <h4 className="text-lg font-bold text-white mb-2">{cap.title}</h4>
-                              <p className="text-sm text-zinc-400 font-light leading-relaxed mb-4">{cap.desc}</p>
+                              <p className="text-sm text-white font-light leading-relaxed mb-4">{cap.desc}</p>
                               
                               <div className="mt-2">
                                 <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold block mb-2">Key Activities:</span>
                                 <div className="flex flex-wrap gap-2">
                                   {cap.activities.map((act, aIdx) => (
-                                    <span key={aIdx} className="text-xs bg-white/[0.04] border border-white/5 text-zinc-300 px-3 py-1 rounded-full font-light">
+                                    <span key={aIdx} className="text-xs bg-white/[0.04] border border-white/5 text-white px-3 py-1 rounded-full font-light">
                                       {act}
                                     </span>
                                   ))}
@@ -986,11 +986,11 @@ export function Services() {
                       <span className="text-5xl">📄</span>
                       <div>
                         <h2 className="text-2xl font-bold text-white">{selectedService.title} Details</h2>
-                        <p className="text-sm text-zinc-400 mt-2 max-w-md">Detailed capabilities, activity logs, and key SLA structures for this service will be uploaded shortly.</p>
+                        <p className="text-sm text-white mt-2 max-w-md">Detailed capabilities, activity logs, and key SLA structures for this service will be uploaded shortly.</p>
                       </div>
                       <div className="border-l-2 border-sky-500/30 pl-4 py-2 text-left max-w-lg">
                         <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold block mb-1">Overview Description</span>
-                        <p className="text-zinc-300 text-sm font-light leading-relaxed">{selectedService.desc}</p>
+                        <p className="text-white text-sm font-light leading-relaxed">{selectedService.desc}</p>
                       </div>
                       <div className="pt-4">
                         <a

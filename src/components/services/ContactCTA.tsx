@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function ContactCTA() {
   return (
-    <section id="contact" className="relative bg-transparent text-ink-foreground overflow-hidden h-screen flex items-center justify-center">
+    <section id="contact" className="relative bg-[#01030e] text-ink-foreground overflow-hidden py-24 md:py-32 flex items-center justify-center">
       {/* Animated gradient field */}
       <motion.div
         aria-hidden
@@ -20,7 +20,7 @@ export function ContactCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6">
             Let's build
           </div>
           <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
@@ -29,29 +29,17 @@ export function ContactCTA() {
               for your enterprise?
             </span>
           </h2>
-          <p className="mt-8 text-lg md:text-xl text-white/60 max-w-xl mx-auto">
+          <p className="mt-8 text-lg md:text-xl text-white max-w-xl mx-auto">
             A 30-minute conversation with a senior practitioner. No decks, no
             templates, just the right questions.
           </p>
-          <div className="mt-12 flex flex-wrap justify-center gap-4">
+          <div className="mt-12 flex justify-center">
             <a
-              href="mailto:Info@consult-4at.com"
-              className="group inline-flex items-center gap-2 rounded-full bg-white text-ink px-7 py-4 text-sm font-medium hover:bg-brand hover:text-white transition-colors"
+              href="/contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-white text-black px-8 py-4 text-base font-semibold hover:bg-sky-400 hover:text-black transition-all duration-300 shadow-lg shadow-white/5 hover:shadow-sky-400/20 active:scale-95"
             >
-              Info@consult-4at.com
+              Let's talk
               <span className="transition-transform group-hover:translate-x-1">→</span>
-            </a>
-            <a
-              href="tel:+918008685685"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white hover:border-white transition-colors"
-            >
-              +91 80086 85685 (IN)
-            </a>
-            <a
-              href="tel:+16092553118"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-4 text-sm font-medium text-white hover:border-white transition-colors"
-            >
-              +1 (609) 255-3118 (USA)
             </a>
           </div>
 

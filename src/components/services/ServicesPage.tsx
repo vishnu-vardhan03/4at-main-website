@@ -11,6 +11,9 @@ import { Engagement } from "./Engagement";
 import { Testimonials } from "./Testimonials";
 import { ContactCTA } from "./ContactCTA";
 
+import ScrollProgress from "@/components/ai-home/ui/ScrollProgress";
+import MouseGlow from "@/components/ai-home/ui/MouseGlow";
+
 import { useEffect, useState } from "react";
 
 export function ServicesPage() {
@@ -28,6 +31,9 @@ export function ServicesPage() {
 
   return (
     <main id="top" className="services-page dark bg-background text-foreground antialiased min-h-screen relative">
+      <ScrollProgress />
+      <MouseGlow />
+
       {/* Fixed Ambient Background Tint (stuck behind scrolling content) */}
       <div className="fixed inset-0 bg-gradient-to-br from-[#011116] via-[#01030e] to-[#010e17] pointer-events-none z-0" />
       
@@ -54,12 +60,17 @@ export function ServicesPage() {
       <div className="relative z-10">
         <Nav />
         <Hero />
+        
         <TrustBar />
+        
         <HybridReminder />
+        
         <Services />
         <WhoWeServe />
         <Engagement />
+        
         <Testimonials />
+        
         <ContactCTA />
         <Footer />
       </div>

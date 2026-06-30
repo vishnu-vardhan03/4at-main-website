@@ -216,14 +216,14 @@ export function InteractiveSphere({ categoryIndex = 0, onClick }: { categoryInde
   const activeGroup = groups[categoryIndex % groups.length];
 
   return (
-    <div className="relative w-full h-[400px] flex items-center justify-center pointer-events-auto select-none">
+    <div className="relative w-full h-[450px] flex items-center justify-center pointer-events-auto select-none">
       {/* Interactive Trigger Wrapper */}
       <motion.div
         className="relative w-72 h-72 flex items-center justify-center cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={onClick}
-        style={{ perspective: 1000 }}
+        style={{ perspective: 1000, scale: 1.15 }}
       >
         {/* Central Glowing AI Core (morphing color gradients and shadow styles) */}
         <motion.div
@@ -267,13 +267,13 @@ export function InteractiveSphere({ categoryIndex = 0, onClick }: { categoryInde
             }}
             animate={{
               rotate: [0, 360 * layer.direction],
-              x: isHovered ? layer.hoverOffset.x : 0,
-              y: isHovered ? layer.hoverOffset.y : 0,
+              x: 0,
+              y: 0,
               scale: isHovered ? 1.05 : 1,
               width: `${layer.size}px`,
               height: `${layer.size}px`,
-              rotateX: isHovered ? idx * 25 : 65,
-              rotateY: isHovered ? idx * -20 : 15,
+              rotateX: isHovered ? 0 : 65,
+              rotateY: isHovered ? 0 : 15,
             }}
             transition={{
               rotate: {
@@ -308,23 +308,32 @@ export function InteractiveSphere({ categoryIndex = 0, onClick }: { categoryInde
               }}
             />
 
-            {/* Labels pointing to expanded layers on hover */}
-            <motion.div
-              className="absolute pointer-events-none whitespace-nowrap bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md border text-[11px] font-semibold tracking-wider uppercase text-zinc-300"
-              style={{
-                borderColor: layer.color,
-                transform: `rotate(${-360 * layer.direction}deg)`, // Keep label upright
-                left: layer.direction > 0 ? "105%" : "auto",
-                right: layer.direction < 0 ? "105%" : "auto",
-              }}
-              animate={{
-                opacity: isHovered ? 0.9 : 0,
-                x: isHovered ? (layer.direction > 0 ? 10 : -10) : 0,
-              }}
-              transition={{ duration: 0.4 }}
-            >
-              {layer.label}
-            </motion.div>
+          </motion.div>
+        ))}
+
+        {/* Static Labels positioned relative to the rings on hover */}
+        {activeGroup.layers.map((layer, idx) => (
+          <motion.div
+            key={`label-${layer.id}`}
+            className="absolute pointer-events-none whitespace-nowrap bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-full border text-[11px] font-extrabold tracking-wider uppercase text-white shadow-lg shadow-black/40 z-20"
+            style={{
+              borderColor: layer.color,
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: isHovered ? 1 : 0,
+              scale: isHovered ? 1 : 0.8,
+              x: isHovered ? layer.hoverOffset.x * 1.5 : 0,
+              y: isHovered ? layer.hoverOffset.y * 1.5 : 0,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 90,
+              damping: 14,
+              delay: idx * 0.05,
+            }}
+          >
+            {layer.label}
           </motion.div>
         ))}
 
