@@ -232,7 +232,7 @@ function FlipCard({ service, index }: FlipCardProps) {
 
 export function Services() {
   return (
-    <section id="services" className="bg-white text-black py-24 px-6 md:px-12 lg:px-20 overflow-hidden border-t border-zinc-200">
+    <section id="services" data-nav-theme="light" className="bg-white text-black py-24 px-6 md:px-12 lg:px-20 overflow-hidden border-t border-zinc-200">
       {/* Heading */}
       <div className="px-6 mb-16 max-w-4xl mx-auto text-center">
         <Reveal>

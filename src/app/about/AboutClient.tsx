@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Nav } from "@/components/home/Nav";
-import { Footer } from "@/components/home/Footer";
+import { Footer } from "@/components/Footer";
 import { BlurredStagger } from "@/components/about/ui/blurred-stagger-text";
 import { MagicText } from "@/components/about/ui/magic-text";
 import { GrowthTimeline } from "@/components/about/GrowthTimeline";

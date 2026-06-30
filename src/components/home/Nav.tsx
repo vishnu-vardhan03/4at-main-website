@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -35,6 +36,11 @@ const mobileNavGroups = [
   { label: "Academy", href: "/academy", items: academyMenuItems },
 ];
 
+const activeNavClass = "relative text-sky-300 after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-gradient-to-r after:from-cyan-300 after:to-violet-400";
+
+const isPathActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(`${href}/`);
+
 type NavDropdownProps = {
   label: string;
   href: string;
@@ -45,6 +51,7 @@ type NavDropdownProps = {
   headline: string;
   items: Array<{ label: string; href: string }>;
   isDarkBg: boolean;
+  isActive: boolean;
 };
 
 function NavDropdown({
@@ -57,13 +64,15 @@ function NavDropdown({
   headline,
   items,
   isDarkBg,
+  isActive,
 }: NavDropdownProps) {
   return (
     <div className="group relative">
       <Link
         href={href}
         aria-haspopup="menu"
-        className={`flex items-center gap-1 transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}
+        aria-current={isActive ? "page" : undefined}
+        className={`flex items-center gap-1 transition-colors ${isActive ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
       >
         {label}
         <ChevronDown className="size-3.5 transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180" />
@@ -109,6 +118,7 @@ function NavDropdown({
 }
 
 export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
+  const pathname = usePathname();
   const [isDarkBg, setIsDarkBg] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
@@ -127,8 +137,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
       sections.forEach((sec) => {
         const rect = sec.getBoundingClientRect();
         if (rect.top <= headerPos && rect.bottom >= headerPos) {
-          const id = sec.id;
-          const isLightSec = id === "services" || id === "features-grid" || id === "client-voices";
+          const isLightSec = sec.getAttribute("data-nav-theme") === "light";
           if (isLightSec) {
             activeBgIsLight = true;
           }
@@ -158,17 +167,14 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[min(1200px,calc(100%-2rem))]"
+      className="fixed left-1/2 top-3 z-50 w-[min(1400px,calc(100%-2rem))] -translate-x-1/2"
     >
       <div
-        className={`rounded-full px-6 py-3 flex items-center justify-between transition-all duration-300 ${isDarkBg
-            ? "bg-zinc-950/40 backdrop-blur-[20px] border border-white/[0.08]"
-            : "bg-white/60 backdrop-blur-[20px] border border-black/[0.08]"
-          }`}
+        className="grid min-h-14 grid-cols-[1fr_auto] items-center gap-4 px-1 transition-all duration-300 md:grid-cols-[1fr_auto_1fr] md:px-3"
       >
         <Link
           href="/"
-          className="relative flex items-center"
+          className="relative flex items-center justify-self-start"
         >
           <motion.div
             initial="initial"
@@ -178,7 +184,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             <motion.span
               aria-label="4AT Logo"
               role="img"
-              className="brand-logo-gradient relative z-10"
+              className="brand-logo-gradient relative z-10 !h-7 !w-11"
               style={{ WebkitMaskImage: `url(${logo.src})`, maskImage: `url(${logo.src})` }}
               variants={{
                 initial: { scale: 1 },
@@ -192,7 +198,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
                 hover: { width: "auto", opacity: 1, marginLeft: 10 }
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className={`font-black tracking-wider uppercase text-base overflow-hidden whitespace-nowrap ${
+              className={`overflow-hidden whitespace-nowrap text-[28px] font-black uppercase leading-7 tracking-wide ${
                 isDarkBg ? "text-white" : "text-black"
               }`}
             >
@@ -201,10 +207,16 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           </motion.div>
         </Link>
         <nav
-          className={`hidden md:flex items-center gap-8 text-sm font-semibold transition-colors duration-300 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
+          className={`hidden items-center justify-self-center gap-5 text-base font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
           }`}
         >
-          <Link href="/about" className={`transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}>About</Link>
+          <Link
+            href="/about"
+            aria-current={isPathActive(pathname, "/about") ? "page" : undefined}
+            className={`transition-colors ${isPathActive(pathname, "/about") ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
+          >
+            About
+          </Link>
           <NavDropdown
             label="Services"
             href="/services"
@@ -215,12 +227,14 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             headline="Choose the outcome your finance team needs"
             items={serviceMenuItems}
             isDarkBg={isDarkBg}
+            isActive={isPathActive(pathname, "/services")}
           />
           <div className="group relative">
             <Link
               href="/product"
               aria-haspopup="menu"
-              className={`flex items-center gap-1 transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}
+              aria-current={isPathActive(pathname, "/product") ? "page" : undefined}
+              className={`flex items-center gap-1 transition-colors ${isPathActive(pathname, "/product") ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
             >
               Product
               <ChevronDown className="size-3.5 transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180" />
@@ -272,13 +286,20 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             headline="Build your path from learning to launch"
             items={academyMenuItems}
             isDarkBg={isDarkBg}
+            isActive={isPathActive(pathname, "/academy")}
           />
-          <Link href="/contact" className={`transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}>Contact us</Link>
+          <Link
+            href="/contact"
+            aria-current={isPathActive(pathname, "/contact") ? "page" : undefined}
+            className={`transition-colors ${isPathActive(pathname, "/contact") ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
+          >
+            Contact us
+          </Link>
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-self-end gap-2">
           <Link
             href={contactHref}
-            className={`hidden md:inline-flex text-sm rounded-full px-4 py-1.5 font-medium transition-all duration-300 ${isDarkBg
+            className={`hidden min-h-10 items-center rounded-full px-5 py-2 text-base font-medium transition-all duration-300 md:inline-flex ${isDarkBg
                 ? "bg-white text-black hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
                 : "bg-black text-white hover:shadow-[0_0_24px_rgba(0,0,0,0.2)]"
               }`}
@@ -310,13 +331,15 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           <Link
             href="/about"
             onClick={closeMobileMenu}
-            className="flex min-h-12 items-center rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06]"
+            aria-current={isPathActive(pathname, "/about") ? "page" : undefined}
+            className={`flex min-h-12 items-center rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06] ${isPathActive(pathname, "/about") ? "bg-sky-400/10 text-sky-300" : ""}`}
           >
             About
           </Link>
 
           {mobileNavGroups.map((group) => {
             const expanded = mobileGroup === group.label;
+            const active = isPathActive(pathname, group.href);
 
             return (
               <div key={group.label} className="border-t border-white/8">
@@ -324,7 +347,8 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
                   <Link
                     href={group.href}
                     onClick={closeMobileMenu}
-                    className="flex flex-1 items-center rounded-xl px-4 py-3 text-sm font-semibold transition hover:bg-white/[.06]"
+                    aria-current={active ? "page" : undefined}
+                    className={`flex flex-1 items-center rounded-xl px-4 py-3 text-sm font-semibold transition hover:bg-white/[.06] ${active ? "bg-sky-400/10 text-sky-300" : ""}`}
                   >
                     {group.label}
                   </Link>
@@ -360,7 +384,8 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           <Link
             href="/contact"
             onClick={closeMobileMenu}
-            className="flex min-h-12 items-center border-t border-white/8 rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06]"
+            aria-current={isPathActive(pathname, "/contact") ? "page" : undefined}
+            className={`flex min-h-12 items-center rounded-xl border-t border-white/8 px-4 text-sm font-semibold transition hover:bg-white/[.06] ${isPathActive(pathname, "/contact") ? "bg-sky-400/10 text-sky-300" : ""}`}
           >
             Contact us
           </Link>

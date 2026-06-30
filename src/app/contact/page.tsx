@@ -101,11 +101,6 @@ export default function ContactPage() {
                       "info@consult-4at.com",
                     ],
                   },
-                  {
-                    label: "UK",
-                    color: "#f472b6",
-                    lines: ["TBA", "info@consult-4at.com"],
-                  },
                 ].map((office) => (
                   <div key={office.label} className="flex gap-5">
                     <span

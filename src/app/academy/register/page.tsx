@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Nav } from "@/components/home/Nav";
-import { Footer } from "@/components/academy/Footer";
+import { Footer } from "@/components/Footer";
 import { RegisterForm } from "@/components/academy/RegisterForm";
 
 export default function RegisterPage() {
