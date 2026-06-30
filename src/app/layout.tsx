@@ -1,6 +1,5 @@
  import type { Metadata,  } from "next";
 import "./globals.css";
-import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import { ParallaxObserver } from '@/components/sections/ParallaxObserver';
 
 export const metadata: Metadata = {

@@ -85,7 +85,7 @@ export default function FooterSection() {
               </span>{" "}
               that matters most
             </h2>
-            <p className="text-white/55 mb-7" style={{ fontSize: "1.02rem", maxWidth: 540 }}>
+            <p className="text-white mb-7" style={{ fontSize: "1.02rem", maxWidth: 540 }}>
               See how 4AT helps teams automate high-friction processes, strengthen control, and turn finance operations into a faster, more scalable system.
             </p>
             <div className="flex gap-4 flex-wrap">

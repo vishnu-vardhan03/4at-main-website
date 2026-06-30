@@ -29,7 +29,7 @@ export default function GlimpseSection() {
         >
           See 4AT <span className="grad-v">in Action</span>
         </h2>
-        <p className="text-white/55 text-lg mx-auto mb-12" style={{ maxWidth: 600 }}>
+        <p className="text-white text-lg mx-auto mb-12" style={{ maxWidth: 600 }}>
           Watch reconciliation, fraud detection, and reporting all running live — connected to your actual ERP stack.
         </p>
 

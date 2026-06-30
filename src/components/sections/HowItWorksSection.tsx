@@ -88,7 +88,7 @@ export default function HowItWorksSection() {
           </h2>
 
           <p
-            className="text-white/55 mx-auto"
+            className="text-white mx-auto"
             style={{ maxWidth: 620 }}
           >
             Connect → Understand → Automate → Govern.
@@ -193,7 +193,7 @@ export default function HowItWorksSection() {
                   {step.title}
                 </h3>
 
-                <p className="text-white/55 leading-7">
+                <p className="text-white leading-7">
 
                   {step.desc}
 
@@ -308,7 +308,7 @@ export default function HowItWorksSection() {
 
     </div>
 
-    <p className="text-white/60 leading-7">
+    <p className="text-white  leading-7">
 
       {step.desc}
 

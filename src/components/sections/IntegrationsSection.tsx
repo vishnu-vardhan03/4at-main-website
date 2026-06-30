@@ -62,7 +62,7 @@ export default function IntegrationsSection() {
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             Unified Across <span className="grad-v">All Your Systems</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 600 }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 600 }}>
             4AT AI connects with ERP, banking, payroll, billing, and custom platforms so automation happens inside real finance operations — not in disconnected exports. 
           </p>
         </div>
@@ -72,8 +72,8 @@ export default function IntegrationsSection() {
           style={{ maxWidth: 860, height: 200 }}>
           <img
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80"
-            alt="System integration architecture showing ERP, banking API, and payment gateway connections"
             className="object-cover opacity-35"
+            alt="System integration architecture showing ERP, banking API, and payment gateway connections"
             sizes="860px"
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -120,7 +120,7 @@ export default function IntegrationsSection() {
             </div>
             <div>
               <h3 className="text-[17px] font-bold">Don&apos;t see your integration?</h3>
-              <p className="text-white/50 text-[13px] mt-0.5" style={{ maxWidth: 560 }}>
+              <p className="text-white text-[13px] mt-0.5" style={{ maxWidth: 560 }}>
                 Our NestJS integration team can connect virtually any system — internal databases, custom APIs, legacy platforms, and industry-specific ERPs.
               </p>
             </div>

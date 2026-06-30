@@ -55,45 +55,10 @@ export default function HybridSection() {
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             AI Speed. <span className="grad-v">Human Judgment.</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 640 }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 640 }}>
            4AT combines automation with finance-specialized human support, so teams move faster without losing control, context, or judgment.  
           </p>
         </div>
-
-        {/* Human experts row */}
-        {/* <div className="flex justify-center gap-5 mb-12 flex-wrap">
-          {humanExperts.map((e) => (
-            <div
-              key={e.name}
-              className="flex flex-col items-center gap-3 px-6 py-5 rounded-2xl
-                transition-all duration-300 hover:-translate-y-1"
-              style={{
-                background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))",
-                border: "1px solid rgba(45,212,191,.18)",
-                minWidth: 160,
-              }}
-            >
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border-2"
-                style={{ borderColor: "rgba(45,212,191,.3)" }}>
-                <Image
-                  src={e.avatar}
-                  alt={`${e.name} — ${e.role} at 4AT AI`}
-                  fill
-                  className="object-cover"
-                  sizes="56px"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-sm font-bold">{e.name}</div>
-                <div className="text-xs text-white/45 mt-0.5">{e.role}</div>
-                <div className="text-[11px] mt-1 px-2 py-0.5 rounded-full inline-block"
-                  style={{ background: "rgba(45,212,191,.12)", color: "#5eead4" }}>
-                  {e.spec}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
 
         {/* Two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -134,7 +99,7 @@ export default function HybridSection() {
             </div>
 
             <div className="px-7 py-6">
-              <div className="text-[11px] uppercase tracking-widest text-white/30 mb-3">
+              <div className="text-[11px] uppercase tracking-widest text-white mb-3">
                 What AI handles instantly
               </div>
               {aiItems.map((item) => (
@@ -156,7 +121,7 @@ export default function HybridSection() {
               background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))" }}
           >
             {/* Human-in-the-loop label */}
-            <div className="absolute -top-3 left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold
+            <div className="absolute top-5 right-10 px-3 py-1.5 rounded-lg text-[11px] font-bold
               uppercase tracking-wide z-10"
               style={{ background: "linear-gradient(90deg,#2dd4bf,#7dd3fc)", color: "#04060f" }}>
               Human-in-the-Loop
@@ -193,7 +158,7 @@ export default function HybridSection() {
             </div>
 
             <div className="px-7 py-6">
-              <div className="text-[11px] uppercase tracking-widest text-white/30 mb-3">
+              <div className="text-[11px] uppercase tracking-widest text-white mb-3">
                 Where humans take the lead
               </div>
               {humanItems.map((item) => (
@@ -219,7 +184,7 @@ export default function HybridSection() {
           <div className="absolute top-0 left-0 right-0 h-[2px]"
             style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc,#7dd3fc,#2dd4bf)" }} />
           <h3 className="text-2xl font-bold mb-3">One Unified Experience — Zero Friction</h3>
-          <p className="text-white/55 text-[15px] mx-auto mb-7" style={{ maxWidth: 680 }}>
+          <p className="text-white text-[15px] mx-auto mb-7" style={{ maxWidth: 680 }}>
             You never decide who to ask. 4AT routes every issue intelligently: AI resolves it instantly when it can, hands off to a specialist when it should. A single thread, full history, one resolution.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">

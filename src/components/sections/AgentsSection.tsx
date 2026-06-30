@@ -80,7 +80,7 @@ export default function AgentsSection() {
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             Your Autonomous <span className="grad-v">Finance Team</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 600, fontSize: "1.05rem" }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 600, fontSize: "1.05rem" }}>
             Four specialized agents, each trained for a distinct finance function. Powered by Python / FastAPI AI Service Layer + NestJS API backbone.
           </p>
         </div>
@@ -124,7 +124,7 @@ export default function AgentsSection() {
                   </div>
 
                   <h3 className="text-[22px] font-bold mb-2">{agent.name}</h3>
-                  <p className="text-sm text-white/55 leading-relaxed mb-4">{agent.desc}</p>
+                  <p className="text-sm text-white leading-relaxed mb-4">{agent.desc}</p>
 
                   <div className="flex items-center gap-2 text-xs text-white/38">
                     <span

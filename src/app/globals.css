@@ -251,3 +251,11 @@ html.lenis { height: auto; }
   animation: parallaxFadeIn 1s ease-out forwards;
   opacity: 0;
 }
+/* Ensure all interactive elements meet 44px minimum */
+a, button, input, select, textarea {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

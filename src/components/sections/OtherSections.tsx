@@ -25,7 +25,7 @@ export function SecuritySection() {
             style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
             Enterprise-Grade <span className="grad-v">Protection</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 560 }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 560 }}>
             4AT AI is designed for environments where auditability, data protection, and access control are non-negotiable.
           </p>
         </div>
@@ -201,7 +201,7 @@ export function FaqSection() {
                 >▲</span>
               </button>
               {open === i && (
-                <div className="px-6 pb-5 text-sm text-white/55 leading-relaxed">
+                <div className="px-6 pb-5 text-sm text-white leading-relaxed">
                   {f.a}
                 </div>
               )}

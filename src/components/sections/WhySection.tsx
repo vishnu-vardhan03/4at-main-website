@@ -332,7 +332,7 @@ export default function WhySection() {
             </span>{" "}
             for Impact.
           </h2>
-          <p className="text-white/55 mx-auto text-lg" style={{ maxWidth: 600, lineHeight: 1.6 }}>
+          <p className="text-white mx-auto text-lg" style={{ maxWidth: 600, lineHeight: 1.6 }}>
             Our platform combines AI, automation, and human expertise to deliver accurate financial intelligence—faster.
           </p>
         </div>

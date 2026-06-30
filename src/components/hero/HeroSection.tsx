@@ -26,19 +26,6 @@ export default function HeroSection() {
 
   {/* Dark Overlay */}
   <div className="absolute inset-0 bg-[#04060f]/55 md:bg-[#04060f]/65" />
-
-
-        {/* Stars
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              "radial-gradient(rgba(255,255,255,.15) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        /> */}
-
-        {/* Purple Glow */}
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
           style={{
@@ -109,7 +96,7 @@ export default function HeroSection() {
     {/* ✦  */} 
   </span>
 
-  <span className="block text-white/35 text-4xl md:text-6xl lg:text-7xl">
+  <span className="block text-white text-4xl md:text-6xl lg:text-7xl">
     FINANCE WORKFLOWS
   </span>
 </h1>
@@ -118,7 +105,7 @@ export default function HeroSection() {
             className="mx-auto mt-8 max-w-3xl leading-relaxed px-4"
             style={{
               fontSize: "clamp(1.1rem,1.6vw,1.35rem)",
-              color: "rgba(255,255,255,.72)",
+              color: "white",
             }}
           >
             4AT brings finance-native AI into the workflows where accounting
@@ -143,7 +130,7 @@ export default function HeroSection() {
                 style={{
                   border: "1px solid rgba(167,139,250,.2)",
                   background: "rgba(255,255,255,.02)",
-                  color: "rgba(255,255,255,.8)",
+                  color: "white",
                 }}
               >
                 {item}
