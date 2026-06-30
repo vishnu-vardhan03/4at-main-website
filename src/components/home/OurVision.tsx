@@ -8,15 +8,15 @@ const comparisonRows = [
 
 export function OurVision() {
   return (
-    <section id="our-vision" className="relative overflow-hidden bg-transparent px-6 py-20 text-white md:px-12 md:py-28">
+    <section id="our-vision" className="relative overflow-hidden bg-transparent site-section text-white">
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.06)_1px,transparent_1px)] bg-[size:80px_80px]" />
       <div className="relative mx-auto max-w-[1200px]">
         <div className="max-w-4xl">
-          <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">The market gap</span>
-          <h2 className="mt-5 max-w-3xl text-4xl font-black leading-tight tracking-tight md:text-6xl">
+          <span className="section-badge">The market gap</span>
+          <h2 className="mt-5 max-w-3xl site-heading">
             Beyond the <span className="text-brand-gradient-flow">Trade-off.</span>
           </h2>
-          <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/75 md:text-lg">
+          <p className="site-subheading mt-6 max-w-4xl text-white/75">
             Traditional firms are too slow. Pure AI is too risky. We engineered a third way.
           </p>
           <p className="mt-5 text-lg font-semibold text-white md:text-xl">

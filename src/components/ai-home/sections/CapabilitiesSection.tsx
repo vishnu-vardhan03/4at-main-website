@@ -268,16 +268,10 @@ export default function CapabilitiesSection() {
           <div className="eyebrow mb-6 justify-center">
             <span className="dot" />Core Capabilities
           </div>
-          <h2
-            className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}
-          >
+          <h2 className="site-heading mb-4">
             Finance AI <span className="grad-v">Built Different</span>
           </h2>
-          <p
-            className="text-white/55 mx-auto"
-            style={{ maxWidth: 580, fontSize: "1.05rem" }}
-          >
+          <p className="site-subheading mx-auto" style={{ maxWidth: 580 }}>
             Most AI tools are built horizontally and then adapted for finance. 4AT starts with accounting logic, controls, review workflows, and implementation realities from the beginning.
           </p>
         </div>

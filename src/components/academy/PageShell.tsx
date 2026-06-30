@@ -36,7 +36,9 @@ export function PageShell({ ctaRoute, children }: { ctaRoute: string; children?:
           <Faculty />
           <TestimonialsSocialProof />
           <DeferredSection section="enrollment-cta" sectionId="enroll" href={ctaRoute} />
-          <ContactUs />
+          <div id="contact-us" className="scroll-mt-28">
+            <ContactUs />
+          </div>
         </ProductCurtain>
       </div>
     </div>

@@ -4,7 +4,7 @@ export function HybridReminder() {
   return (
     <section 
       id="hybrid-reminder"
-      className="relative w-full bg-transparent text-white py-24 lg:py-32 overflow-hidden border-t border-b border-white/5"
+      className="relative w-full bg-transparent text-white site-section overflow-visible border-t border-b border-white/5"
     >
       {/* Background glow effects */}
       <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-sky-500/5 blur-[120px] pointer-events-none" />
@@ -18,7 +18,7 @@ export function HybridReminder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-sm uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6"
+            className="section-badge mb-6"
           >
             The same hybrid model on every service
           </motion.div>
@@ -28,15 +28,15 @@ export function HybridReminder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]"
+            className="site-heading text-white overflow-visible"
           >
             Pick any service.
-            <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+            <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
               We deliver it the same way.
             </span>
           </motion.h2>
         </div>
-
+        
         {/* Two-Column Reminder Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Column 1: AI (Science) */}
@@ -129,7 +129,7 @@ export function HybridReminder() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl text-zinc-400 text-sm md:text-base leading-relaxed font-light"
+            className="site-subheading max-w-2xl text-zinc-400 font-light"
           >
             Every service below runs on this same model. The only thing that changes is what we're doing for you.
           </motion.p>

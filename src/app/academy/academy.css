@@ -1,3 +1,5 @@
+@reference "../globals.css";
+
 .academy-page {
   --academy-canvas: #0a0a0a;
   --surface: #0a0a0a;
@@ -59,14 +61,14 @@
   overflow-x: clip;
   background: var(--academy-canvas);
   color: var(--academy-ink-primary);
-  font-family: var(--font-bricolage-grotesque), sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
 }
 
 .academy-page .font-sans,
 .academy-page .font-display,
 .academy-page .font-body,
 .academy-page .font-bricolage {
-  font-family: var(--font-bricolage-grotesque), sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
 }
 
 .academy-page .font-space-grotesk {
@@ -99,7 +101,9 @@
 }
 
 .academy-page .section-frame { padding-inline: 1rem; }
-.academy-page .section-padding { padding-block: 5rem; }
+.academy-page .section-padding {
+  @apply site-section;
+}
 
 .academy-page .section-eyebrow {
   display: inline-flex;
@@ -113,7 +117,7 @@
     0 4px 12px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.85);
-  font-family: var(--font-bricolage-grotesque), sans-serif;
+  font-family: var(--font-space-grotesk), sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -126,18 +130,14 @@
 .academy-page .section-title {
   margin-top: 1.5rem;
   color: #fff;
-  font-family: var(--font-bricolage-grotesque), sans-serif;
-  font-size: clamp(1.65rem, 4.2vw, 3.25rem);
-  font-weight: 700;
+  font-family: var(--font-space-grotesk), sans-serif;
+  @apply site-heading;
   letter-spacing: -0.03em;
-  line-height: 0.95;
 }
 
 .academy-page .section-desc {
   color: var(--academy-ink-secondary);
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.625;
+  @apply site-subheading;
 }
 
 .academy-page .section-copy-label {
@@ -248,10 +248,6 @@
   .academy-page .section-frame { padding-inline: 1.5rem; }
 }
 
-@media (min-width: 768px) {
-  .academy-page .section-padding { padding-block: 10rem; }
-}
-
 @media (min-width: 1024px) {
   .academy-page .site-shell,
   .academy-page .section-frame { padding-inline: 3.5rem; }
@@ -259,8 +255,8 @@
 
 @media (min-width: 1280px) {
   .academy-page .site-shell {
-    width: 80%;
-    max-width: 1536px;
+    width: 100%;
+    max-width: 100%;
     padding-inline: 5rem;
   }
 
@@ -274,7 +270,7 @@
 
 @media (min-width: 1024px) and (max-height: 860px) {
   .academy-page .hero-inner-card {
-    min-height: calc(100svh - 24px) !important;
+    min-height: 100svh !important;
     padding-top: 3.5rem !important;
     padding-bottom: 3.5rem !important;
   }

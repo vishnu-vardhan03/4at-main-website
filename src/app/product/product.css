@@ -141,7 +141,8 @@
 /* ── Section base ────────────────────────────────────── */
 .product-page .section {
   position: relative;
-  padding: 30px 20px;  
+  padding-block: var(--site-section-block);
+  padding-inline: var(--site-section-inline);
   overflow: hidden;
 }
 .product-page .section-inner {

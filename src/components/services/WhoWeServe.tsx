@@ -26,19 +26,19 @@ const segments = [
 
 export function WhoWeServe() {
   return (
-    <section className="relative bg-transparent py-24 lg:py-32 overflow-hidden border-t border-b border-white/5">
+    <section className="relative bg-transparent site-section overflow-visible border-t border-b border-white/5">
       {/* Background radial glow */}
       <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-12 gap-8 mb-20">
           <div className="md:col-span-7">
-            <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+            <div className="section-badge mb-6">
               Who we serve
             </div>
-            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
+            <h2 className="site-heading text-white overflow-visible">
               Built for the four kinds of teams
-              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
                 who can't afford to get this wrong.
               </span>
             </h2>

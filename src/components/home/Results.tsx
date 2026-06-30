@@ -73,20 +73,20 @@ export function Results() {
   return (
     <section
       id="work"
-      className="relative overflow-hidden bg-transparent px-6 py-20 text-white md:px-12 md:py-28"
+      className="relative overflow-hidden bg-transparent site-section text-white"
     >
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.06)_1px,transparent_1px)] bg-[size:80px_80px]" />
       <div className="relative mx-auto max-w-[1200px]">
         <div className="max-w-4xl">
-          <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">
+          <span className="section-badge">
             How Hybrid works
           </span>
-          <h2 className="mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight md:text-6xl">
+          <h2 className="mt-5 max-w-4xl site-heading">
             The science goes to{" "}
             <span className="text-brand-gradient-flow">AI.</span> The art stays with our
             experts.
           </h2>
-          <p className="mt-6 max-w-4xl text-base leading-relaxed text-white/75 md:text-lg">
+          <p className="site-subheading mt-6 max-w-4xl text-white/75">
             Hybrid isn&apos;t &quot;people plus software.&quot; It&apos;s a structured
             operating model that routes every task to the layer that does it best — and a
             single dashboard where you see all of it.
@@ -116,7 +116,7 @@ export function Results() {
         </div>
 
         <div className="mt-8 rounded-2xl border border-white/15 bg-white/[0.035] px-6 py-8 text-center md:px-10 md:py-10">
-          <span className="text-xs font-bold uppercase tracking-[.2em] text-white/50">
+          <span className="section-badge">
             What changes for you
           </span>
           <p className="mt-3 text-xl font-bold text-white md:text-2xl">

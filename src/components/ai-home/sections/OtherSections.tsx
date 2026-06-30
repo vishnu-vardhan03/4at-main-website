@@ -21,11 +21,10 @@ export function SecuritySection() {
       <div className="section-inner">
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Security</div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             Enterprise-Grade <span className="grad-v">Protection</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 560 }}>
+          <p className="site-subheading mx-auto" style={{ maxWidth: 560 }}>
             4AT AI is designed for environments where auditability, data protection, and access control are non-negotiable.
           </p>
         </div>
@@ -83,11 +82,10 @@ export function PricingSection() {
       <div className="section-inner">
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Flexible ways to adopt 4AT AI </div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             Transparent <span className="grad-v">Plans</span>
           </h2>
-          <p className="text-white/55 mx-auto">Start free. Scale as your operation grows.</p>
+          <p className="site-subheading mx-auto">Start free. Scale as your operation grows.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => (

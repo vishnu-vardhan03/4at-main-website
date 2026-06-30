@@ -5,6 +5,8 @@ import { Nav } from "@/components/home/Nav";
 import { Footer } from "@/components/home/Footer";
 import { BlurredStagger } from "@/components/about/ui/blurred-stagger-text";
 import { MagicText } from "@/components/about/ui/magic-text";
+import { GrowthTimeline } from "@/components/about/GrowthTimeline";
+import { ExecutiveTeam } from "@/components/about/ExecutiveTeam";
 
 const leadershipPrinciples = [
   {
@@ -64,7 +66,7 @@ export default function AboutClient() {
       <Nav />
 
       <main>
-        <section className="relative overflow-hidden bg-transparent px-6 py-24 pt-32 md:px-12 md:pt-36 lg:px-20">
+        <section className="relative overflow-hidden bg-transparent site-section pt-32 md:pt-36">
           <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:88px_88px]" />
           <div className="absolute -left-32 top-10 size-[26rem] rounded-full bg-[#38bdf8]/12 blur-3xl" />
 
@@ -79,7 +81,7 @@ export default function AboutClient() {
                 <span className="text-xs font-black uppercase tracking-[0.28em] text-[#7dd3fc]">
                   Vision
                 </span>
-                <h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tight md:text-5xl xl:text-6xl xl:whitespace-nowrap">
+                <h2 className="mt-5 site-heading uppercase xl:whitespace-nowrap">
                   The future we are <span className="text-brand-gradient-flow">building toward.</span>
                 </h2>
               </motion.div>
@@ -103,7 +105,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-transparent px-6 py-24 md:px-12 lg:px-20">
+        <section className="relative overflow-hidden bg-transparent site-section">
           <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.07)_1px,transparent_1px)] bg-[size:88px_88px]" />
           <div className="absolute -right-32 bottom-10 size-[28rem] rounded-full bg-[#a78bfa]/14 blur-3xl" />
 
@@ -118,7 +120,7 @@ export default function AboutClient() {
                 <span className="text-xs font-black uppercase tracking-[0.28em] text-[#a78bfa]">
                   Mission
                 </span>
-                <h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tight md:text-6xl">
+                <h2 className="mt-5 site-heading uppercase">
                   The role we are <span className="text-brand-gradient-flow">built to own.</span>
                 </h2>
               </motion.div>
@@ -143,7 +145,11 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-transparent px-6 py-24 md:px-12 lg:px-20">
+        <GrowthTimeline />
+
+        <ExecutiveTeam />
+
+        <section className="relative overflow-hidden bg-transparent site-section">
           <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
           <div className="pointer-events-none absolute -left-40 top-20 size-[30rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
           <div className="pointer-events-none absolute -right-40 bottom-20 size-[30rem] rounded-full bg-[#a78bfa]/12 blur-3xl" />
@@ -159,7 +165,7 @@ export default function AboutClient() {
               <span className="text-xs font-black uppercase tracking-[0.28em] text-[#7dd3fc]">
                 Leadership Principles
               </span>
-              <h2 className="mt-5 text-4xl font-black uppercase leading-none tracking-tight md:text-6xl">
+              <h2 className="mt-5 site-heading uppercase">
                 The standard behind{" "}
                 <span className="text-brand-gradient-flow">how 4AT leads.</span>
               </h2>

@@ -23,13 +23,10 @@ export default function GlimpseSection() {
         <div className="eyebrow mb-6 justify-center">
           <span className="dot" />Product Demo
         </div>
-        <h2
-          className="font-bold tracking-tight mb-4"
-          style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}
-        >
+        <h2 className="site-heading mb-4">
           See 4AT <span className="grad-v">in Action</span>
         </h2>
-        <p className="text-white/55 text-lg mx-auto mb-12" style={{ maxWidth: 600 }}>
+        <p className="site-subheading mx-auto mb-12" style={{ maxWidth: 600 }}>
           Watch reconciliation, fraud detection, and reporting all running live — connected to your actual ERP stack.
         </p>
 

@@ -1,5 +1,4 @@
-import { AnimationProvider } from "@/components/academy/AnimationProvider";
-import { Bricolage_Grotesque, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
+import { Cormorant_Garamond, Space_Grotesk } from "next/font/google";
 import "./academy.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -16,12 +15,6 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: "--font-bricolage-grotesque",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
 
 export default function AcademyLayout({
   children,
@@ -30,9 +23,9 @@ export default function AcademyLayout({
 }>) {
   return (
     <div
-      className={`academy-page ${spaceGrotesk.variable} ${cormorant.variable} ${bricolageGrotesque.variable}`}
+      className={`academy-page ${spaceGrotesk.variable} ${cormorant.variable}`}
     >
-      <AnimationProvider>{children}</AnimationProvider>
+      {children}
     </div>
   );
 }

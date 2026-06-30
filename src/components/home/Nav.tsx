@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const productMenuItems = [
@@ -20,6 +20,19 @@ const serviceMenuItems = [
   { label: "Get Audit-Ready (and Stay That Way)", href: "/services#audit-ready" },
   { label: "Prepare for a Transaction", href: "/services#prepare-transaction" },
   { label: "Modernize Your Finance Stack", href: "/services#modernize-finance-stack" },
+];
+
+const academyMenuItems = [
+  { label: "Program", href: "/academy#programs" },
+  { label: "Blueprint", href: "/academy#features" },
+  { label: "Launch", href: "/academy#enroll" },
+  { label: "Connect", href: "/academy#contact-us" },
+];
+
+const mobileNavGroups = [
+  { label: "Services", href: "/services", items: serviceMenuItems },
+  { label: "Product", href: "/product", items: productMenuItems },
+  { label: "Academy", href: "/academy", items: academyMenuItems },
 ];
 
 type NavDropdownProps = {
@@ -97,6 +110,13 @@ function NavDropdown({
 
 export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
   const [isDarkBg, setIsDarkBg] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileGroup, setMobileGroup] = useState<string | null>(null);
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+    setMobileGroup(null);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -121,6 +141,17 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeMobileMenu();
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [mobileOpen]);
 
   return (
     <motion.header
@@ -231,19 +262,117 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
               </div>
             </div>
           </div>
-          <Link href="/academy" className={`transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}>Academy</Link>
+          <NavDropdown
+            label="Academy"
+            href="/academy"
+            imageHref="/academy#programs"
+            imageSrc="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
+            imageAlt="Placeholder for 4AT Academy"
+            eyebrow="4AT Academy"
+            headline="Build your path from learning to launch"
+            items={academyMenuItems}
+            isDarkBg={isDarkBg}
+          />
           <Link href="/contact" className={`transition-colors ${isDarkBg ? "hover:text-white" : "hover:text-black"}`}>Contact us</Link>
         </nav>
-        <Link
-          href={contactHref}
-          className={`text-sm rounded-full px-4 py-1.5 font-medium transition-all duration-300 ${isDarkBg
-              ? "bg-white text-black hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
-              : "bg-black text-white hover:shadow-[0_0_24px_rgba(0,0,0,0.2)]"
+        <div className="flex items-center gap-2">
+          <Link
+            href={contactHref}
+            className={`hidden md:inline-flex text-sm rounded-full px-4 py-1.5 font-medium transition-all duration-300 ${isDarkBg
+                ? "bg-white text-black hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
+                : "bg-black text-white hover:shadow-[0_0_24px_rgba(0,0,0,0.2)]"
+              }`}
+          >
+            Let&apos;s talk
+          </Link>
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((open) => !open)}
+            className={`grid size-10 place-items-center rounded-full border transition md:hidden ${isDarkBg
+              ? "border-white/12 bg-white/[.06] text-white"
+              : "border-black/12 bg-black/[.06] text-black"
             }`}
-        >
-          Let&apos;s talk
-        </Link>
+          >
+            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
+
+      {mobileOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -8, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="mt-3 max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-[#070a14]/97 p-3 text-white shadow-[0_24px_70px_rgba(0,0,0,.55)] backdrop-blur-2xl md:hidden"
+        >
+          <Link
+            href="/about"
+            onClick={closeMobileMenu}
+            className="flex min-h-12 items-center rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06]"
+          >
+            About
+          </Link>
+
+          {mobileNavGroups.map((group) => {
+            const expanded = mobileGroup === group.label;
+
+            return (
+              <div key={group.label} className="border-t border-white/8">
+                <div className="flex min-h-12 items-center gap-2">
+                  <Link
+                    href={group.href}
+                    onClick={closeMobileMenu}
+                    className="flex flex-1 items-center rounded-xl px-4 py-3 text-sm font-semibold transition hover:bg-white/[.06]"
+                  >
+                    {group.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-label={`${expanded ? "Collapse" : "Expand"} ${group.label} links`}
+                    aria-expanded={expanded}
+                    onClick={() => setMobileGroup(expanded ? null : group.label)}
+                    className="mr-1 grid size-10 shrink-0 place-items-center rounded-xl border border-white/8 bg-white/[.035] text-white/75"
+                  >
+                    <ChevronDown className={`size-4 transition-transform ${expanded ? "rotate-180" : ""}`} />
+                  </button>
+                </div>
+
+                {expanded && (
+                  <div className="mb-3 ml-4 grid gap-1 border-l border-[#7dd3fc]/25 pl-3">
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeMobileMenu}
+                        className="rounded-lg px-3 py-2.5 text-xs font-medium leading-snug text-zinc-300 transition hover:bg-white/[.055] hover:text-white"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <Link
+            href="/contact"
+            onClick={closeMobileMenu}
+            className="flex min-h-12 items-center border-t border-white/8 rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06]"
+          >
+            Contact us
+          </Link>
+          <Link
+            href={contactHref}
+            onClick={closeMobileMenu}
+            className="mt-2 flex min-h-12 items-center justify-center rounded-xl bg-white px-4 text-sm font-bold text-black"
+          >
+            Let&apos;s talk
+          </Link>
+        </motion.div>
+      )}
     </motion.header>
   );
 }

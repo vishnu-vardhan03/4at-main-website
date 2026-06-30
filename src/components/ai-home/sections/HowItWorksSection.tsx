@@ -77,20 +77,14 @@ export default function HowItWorksSection() {
             Process
           </div>
 
-          <h2
-            className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}
-          >
+          <h2 className="site-heading mb-4">
             Transforming Finance Workflows{" "}
             <span className="grad-v">
               Step by Step
             </span>
           </h2>
 
-          <p
-            className="text-white/55 mx-auto"
-            style={{ maxWidth: 620 }}
-          >
+          <p className="site-subheading mx-auto" style={{ maxWidth: 620 }}>
             Connect → Understand → Automate → Govern.
             Every step builds on the previous one to create a
             fully autonomous finance workflow.

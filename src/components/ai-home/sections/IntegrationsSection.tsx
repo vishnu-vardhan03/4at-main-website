@@ -57,11 +57,10 @@ export default function IntegrationsSection() {
       <div className="section-inner">
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Integrations</div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             Unified Across <span className="grad-v">All Your Systems</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 600 }}>
+          <p className="site-subheading mx-auto" style={{ maxWidth: 600 }}>
             4AT AI connects with ERP, banking, payroll, billing, and custom platforms so automation happens inside real finance operations — not in disconnected exports. 
           </p>
         </div>

@@ -54,7 +54,7 @@ export default function CoursesPage() {
       </section>
 
       {/* Main Catalog Directory Section */}
-      <section className="py-12 sm:py-16 flex-grow">
+      <section className="site-section-y flex-grow">
         <div className="site-shell flex flex-col lg:flex-row gap-10">
           
           {/* Sidebar Filters (Desktop) */}

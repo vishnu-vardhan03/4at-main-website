@@ -116,7 +116,7 @@ export function ContactUs() {
   };
 
   return (
-    <section ref={sectionRef} id="contact-us" className="relative w-full overflow-visible bg-transparent text-ink-primary pt-24 pb-16 sm:pt-32 sm:pb-24">
+    <section ref={sectionRef} id="academy-contact-form" className="relative w-full overflow-visible bg-transparent text-ink-primary section-padding">
       <NeonGlowOrb 
         className="left-[25%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-0"
         size={450}
@@ -314,4 +314,3 @@ export function ContactUs() {
     </section>
   );
 }
-

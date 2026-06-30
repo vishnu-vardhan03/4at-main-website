@@ -231,12 +231,12 @@ export function RegisterForm() {
         <span className="section-eyebrow mb-6 text-accent uppercase tracking-widest text-[11px] font-bold">
           LMS Academy Enrollment
         </span>
-        <h2 className="font-sans text-4xl sm:text-5xl font-bold tracking-tight text-white mt-6 leading-none">
+        <h2 className="site-heading font-sans text-white mt-6">
           Register <span className="font-serif italic font-bold text-accent">Yourself</span>
           <br />
           For the Academy.
         </h2>
-        <p className="mt-6 text-base text-ink-secondary leading-relaxed max-w-[48ch]">
+        <p className="site-subheading mt-6 text-ink-secondary max-w-[48ch]">
           Complete your profile below to gain dashboard access, customize your specialized learning path, and link directly with hiring partners.
         </p>
 

@@ -54,12 +54,12 @@ export function Hero() {
           initial="hidden"
           animate="visible"
           transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-6xl font-bold leading-[0.98] tracking-[-0.045em]"
+          className="max-w-6xl font-bold tracking-tight"
         >
-          <span className="block max-w-4xl text-[clamp(2rem,3.4vw,4rem)] leading-[1.12]">
+          <span className="block max-w-4xl text-2xl sm:text-3xl md:text-4xl leading-[1.12]">
             The new way to run
           </span>
-          <span className="relative mt-5 block min-h-[1.3em] max-w-5xl pb-3 text-[clamp(2.4rem,5vw,5.6rem)] leading-[1.12]">
+          <span className="site-hero-heading relative mt-5 block min-h-[1.3em] max-w-5xl pb-3">
             <AnimatePresence mode="wait">
               <motion.span
                 key={HYBRID_SERVICES[activeService]}
@@ -82,7 +82,7 @@ export function Hero() {
           transition={{ duration: 0.85, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-col items-start gap-8"
         >
-          <p className="max-w-2xl text-base leading-relaxed text-white/75 md:text-xl">
+          <p className="site-hero-subheading max-w-2xl text-white/75">
             4AT pairs AI-powered workflows with senior practitioners in one ecosystem — so finance teams stop choosing between firms that bill by the hour and AI tools they can't sign off on.
           </p>
 

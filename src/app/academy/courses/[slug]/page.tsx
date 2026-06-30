@@ -538,7 +538,7 @@ export default function CourseDetailsPage({
       </section>
 
       {/* Main Section layout with Sidebar widget */}
-      <section className="py-12 sm:py-16 flex-grow relative">
+      <section className="site-section-y flex-grow relative">
         <div className="site-shell relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
           
           {/* Main Body Contents (Left Column) */}

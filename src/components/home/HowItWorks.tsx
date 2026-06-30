@@ -74,17 +74,17 @@ export function HowItWorks() {
         {/* Grid background texture */}
         <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.06)_1px,transparent_1px)] bg-[size:80px_80px]" />
 
-        <div className="relative mx-auto flex h-full max-w-[1400px] flex-col px-6 py-12 md:px-12">
+        <div className="relative mx-auto flex h-full max-w-[1400px] flex-col site-section">
 
           {/* ── Heading ── */}
           <div className="max-w-4xl shrink-0">
-            <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">
+            <span className="section-badge">
               How an engagement works
             </span>
-            <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight md:text-5xl">
+            <h2 className="mt-3 site-heading">
               <span className="text-brand-gradient-flow">Four steps.</span>
             </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-white/70 md:text-base">
+            <p className="site-subheading mt-3 max-w-3xl text-white/70">
               The teams who switch to 4AT Hybrid all share one thing — they&apos;re done
               choosing between expensive firms and risky AI.
             </p>

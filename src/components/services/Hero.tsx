@@ -162,11 +162,11 @@ export function Hero() {
               SERVICES
             </motion.div>
 
-            <h1 className="mt-8 text-[clamp(2.2rem,5.2vw,4.8rem)] font-black tracking-tight leading-[0.95] text-foreground max-w-5xl select-none">
+            <h1 className="mt-8 site-hero-heading text-foreground max-w-5xl select-none overflow-visible">
               <span className="block text-white opacity-95">
                 Eleven services.
               </span>
-              <span className="block py-1 bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_4px_20px_rgba(99,102,241,0.25)] animate-gradient-x">
+              <span className="block py-1 bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_4px_20px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
                 One subscription.
               </span>
               <span className="block text-zinc-700 text-[clamp(1.1rem,2.5vw,2.2rem)] font-black tracking-tight mt-2">
@@ -176,7 +176,7 @@ export function Hero() {
 
             {/* Description */}
             <div className="mt-6 max-w-2xl">
-              <p className="text-base md:text-lg text-zinc-400 leading-relaxed font-light">
+              <p className="site-hero-subheading text-zinc-400 font-light">
                 Whether you need your books closed, controls remediated, an audit prepared, or a CFO role filled, you get the same hybrid model: AI agents handle the science, and senior practitioners handle the art. You get one bill.
               </p>
             </div>

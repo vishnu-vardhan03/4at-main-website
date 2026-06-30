@@ -46,7 +46,7 @@ const VALUES = [
 
 export function OurValues() {
   return (
-    <section className="bg-[#fcfcfc] text-black py-24 px-6 md:px-12 lg:px-20 w-full overflow-hidden border-t border-zinc-200">
+    <section className="bg-[#fcfcfc] text-black site-section w-full overflow-hidden border-t border-zinc-200">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Header */}
@@ -54,10 +54,10 @@ export function OurValues() {
           <span className="text-xs font-bold uppercase tracking-[0.25em] text-zinc-400 block mb-3">
             Core Principles
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-black leading-[0.95]">
+          <h2 className="site-heading uppercase text-black">
             Our Values
           </h2>
-          <p className="text-zinc-500 text-sm md:text-base mt-4 font-medium">
+          <p className="site-subheading text-zinc-500 mx-auto">
             Our values define how we think, act, and deliver value to our partners.
           </p>
         </div>

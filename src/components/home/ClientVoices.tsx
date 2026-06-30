@@ -58,14 +58,14 @@ export function ClientVoices() {
   return (
     <section
       id="client-voices"
-      className="relative w-full overflow-hidden bg-transparent px-6 py-24 text-white md:px-12 lg:px-20"
+      className="relative w-full overflow-hidden bg-transparent site-section text-white"
     >
       <div className="mx-auto max-w-[1400px]">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">
+          <span className="section-badge">
             Client Voices
           </span>
-          <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight md:text-6xl">
+          <h2 className="mt-5 site-heading">
             Voices of <span className="text-brand-gradient-flow">trust.</span>
           </h2>
         </div>

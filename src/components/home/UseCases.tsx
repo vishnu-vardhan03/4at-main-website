@@ -48,15 +48,15 @@ export function UseCases() {
       <div className="pointer-events-none absolute right-0 top-1/2 size-96 rounded-full bg-[#a78bfa]/10 blur-[120px]" />
 
       {/* Section header — sticky at the very top while scroll happens */}
-      <div className="relative mx-auto max-w-[1200px] px-6 pt-10 pb-4 md:px-12">
-        <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">
+      <div className="relative mx-auto max-w-[1200px] px-6 pt-14 pb-4 md:px-12 md:pt-24">
+        <span className="section-badge">
           Where Hybrid creates the most value
         </span>
-        <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight md:text-6xl">
+        <h2 className="mt-5 site-heading">
           Five moments where finance teams{" "}
           <span className="text-brand-gradient-flow">switch to 4AT.</span>
         </h2>
-        <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/75 md:text-lg">
+        <p className="site-subheading mt-6 max-w-3xl text-white/75">
           The buyers who pick us aren&apos;t shopping for &quot;an accounting firm&quot; or
           &quot;an AI tool.&quot; They&apos;re stuck in a specific situation. Here are the
           five we hear most.
@@ -67,9 +67,9 @@ export function UseCases() {
       <CardsParallax items={scenarios} />
 
       {/* Footer CTA row */}
-      <div className="relative mx-auto max-w-[1200px] px-6 pb-10 md:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-6 pb-14 md:px-12 md:pb-24">
         <div className="mt-10 rounded-2xl border border-white/15 bg-white/[0.035] px-7 py-9 text-center">
-          <span className="text-xs font-bold uppercase tracking-[.2em] text-white/50">
+          <span className="section-badge">
             What every engagement delivers
           </span>
           <p className="mt-3 text-xl font-semibold text-white md:text-2xl">

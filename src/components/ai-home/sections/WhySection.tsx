@@ -319,10 +319,7 @@ export default function WhySection() {
           <div className="eyebrow mb-6 justify-center">
             <span className="dot" />Why 4AT
           </div>
-          <h2
-            className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.4rem)", lineHeight: 1.1 }}
-          >
+          <h2 className="site-heading mb-4">
             Built for Finance.{" "}
             <span
               className="bg-gradient-to-r from-teal-300 via-violet-400 to-white bg-clip-text text-transparent"
@@ -332,7 +329,7 @@ export default function WhySection() {
             </span>{" "}
             for Impact.
           </h2>
-          <p className="text-white/55 mx-auto text-lg" style={{ maxWidth: 600, lineHeight: 1.6 }}>
+          <p className="site-subheading mx-auto" style={{ maxWidth: 600 }}>
             Our platform combines AI, automation, and human expertise to deliver accurate financial intelligence—faster.
           </p>
         </div>

@@ -27,7 +27,7 @@ export function HeroContent() {
 
   return (
     <div className="hero-desc-container mt-12 max-w-2xl flex flex-col items-center lg:items-start w-full mx-auto lg:mx-0">
-      <p className="hero-desc text-lead font-normal leading-[1.75] tracking-[0.01em] text-ink-primary/95 font-sans text-center lg:text-left">
+      <p className="site-hero-subheading text-ink-primary/95 font-sans text-center lg:text-left">
         {subtitle === "From training to hiring to deployment, our model is designed to turn finance learners into employer-ready talent." ? (
           <>
             From <em className="font-sans italic text-accent font-bold">training</em> to <em className="font-sans italic text-accent font-bold">hiring</em> to <em className="font-sans italic text-accent font-bold">deployment</em>, our model is designed to turn finance learners into employer-ready talent.

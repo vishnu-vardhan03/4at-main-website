@@ -190,7 +190,7 @@ export function CoreDifferentiators({ sectionId = "why-academy" }: { sectionId?:
     <section
       ref={containerRef}
       id={sectionId}
-      className="w-full relative overflow-hidden text-white py-14 sm:py-20 lg:py-28"
+      className="w-full relative overflow-hidden text-white site-section-y"
     >
       {/* Decorative Grid Mesh & Ambient Light */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f29370a_1px,transparent_1px),linear-gradient(to_bottom,#1f29370a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />

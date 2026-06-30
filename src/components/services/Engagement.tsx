@@ -29,21 +29,21 @@ const steps = [
 
 export function Engagement() {
   return (
-    <section id="engagement" className="relative bg-transparent py-24 lg:py-32 overflow-hidden border-t border-b border-white/5">
+    <section id="engagement" className="relative bg-transparent site-section overflow-visible border-t border-b border-white/5">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid md:grid-cols-12 gap-8 mb-20">
           <div className="md:col-span-7">
-            <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+            <div className="section-badge mb-6">
               How an engagement works
             </div>
-            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
+            <h2 className="site-heading text-white overflow-visible">
               Four steps.
-              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
                 No SOW. No procurement cycle.
               </span>
             </h2>
           </div>
-          <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white/60 leading-relaxed">
+          <p className="site-subheading md:col-span-4 md:col-start-9 self-end text-white/60">
             Every service above runs on the same engagement model, whether you're subscribing to bookkeeping or hiring a Virtual CFO.
           </p>
         </div>

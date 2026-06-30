@@ -53,9 +53,9 @@ export function Hero({ children }: { children?: React.ReactNode }) {
 
 
 
-      {/* Main card nested container */}
-      <div className="relative z-10 mx-auto w-full xl:w-[80%] xl:max-w-[1536px] max-w-[1920px] px-4 sm:px-6 lg:px-14 xl:px-20 2xl:px-28 min-h-[100svh] flex items-center justify-center pt-20 pb-4 lg:py-6">
-        <div className="hero-inner-card relative min-h-[calc(100svh-32px)] sm:min-h-[calc(100svh-48px)] lg:min-h-[calc(100svh-64px)] w-full rounded-[24px] sm:rounded-[36px] overflow-hidden border border-white/[0.06] flex flex-col justify-center py-14 sm:py-18 lg:py-22 px-6 sm:px-10 lg:px-14 xl:px-20 2xl:px-28 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#0a0a0a]/90 backdrop-blur-md">
+      {/* Main fullscreen container */}
+      <div className="relative z-10 w-full min-h-[100svh] flex items-center justify-center">
+        <div className="hero-inner-card relative min-h-[100svh] w-full overflow-hidden flex flex-col justify-center py-14 sm:py-18 lg:py-22 px-6 sm:px-10 lg:px-14 xl:px-20 2xl:px-28 bg-[#0a0a0a]">
 
           {/* Beams Background underlay */}
           <BeamsBackground className="absolute inset-0 w-full h-full min-h-0 bg-transparent z-0 pointer-events-none" intensity="medium" />
@@ -80,7 +80,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
 
 
           {/* Centered Hero Content Area */}
-          <div className="hero-content-area relative z-30 flex-1 flex flex-col justify-center items-center py-6 w-full max-w-7xl mx-auto">
+          <div className="hero-content-area relative z-30 flex-1 flex flex-col justify-center items-center py-6 w-full max-w-full mx-auto">
             <NeonGlowOrb
               className="left-[30%] top-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
               size={450}
@@ -96,7 +96,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                   </span>
                 </div>
 
-                <h1 className="hero-title font-sans text-white text-hero font-bold leading-[1.18] tracking-[-0.01em] w-full">
+                <h1 className="site-hero-heading font-sans text-white leading-[1.18] tracking-[-0.01em] w-full">
                   {heroTitle === "Finance training built for careers, not just certificates." ? (
                     <>
                       Finance training<br />

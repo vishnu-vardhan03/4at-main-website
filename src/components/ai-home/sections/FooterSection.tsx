@@ -13,9 +13,8 @@ export default function ProductCTA() {
   return (
     <section
       id="cta-final"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden site-section"
       style={{
-        padding: "78px 20px",
         background: "linear-gradient(135deg,#0d0820 0%,#060916 100%)",
       }}
     >
@@ -29,15 +28,14 @@ export default function ProductCTA() {
           <div className="eyebrow mb-5">
             <span className="dot" />Get Started
           </div>
-          <h2 className="font-black leading-[0.98] tracking-[-0.03em] mb-4"
-            style={{ fontSize: "clamp(2.1rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             Bring AI into{" "}
             <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">
               Finance Workflows
             </span>{" "}
             that matters most
           </h2>
-          <p className="text-white/55 mb-7" style={{ fontSize: "1.02rem", maxWidth: 540 }}>
+          <p className="site-subheading mb-7" style={{ maxWidth: 540 }}>
             See how 4AT helps teams automate high-friction processes, strengthen control, and turn finance operations into a faster, more scalable system.
           </p>
           <div className="flex gap-4 flex-wrap">

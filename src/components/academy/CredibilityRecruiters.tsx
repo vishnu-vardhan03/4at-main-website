@@ -125,7 +125,7 @@ export function CredibilityRecruiters() {
     <section
       ref={containerRef}
       id="credibility"
-      className={`w-full py-24 sm:py-32 overflow-visible relative recruiters-section-custom ${
+      className={`w-full section-padding overflow-visible relative recruiters-section-custom ${
         isAnimated ? "animate-active" : ""
       }`}
     >

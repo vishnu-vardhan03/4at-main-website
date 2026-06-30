@@ -96,31 +96,25 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-black tracking-[-0.05em] leading-[0.9]">
-  <span className="block text-white text-5xl md:text-7xl lg:text-8xl">
-    FINANCE-NATIVE AI
-  </span>
+          <h1 className="site-hero-heading font-black">
+            <span className="block text-white text-5xl md:text-7xl lg:text-8xl">
+              FINANCE-NATIVE AI
+            </span>
 
-  <span className="block bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl">
-    FOR ACCOUNTING &
-  </span>
+            <span className="block bg-gradient-to-r from-violet-400 to-purple-300 bg-clip-text text-transparent text-5xl md:text-7xl lg:text-8xl">
+              FOR ACCOUNTING &
+            </span>
 
-  <span className="block text-violet-400 text-3xl md:text-5xl my-2">
-    {/* ✦  */} 
-  </span>
+            <span className="block text-violet-400 text-3xl md:text-5xl my-2">
+              {/* ✦  */} 
+            </span>
 
-  <span className="block text-white/35 text-4xl md:text-6xl lg:text-7xl">
-    FINANCE WORKFLOWS
-  </span>
-</h1>
+            <span className="block text-white/35 text-4xl md:text-6xl lg:text-7xl">
+              FINANCE WORKFLOWS
+            </span>
+          </h1>
           {/* Description */}
-          <p
-            className="mx-auto mt-8 max-w-3xl leading-relaxed px-4"
-            style={{
-              fontSize: "clamp(1.1rem,1.6vw,1.35rem)",
-              color: "rgba(255,255,255,.72)",
-            }}
-          >
+          <p className="site-hero-subheading mx-auto mt-8 max-w-3xl px-4 text-white/72">
             4AT brings finance-native AI into the workflows where accounting
             teams lose the most time, reconciliation, exception review,
             document handling, and reporting, so automation fits the realities

@@ -24,7 +24,7 @@ export function Clients() {
   const rollingFirstRow = [...clientLogos, ...clientLogos, ...clientLogos];
 
   return (
-    <section className="bg-transparent px-6 py-24 text-white md:px-12">
+    <section className="bg-transparent site-section text-white">
       <div className="mx-auto max-w-[1500px]">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/20">
           <Image
@@ -34,7 +34,7 @@ export function Clients() {
             priority={false}
           />
           <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/85 via-black/35 to-transparent p-8 md:p-12">
-            <p className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">
+            <p className="section-badge">
               Trusted worldwide
             </p>
             <h2 className="mt-4 max-w-full text-center text-[clamp(1.55rem,6.8vw,8.8rem)] font-black uppercase leading-[.86] tracking-tight sm:text-[clamp(2.5rem,6.8vw,8.8rem)]">

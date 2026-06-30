@@ -70,17 +70,16 @@ const glowColorMap: Record<string, string> = {
 
 export default function AgentsSection() {
   return (
-    <section id="agents" className="section" style={{ background: "#04060f", padding: "8" }}>
+    <section id="agents" className="section" style={{ background: "#04060f" }}>
       <AmbientBackground variant="mixed" intensity={0.6} />
 
       <div className="section-inner">
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />AI Agents</div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             Your Autonomous <span className="grad-v">Finance Team</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 600, fontSize: "1.05rem" }}>
+          <p className="site-subheading mx-auto" style={{ maxWidth: 600 }}>
             Four specialized agents, each trained for a distinct finance function. Powered by Python / FastAPI AI Service Layer + NestJS API backbone.
           </p>
         </div>

@@ -180,7 +180,7 @@ export function LmsCourses({ sectionId = "courses" }: { sectionId?: string }) {
     <section
       ref={sectionRef}
       id={sectionId}
-      className="w-full pt-20 pb-8 md:pt-40 md:pb-12 font-sans select-none overflow-visible relative"
+      className="w-full site-section-y font-sans select-none overflow-visible relative"
       style={{ backgroundColor: "transparent", color: "#ffffff" }}
     >
       {/* Glow orb centered behind header and category pills area */}

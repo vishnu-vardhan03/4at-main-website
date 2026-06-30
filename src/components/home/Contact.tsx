@@ -10,16 +10,16 @@ const paths = [
 
 export function Contact() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-transparent px-6 py-20 text-white md:px-12 md:py-28">
+    <section id="contact" className="relative overflow-hidden bg-transparent site-section text-white">
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.06)_1px,transparent_1px)] bg-[size:80px_80px]" />
       <div className="relative mx-auto max-w-[1200px]">
         <div className="max-w-4xl text-left">
-          <span className="text-xs font-bold uppercase tracking-[.24em] text-[#7dd3fc]">Choose your path</span>
-          <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight md:text-6xl">
+          <span className="section-badge">Choose your path</span>
+          <h2 className="mt-5 site-heading">
             Stop choosing between firms you can&apos;t afford and{" "}
             <span className="text-brand-gradient-flow">AI you can&apos;t audit.</span>
           </h2>
-          <p className="mt-6 text-base leading-relaxed text-white/75 md:text-lg">
+          <p className="site-subheading mt-6 text-white/75">
             4AT Hybrid is the third option — AI runs the speed, our senior practitioners run the judgment, you run your business. Pick the path that fits where you are.
           </p>
         </div>

@@ -51,11 +51,10 @@ export default function HybridSection() {
       <div className="section-inner">
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Support Ecosystem</div>
-          <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+          <h2 className="site-heading mb-4">
             AI Speed. <span className="grad-v">Human Judgment.</span>
           </h2>
-          <p className="text-white/55 mx-auto" style={{ maxWidth: 640 }}>
+          <p className="site-subheading mx-auto" style={{ maxWidth: 640 }}>
            4AT combines automation with finance-specialized human support, so teams move faster without losing control, context, or judgment.  
           </p>
         </div>

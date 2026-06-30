@@ -71,7 +71,7 @@ function SectionSkeleton({ minHeight }: { minHeight: string }) {
   return (
     <div
       aria-hidden="true"
-      className="site-shell section-frame py-10"
+      className="site-shell section-frame site-section-y"
       style={{ minHeight }}
     >
       <div className="h-full w-full animate-pulse rounded-[28px] border border-border/70 bg-surface/70" />
@@ -87,26 +87,32 @@ export function DeferredSection({ section, sectionId, href }: DeferredSectionPro
     const host = hostRef.current;
     if (!host) return;
 
-    // If the element's bottom is already above the viewport top (scrolled past), load it immediately
-    const rect = host.getBoundingClientRect();
-    if (rect.bottom < 0) {
-      setIsReady(true);
-      return;
-    }
+    let observer: IntersectionObserver | null = null;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsReady(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "240px 0px" }
-    );
+    const timer = setTimeout(() => {
+      const rect = host.getBoundingClientRect();
+      if (rect.bottom < 0) {
+        setIsReady(true);
+        return;
+      }
 
-    observer.observe(host);
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsReady(true);
+            observer?.disconnect();
+          }
+        },
+        { rootMargin: "240px 0px" }
+      );
 
-    return () => observer.disconnect();
+      observer.observe(host);
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -139,7 +145,7 @@ export function DeferredSection({ section, sectionId, href }: DeferredSectionPro
   }
 
   return (
-    <section ref={hostRef} id={sectionId} className="site-shell section-frame py-10">
+    <section ref={hostRef} id={sectionId} className="site-shell section-frame site-section-y">
       <SectionSkeleton minHeight={getSkeletonHeight(section)} />
     </section>
   );

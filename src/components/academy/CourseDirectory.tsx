@@ -5,7 +5,7 @@ import { offerings } from "@/lib/site-data";
 
 export function CourseDirectory({ sectionId = "courses" }: { sectionId?: string }) {
   return (
-    <section id={sectionId} className="site-shell section-frame py-16 sm:py-20 lg:py-24">
+    <section id={sectionId} className="site-shell section-frame site-section-y">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

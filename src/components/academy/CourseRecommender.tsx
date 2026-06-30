@@ -101,7 +101,7 @@ export function CourseRecommender() {
       : null;
 
   return (
-    <section id="recommender" className="pt-8 pb-20 md:pt-12 md:pb-40 bg-transparent relative overflow-visible flex flex-col items-center">
+    <section id="recommender" className="section-padding bg-transparent relative overflow-visible flex flex-col items-center">
       {/* Background circle covering the tool */}
       <NeonGlowOrb 
         className="left-[68%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-0"

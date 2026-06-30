@@ -745,22 +745,22 @@ export function Services() {
   }, [selectedService]);
 
   return (
-    <section id="services" className="relative bg-transparent py-24 lg:py-32">
+    <section id="services" className="relative bg-transparent site-section">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="grid lg:grid-cols-12 gap-8 mb-24 items-end">
           <div className="lg:col-span-7">
-            <div className="text-sm uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+            <div className="section-badge mb-6">
               Services
             </div>
-            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
+            <h2 className="site-heading text-white overflow-visible">
               Eleven services.
-              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
                 Grouped by what's keeping you up at night.
               </span>
             </h2>
           </div>
-          <p className="lg:col-span-4 lg:col-start-9 self-end text-lg text-zinc-400 leading-relaxed font-light">
+          <p className="site-subheading lg:col-span-4 lg:col-start-9 self-end text-zinc-400 font-light">
             Most buyers don't shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here's the shortcut.
           </p>
         </div>

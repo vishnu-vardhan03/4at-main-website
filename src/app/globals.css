@@ -97,6 +97,8 @@
 
 :root {
   --radius: 0.75rem;
+  --site-section-block: 3.5rem;
+  --site-section-inline: 1.5rem;
   --background: #04060f;
   --foreground: #f8fafc;
   --card: oklch(0.08 0 0);
@@ -116,6 +118,17 @@
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
   --ring: oklch(1 0 0 / 30%);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --site-section-block: 6rem;
+    --site-section-inline: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root { --site-section-inline: 5rem; }
 }
 
 .dark {
@@ -211,7 +224,7 @@
 .section {
   position: relative;
   overflow: hidden;
-  padding: 7rem 1.5rem;
+  @apply site-section;
   color: #fff;
 }
 
@@ -267,7 +280,6 @@
 }
 
 @media (max-width: 767px) {
-  .section { padding-block: 5rem; }
   .bento-grid { grid-template-columns: 1fr !important; }
   .bento-grid > * { grid-column: auto !important; }
 }
@@ -339,7 +351,8 @@ html.lenis, html.lenis body { height: auto; }
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.035em;
-  line-height: 0.95;
+  line-height: 1.35;
+  overflow: visible;
 }
 
 .services-page .glass-dark {
@@ -527,4 +540,32 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes home-client-logo-roll {
   from { transform: translateX(0); }
   to { transform: translateX(calc(-33.333% - .5rem)); }
+}
+
+@utility site-hero-heading {
+  @apply text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1];
+}
+
+@utility site-hero-subheading {
+  @apply text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl;
+}
+
+@utility site-heading {
+  @apply text-3xl md:text-5xl font-bold tracking-tight leading-[1.15] overflow-visible;
+}
+
+@utility site-subheading {
+  @apply text-sm md:text-base leading-relaxed max-w-2xl mt-4;
+}
+
+@utility site-section-y {
+  @apply py-14 md:py-24;
+}
+
+@utility site-section {
+  @apply py-14 md:py-24 px-6 md:px-12 lg:px-20;
+}
+
+@utility section-badge {
+  @apply inline-flex w-fit items-center rounded-full border border-white/10 bg-white/[0.055] px-5 py-2.5 text-xs font-bold tracking-[.02em] text-[#7dd3fc] shadow-[inset_0_1px_0_rgba(255,255,255,.04)] backdrop-blur-sm;
 }

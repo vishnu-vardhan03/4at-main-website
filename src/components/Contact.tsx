@@ -3,7 +3,7 @@ import contactBg from "@/assets/contact_bg.png";
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-24 px-6 md:px-12 lg:px-20 min-h-[750px] flex items-center justify-center overflow-hidden bg-transparent text-white border-t border-white/[0.05]">
+    <section id="contact" className="relative site-section min-h-[750px] flex items-center justify-center overflow-hidden bg-transparent text-white border-t border-white/[0.05]">
 
       {/* Background Image with Dark Shading */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -27,7 +27,7 @@ export function Contact() {
           </span>
 
           {/* Heading */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white leading-[0.95] mb-12">
+          <h2 className="site-heading uppercase text-white mb-12">
             Let’s talk<br />about your<br /><span className="text-brand-gradient">next AI project</span>
           </h2>
 
