@@ -1,5 +1,7 @@
 const nextConfig = {
-  distDir: process.env.NODE_ENV === "development" ? ".next-dev" : ".next",
+  // Keep high-churn development output in the dependency cache. OneDrive
+  // leaves this tree local, preventing Files On-Demand readlink failures.
+  distDir: process.env.NODE_ENV === "development" ? "node_modules/.cache/4at-next-dev" : ".next",
   eslint: {
     ignoreDuringBuilds: true,
   },

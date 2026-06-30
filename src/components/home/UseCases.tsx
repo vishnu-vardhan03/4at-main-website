@@ -34,7 +34,7 @@ const scenarios: ScrollCardItem[] = [
   {
     title: "You're going public and your finance stack isn't ready",
     pain: "S-1 in 12 months. Your books, controls, and reporting aren't where the SEC wants them. You don't have a CFO yet.",
-    action: "End-to-end IPO readiness — books to SOX to S-1 narrative — backed by our Virtual CFO bench.",
+    action: "End-to-end IPO readiness, from books to SOX to S-1 narrative, backed by our Virtual CFO bench.",
     outcome: "Audit-ready financials. SOX-ready controls. A finance function that holds up to public-market scrutiny.",
     color: "#a78bfa",
   },

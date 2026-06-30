@@ -27,7 +27,7 @@ export default function GlimpseSection() {
           See 4AT <span className="grad-v">in Action</span>
         </h2>
         <p className="site-subheading mx-auto mb-12" style={{ maxWidth: 600 }}>
-          Watch reconciliation, fraud detection, and reporting all running live — connected to your actual ERP stack.
+            Watch reconciliation, fraud detection, and reporting all running live, connected to your actual ERP stack.
         </p>
 
         {/* Video frame */}
@@ -47,7 +47,7 @@ export default function GlimpseSection() {
             <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
             <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
             <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-3 text-xs text-white/35">4AT Finance Copilot — Live Demo</span>
+                  <span className="ml-3 text-xs text-white/35">4AT Finance Copilot: Live Demo</span>
           </div>
 
           {/* Dashboard screenshot placeholder */}

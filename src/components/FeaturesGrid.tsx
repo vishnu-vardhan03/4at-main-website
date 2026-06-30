@@ -33,7 +33,7 @@ export function FeaturesGrid() {
             <div className="relative flex h-full flex-col">
               <span className="w-fit rounded-full border border-white/15 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-300">Extended team</span>
               <h3 className="mt-6 text-2xl font-bold leading-tight">Works like your in-house team</h3>
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-zinc-400">Our specialists integrate into your processes and work in your timezone — an extension of your firm, not a distant supplier.</p>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-zinc-400">Our specialists integrate into your processes and work in your timezone as an extension of your firm, not a distant supplier.</p>
               <ul className="mt-8 space-y-3 text-sm font-medium text-zinc-200">
                 {["Integrated into your workflows", "In your timezone when it matters", "Full visibility and control"].map((item) => <li key={item} className="flex gap-3"><span className="text-sky-300">›</span>{item}</li>)}
               </ul>
@@ -54,7 +54,7 @@ export function FeaturesGrid() {
                 })}
               </div>
               <h3 className="mt-auto text-2xl font-bold">Expert professional team</h3>
-              <p className="mt-3 max-w-md text-sm leading-relaxed text-zinc-400">90+ specialists across finance, accounting and technology — your capacity, on demand.</p>
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-zinc-400">90+ specialists across finance, accounting and technology, providing capacity on demand.</p>
             </div>
           </motion.article>
 
@@ -71,7 +71,7 @@ export function FeaturesGrid() {
               <div className="absolute -bottom-20 -right-16 size-56 rounded-full bg-violet-400/30 blur-3xl" />
               <span className="relative rounded-full border border-white/15 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-300">Proven</span>
               <h3 className="relative mt-6 text-2xl font-bold leading-tight">Three pillars, proven &amp; growing</h3>
-              <p className="relative mt-4 max-w-xs text-sm leading-relaxed text-zinc-300">Consulting, AI and Academy under one brand — an offshore partner since 2019, now 90+ specialists trusted worldwide.</p>
+          <p className="relative mt-4 max-w-xs text-sm leading-relaxed text-zinc-300">Consulting, AI and Academy under one brand. An offshore partner since 2019, now with 90+ specialists trusted worldwide.</p>
               <span className="absolute bottom-6 right-7 text-3xl font-black text-violet-200/70">✓</span>
             </motion.article>
           </div>

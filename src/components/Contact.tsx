@@ -40,7 +40,7 @@ export function Contact() {
             <ul className="space-y-4">
               {[
                 "Smart process automation",
-                "Direct access to our team — no bots.",
+  "Direct access to our team, no bots.",
                 "We ask smart questions fast.",
               ].map((item, idx) => (
                 <li key={idx} className="flex items-center gap-3 text-sm md:text-base font-semibold text-zinc-100">

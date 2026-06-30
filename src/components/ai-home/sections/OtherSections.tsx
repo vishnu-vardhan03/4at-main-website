@@ -143,11 +143,11 @@ export function PricingSection() {
 /* ── FAQ ─────────────────────────────────────────────── */
 const faqs = [
   { q: "How accurate is 4AT's reconciliation AI?",
-    a: "4AT achieves 99.7% transaction match accuracy across multi-ledger, multi-currency reconciliations. Every unmatched item surfaces with a full explanation including which data was used, the logic applied, and a confidence score — one click from posted entry to raw transaction." },
+    a: "4AT achieves 99.7% transaction match accuracy across multi-ledger, multi-currency reconciliations. Every unmatched item surfaces with a full explanation including which data was used, the logic applied, and a confidence score, one click from posted entry to raw transaction." },
   { q: "Is my financial data secure and compliant?",
     a: "4AT is SOC 2 Type II certified, GDPR-compliant, and HIPAA-ready. All data uses AES-256 encryption. Every action produces an immutable timestamped audit log. We run on AWS (EC2 + RDS PostgreSQL + ElastiCache Redis + CloudFront CDN) with strict data residency policies." },
   { q: "Does AI post journal entries automatically?",
-    a: "Only when you configure it to. The default is a human-approval workflow — AI prepares entries, your team reviews and approves before anything posts. You can configure confidence-based auto-posting for routine transactions while keeping a review step for edge cases and large values." },
+    a: "Only when you configure it to. The default is a human-approval workflow. AI prepares entries, and your team reviews and approves before anything posts. You can configure confidence-based auto-posting for routine transactions while keeping a review step for edge cases and large values." },
   { q: "What backend stack powers 4AT?",
     a: "NestJS (Node.js) serves as the API layer handling Auth, Finance, AI Request, Academy, and Notification services. Python FastAPI powers the AI Service Layer (Fraud Detection, Audit Insights, Financial Analysis, Report Generation). PostgreSQL stores all data. Redis for caching. All on AWS." },
   { q: "Can 4AT handle multi-entity and multi-currency?",

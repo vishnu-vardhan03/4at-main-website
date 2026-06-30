@@ -15,7 +15,7 @@ const steps = [
     number: "02",
     timing: "Days 1–7",
     title: "Onboard",
-    body: "Connector ingests your ERP, ledgers, and policies. Your dedicated pod — AI agents plus senior practitioners — is live within 7 days.",
+    body: "Connector ingests your ERP, ledgers, and policies. Your dedicated pod, combining AI agents with senior practitioners, is live within 7 days.",
     detail: "You don't change tools. We meet you inside the systems you already use.",
     color: "#2dd4bf",
   },
@@ -31,7 +31,7 @@ const steps = [
     number: "04",
     timing: "Month 3 and beyond",
     title: "You scale",
-    body: "Add controls. Add tax. Add audit readiness. Add a vCFO. Every new service line plugs into the same subscription — no new vendor, no new contract, no new onboarding.",
+    body: "Add controls. Add tax. Add audit readiness. Add a vCFO. Every new service line plugs into the same subscription: no new vendor, no new contract, no new onboarding.",
     detail: "This is where most clients start with one service and end the year running their entire finance function on 4AT.",
     color: "#38bdf8",
   },
@@ -85,7 +85,7 @@ export function HowItWorks() {
               <span className="text-brand-gradient-flow">Four steps.</span>
             </h2>
             <p className="site-subheading mt-3 max-w-3xl text-white/70">
-              The teams who switch to 4AT Hybrid all share one thing — they&apos;re done
+            The teams who switch to 4AT Hybrid all share one thing: they&apos;re done
               choosing between expensive firms and risky AI.
             </p>
           </div>

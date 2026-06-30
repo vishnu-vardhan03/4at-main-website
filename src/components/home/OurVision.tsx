@@ -1,7 +1,7 @@
 const comparisonRows = [
   ["Cost", "$$$$ hourly", "$ but risky", "Flat subscription"],
   ["Speed", "Weeks", "Seconds", "Seconds + same-day human review"],
-  ["Trust", "High but slow", "Low — no judgment", "High — humans verify edge cases"],
+  ["Trust", "High but slow", "Low, no judgment", "High, humans verify edge cases"],
   ["Coverage", "What you can afford", "Only what AI handles", "End-to-end APO, controls, tax, FP&A"],
   ["Model", "Hourly billing", "Self-serve software", "Subscription. We handle it."],
 ];
@@ -47,7 +47,7 @@ export function OurVision() {
           </table>
         </div>
         <div className="mx-auto mt-10 max-w-3xl text-center">
-          <p className="text-xl font-semibold leading-relaxed text-white md:text-2xl">You pick the outcome. We pick the right tool — AI or human — for each task.</p>
+          <p className="text-xl font-semibold leading-relaxed text-white md:text-2xl">You pick the outcome. We pick the right tool, AI or human, for each task.</p>
           <a href="#process" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#7dd3fc] transition hover:text-white">
             See exactly how the work gets split <span aria-hidden="true">→</span>
           </a>

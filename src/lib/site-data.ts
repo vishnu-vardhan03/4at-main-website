@@ -238,7 +238,7 @@ export type LmsCourse = {
 
 export const lmsCourses: LmsCourse[] = [
   {
-    title: "MNC Finance Readiness — Level 1",
+    title: "MNC Finance Readiness: Level 1",
     subtitle: "Beginner – MNC Placement Track",
     badge: "Commitment Fee: ₹999 + GST",
     rating: 4.8,
@@ -259,7 +259,7 @@ export const lmsCourses: LmsCourse[] = [
     badgeType: "bestseller"
   },
   {
-    title: "Advanced Corporate Accounting & ERP — Level 2",
+    title: "Advanced Corporate Accounting & ERP: Level 2",
     subtitle: "For 3+ Years Experienced Professionals",
     rating: 4.7,
     reviewsCount: 28,

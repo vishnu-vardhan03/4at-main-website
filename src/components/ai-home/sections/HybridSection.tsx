@@ -75,7 +75,7 @@ export default function HybridSection() {
                 style={{ borderColor: "rgba(45,212,191,.3)" }}>
                 <Image
                   src={e.avatar}
-                  alt={`${e.name} — ${e.role} at 4AT AI`}
+                  alt={`${e.name}, ${e.role} at 4AT AI`}
                   fill
                   className="object-cover"
                   sizes="56px"
@@ -215,7 +215,7 @@ export default function HybridSection() {
         >
           <div className="absolute top-0 left-0 right-0 h-[2px]"
             style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc,#7dd3fc,#2dd4bf)" }} />
-          <h3 className="text-2xl font-bold mb-3">One Unified Experience — Zero Friction</h3>
+          <h3 className="text-2xl font-bold mb-3">One Unified Experience. Zero Friction.</h3>
           <p className="text-white/55 text-[15px] mx-auto mb-7" style={{ maxWidth: 680 }}>
             You never decide who to ask. 4AT routes every issue intelligently: AI resolves it instantly when it can, hands off to a specialist when it should. A single thread, full history, one resolution.
           </p>

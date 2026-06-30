@@ -275,7 +275,7 @@ export function Services() {
         {/* Left: text + CTA */}
         <div>
           <h3 className="text-black text-2xl md:text-3xl font-bold tracking-tight leading-snug">
-            From insight to impact—<br />
+            From insight to impact:<br />
             <span className="text-zinc-400">empowering businesses and future talent.</span>
           </h3>
           <a

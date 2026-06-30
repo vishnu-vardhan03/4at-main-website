@@ -88,7 +88,7 @@ export function Results() {
           </h2>
           <p className="site-subheading mt-6 max-w-4xl text-white/75">
             Hybrid isn&apos;t &quot;people plus software.&quot; It&apos;s a structured
-            operating model that routes every task to the layer that does it best — and a
+              operating model that routes every task to the layer that does it best, with a
             single dashboard where you see all of it.
           </p>
         </div>

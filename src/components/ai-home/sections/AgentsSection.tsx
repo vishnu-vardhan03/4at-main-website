@@ -11,7 +11,7 @@ const agents = [
     badgeColor: "t",
     name: "Iris",
     role: "GL · AP · AR · Bank Feeds",
-    desc: "Transaction matching specialist. Works across all ledgers simultaneously — handles FX, inter-company eliminations, and bank statement reconciliation. Proposes journal entries with full explainability.",
+    desc: "Transaction matching specialist. Works across all ledgers simultaneously, handling FX, inter-company eliminations, and bank statement reconciliation. Proposes journal entries with full explainability.",
     stat: "99.7% match accuracy · 14,892 txns/night",
     img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
     imgAlt: "Reconciliation dashboard showing matched transaction tables and ledger audit trails",

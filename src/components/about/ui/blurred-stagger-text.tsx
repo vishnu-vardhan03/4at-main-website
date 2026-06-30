@@ -36,7 +36,7 @@ export const BlurredStagger = ({
       variants={container}
       initial="hidden"
       animate="show"
-      style={{ display: "inline", whiteSpace: "nowrap" }}
+      style={{ display: "inline", whiteSpace: "normal", overflowWrap: "normal", wordBreak: "normal" }}
     >
       {text.split("").map((char, index) => (
         <motion.span
@@ -46,7 +46,7 @@ export const BlurredStagger = ({
           className={className}
           style={{ display: "inline" }}
         >
-          {char === " " ? "\u00A0" : char}
+          {char}
         </motion.span>
       ))}
     </motion.span>

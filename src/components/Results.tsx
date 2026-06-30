@@ -67,7 +67,7 @@ export function Results() {
           <div className="flex flex-col justify-between bg-white/[0.03] p-8">
             <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">The structured operating model</span>
             <p className="my-8 text-base leading-relaxed text-white/75">
-              Hybrid Services is not just people plus software. It is a structured operating model that assigns work to the right execution layer — AI for repeatable, high-volume tasks; experienced professionals for review, exceptions, complex decisions, and client accountability.
+            Hybrid Services is not just people plus software. It is a structured operating model that assigns work to the right execution layer: AI for repeatable, high-volume tasks, and experienced professionals for review, exceptions, complex decisions, and client accountability.
             </p>
             <div className="relative mx-auto flex aspect-[4/3] w-full max-w-[320px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#2dd4bf]/35 via-[#7dd3fc]/20 to-[#a78bfa]/35 shadow-md">
               {BENEFITS.map((benefit, index) => (

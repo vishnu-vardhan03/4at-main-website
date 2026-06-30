@@ -16,7 +16,7 @@ const cards = [
   {
     id: "compliance",
     title: "Compliance by Design",
-    desc: "SOC 2 Type II, GDPR, and enterprise-grade security built in—so you can scale with confidence.",
+    desc: "SOC 2 Type II, GDPR, and enterprise-grade security are built in, so you can scale with confidence.",
     windowTitle: "Security Status",
     badge: "Secure",
     badgeColor: "#10b981",
@@ -330,7 +330,7 @@ export default function WhySection() {
             for Impact.
           </h2>
           <p className="site-subheading mx-auto" style={{ maxWidth: 600 }}>
-            Our platform combines AI, automation, and human expertise to deliver accurate financial intelligence—faster.
+            Our platform combines AI, automation, and human expertise to deliver accurate financial intelligence faster.
           </p>
         </div>
 

@@ -15,7 +15,7 @@ interface CourseInfo {
 const coursesData: Record<string, Record<string, CourseInfo>> = {
   graduate: {
     mnc: {
-      title: "MNC Finance Readiness — Level 1",
+    title: "MNC Finance Readiness: Level 1",
       subtitle: "PREPARATION PATHWAY: MNC FINANCE READINESS",
       description: "Best for beginners targeting accounting, ERP, reporting, and finance operations roles in growing or global companies.",
       bullets: [

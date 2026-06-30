@@ -167,7 +167,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed left-1/2 top-3 z-50 w-[min(1400px,calc(100%-2rem))] -translate-x-1/2"
+      className="fixed left-1/2 top-3 z-50 w-[min(1400px,calc(100%-2rem))] -translate-x-1/2 font-[family-name:var(--font-geist-sans)]"
     >
       <div
         className="grid min-h-14 grid-cols-[1fr_auto] items-center gap-4 px-1 transition-all duration-300 md:grid-cols-[1fr_auto_1fr] md:px-3"
@@ -207,7 +207,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           </motion.div>
         </Link>
         <nav
-          className={`hidden items-center justify-self-center gap-5 text-base font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
+          className={`hidden items-center justify-self-center gap-5 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
           }`}
         >
           <Link
@@ -299,7 +299,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
         <div className="flex items-center justify-self-end gap-2">
           <Link
             href={contactHref}
-            className={`hidden min-h-10 items-center rounded-full px-5 py-2 text-base font-medium transition-all duration-300 md:inline-flex ${isDarkBg
+            className={`hidden min-h-10 items-center rounded-full px-5 py-2 text-[16px] font-medium leading-7 transition-all duration-300 md:inline-flex ${isDarkBg
                 ? "bg-white text-black hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
                 : "bg-black text-white hover:shadow-[0_0_24px_rgba(0,0,0,0.2)]"
               }`}

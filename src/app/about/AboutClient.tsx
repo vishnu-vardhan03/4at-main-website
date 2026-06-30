@@ -1,12 +1,48 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { Nav } from "@/components/home/Nav";
 import { Footer } from "@/components/Footer";
 import { BlurredStagger } from "@/components/about/ui/blurred-stagger-text";
 import { MagicText } from "@/components/about/ui/magic-text";
 import { GrowthTimeline } from "@/components/about/GrowthTimeline";
 import { ExecutiveTeam } from "@/components/about/ExecutiveTeam";
+
+const statementTextClass = "text-lg font-semibold leading-relaxed tracking-normal text-white/80 md:text-2xl";
+
+const companyValues = [
+  {
+    number: "01",
+    title: "The expert in the room is still human",
+    body: "AI runs the process. A 4AT accountant owns the judgment. We don't let a model make the call that a trained CPA should make. In every engagement, the human is accountable, not the algorithm.",
+    accent: "#38bdf8",
+  },
+  {
+    number: "02",
+    title: "Domain depth before technology breadth",
+    body: "We only build AI on top of real finance and accounting expertise. If we don't understand the workflow manually, we don't automate it. Shallow tools built on shallow knowledge produce shallow results, and that's not 4AT's work.",
+    accent: "#a78bfa",
+  },
+  {
+    number: "03",
+    title: "Auditability is the standard, not the goal",
+    body: "Every output we produce, including reconciliations, journal entries, and AI decisions, has to be defensible, traceable, and explainable. The audit trail isn't a feature we add later. It's the only way we ship.",
+    accent: "#2dd4bf",
+  },
+  {
+    number: "04",
+    title: "Capability is the product. Dependency is the failure.",
+    body: "We walk away from every engagement having transferred something: a cleaner process, a better-trained team, a more capable finance function. If you need us forever, we did the work wrong.",
+    accent: "#7dd3fc",
+  },
+  {
+    number: "05",
+    title: "We don't sell AI we wouldn't sign off on ourselves",
+    body: "Our senior accountants use the same agents we sell. If Iris, Atlas, Guardian, or Connector isn't good enough for our team's daily work, it isn't good enough for yours. Every model we ship has been pressure-tested by the people whose names go on the workpapers.",
+    accent: "#c084fc",
+  },
+];
 
 const leadershipPrinciples = [
   {
@@ -61,6 +97,24 @@ const leadershipPrinciples = [
 
 
 export default function AboutClient() {
+  const prefersReducedMotion = useReducedMotion();
+  const valuesSectionRef = useRef<HTMLElement>(null);
+  const [visibleValueCount, setVisibleValueCount] = useState(0);
+  const { scrollYProgress: valuesScrollProgress } = useScroll({
+    target: valuesSectionRef,
+    offset: ["start 62%", "end 55%"],
+  });
+
+  useMotionValueEvent(valuesScrollProgress, "change", (progress) => {
+    const nextCount = prefersReducedMotion
+      ? companyValues.length
+      : Math.ceil(progress * companyValues.length);
+
+    setVisibleValueCount((currentCount) =>
+      currentCount === nextCount ? currentCount : nextCount
+    );
+  });
+
   return (
     <div className="about-page constant-site-background min-h-screen overflow-x-hidden text-white">
       <Nav />
@@ -93,12 +147,10 @@ export default function AboutClient() {
                 className="relative mt-12 w-full"
               >
                 <div className="mb-8 h-px w-full bg-gradient-to-r from-[#7dd3fc]/60 via-white/15 to-transparent" />
-                <p className="text-2xl font-black leading-tight tracking-tight text-white md:text-4xl">
+                <p className={statementTextClass}>
                   <BlurredStagger text="To create a future where every finance team runs on " />
                   <BlurredStagger text="hybrid services." className="text-brand-gradient-flow" />
-                </p>
-                <p className="mt-7 text-base font-semibold leading-relaxed text-white/72 md:text-lg">
-                  People, process, and AI working together, so accounting is faster, more insightful, and always reliable.
+                  <BlurredStagger text=" People, Process, and AI working together, so accounting is faster, more insightful, and always reliable." />
                 </p>
               </motion.div>
             </div>
@@ -133,21 +185,85 @@ export default function AboutClient() {
               >
                 <div className="mb-8 h-px w-full bg-gradient-to-r from-[#a78bfa]/60 via-white/15 to-transparent" />
                 <MagicText
-                  text="Our mission is to unite the world of business with hybrid services. Regardless of size or stage, we are built to be the accounting, audit, assurance, advisory and transformation (4AT) partner that lasts."
-                  className="text-lg font-bold text-white/86 md:text-2xl"
-                />
-                <MagicText
-                  text="The one designed to outgrow the technological chaos created by outsourcing and AI, through an innovative hybrid ecosystem that integrates with ever-evolving technology and scales with every business we serve."
-                  className="text-base font-semibold text-white/64 md:text-lg"
+                  text="Our mission is to unite the world of business with hybrid services. Regardless of size or stage, we are built to be the accounting, audit, assurance, advisory and transformation (4AT) partner that lasts, the one designed to outgrow the technological chaos created by outsourcing and AI, through an innovative hybrid ecosystem that integrates with ever-evolving technology and scales with every business we serve."
+                  className={statementTextClass}
                 />
               </motion.div>
             </div>
           </div>
         </section>
 
-        <GrowthTimeline />
+        <section ref={valuesSectionRef} className="relative overflow-hidden bg-transparent site-section">
+          <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
+          <div className="pointer-events-none absolute -left-40 top-20 size-[30rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
+          <div className="pointer-events-none absolute -right-40 bottom-20 size-[30rem] rounded-full bg-[#a78bfa]/12 blur-3xl" />
 
-        <ExecutiveTeam />
+          <div className="relative z-10 mx-auto w-full max-w-[1200px]">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-4xl"
+            >
+              <span className="text-xs font-black uppercase tracking-[0.28em] text-[#2dd4bf]">
+                Our Values
+              </span>
+              <h2 className="mt-5 site-heading uppercase">
+                The standards behind{" "}
+                <span className="text-brand-gradient-flow">every engagement.</span>
+              </h2>
+            </motion.div>
+
+            <div className="mt-14 grid gap-5 md:grid-cols-2">
+              {companyValues.map((value, index) => (
+                <motion.article
+                  key={value.number}
+                  initial={false}
+                  animate={visibleValueCount > index
+                    ? { opacity: 1, x: 0 }
+                    : {
+                        opacity: 0,
+                        x: prefersReducedMotion ? 0 : index % 2 === 0 ? -64 : 64,
+                      }}
+                  transition={{
+                    duration: prefersReducedMotion ? 0.2 : 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`group relative min-h-[310px] transform-gpu overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/95 p-7 shadow-[0_24px_70px_rgba(0,0,0,0.34)] will-change-transform transition-[border-color,box-shadow] duration-300 hover:border-white/22 md:p-8 ${index === companyValues.length - 1 ? "md:col-span-2" : ""}`}
+                >
+                  <div
+                    className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full opacity-20 blur-3xl transition-opacity duration-300 group-hover:opacity-35"
+                    style={{ backgroundColor: value.accent }}
+                  />
+                  <div
+                    className="absolute left-0 top-0 h-full w-1 opacity-80"
+                    style={{ backgroundColor: value.accent }}
+                  />
+
+                  <div className="relative flex h-full flex-col">
+                    <div className="mb-8 flex items-start justify-between gap-6">
+                      <span
+                        className="font-mono text-5xl font-black leading-none md:text-6xl"
+                        style={{ color: value.accent }}
+                      >
+                        {value.number}
+                      </span>
+                      <span className="mt-4 h-px flex-1 bg-gradient-to-r from-white/25 to-transparent" />
+                    </div>
+
+                    <h3 className="text-2xl font-black uppercase leading-tight tracking-tight text-white md:text-3xl">
+                      {value.title}
+                    </h3>
+                    <p className="mt-5 text-sm font-semibold leading-relaxed text-white/66 md:text-base">
+                      {value.body}
+                    </p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section className="relative overflow-hidden bg-transparent site-section">
           <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
@@ -221,6 +337,10 @@ export default function AboutClient() {
             </div>
           </div>
         </section>
+
+        <GrowthTimeline />
+
+        <ExecutiveTeam />
 
       </main>
 

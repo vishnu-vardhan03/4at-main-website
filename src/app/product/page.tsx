@@ -23,7 +23,7 @@ import SectionWrapper from "@/components/ai-home/ui/SectionWrapper";
 import ProductCTA from "@/components/ai-home/sections/FooterSection";
 
 export const metadata: Metadata = {
-  title: "4AT AI — Finance Automation Platform",
+  title: "4AT AI | Finance Automation Platform",
   description:
     "Finance-native AI for reconciliation, compliance, and reporting. Purpose-built for your numbers.",
 };

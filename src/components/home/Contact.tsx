@@ -20,7 +20,7 @@ export function Contact() {
             <span className="text-brand-gradient-flow">AI you can&apos;t audit.</span>
           </h2>
           <p className="site-subheading mt-6 text-white/75">
-            4AT Hybrid is the third option — AI runs the speed, our senior practitioners run the judgment, you run your business. Pick the path that fits where you are.
+            4AT Hybrid is the third option. AI runs the speed, our senior practitioners run the judgment, and you run your business. Pick the path that fits where you are.
           </p>
         </div>
 

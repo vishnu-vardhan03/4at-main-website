@@ -15,7 +15,7 @@ export function CaseStudies() {
       <div className="max-w-7xl mx-auto">
         <Reveal className="flex items-end justify-between mb-16 gap-8 flex-wrap">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">— Selected Work</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">Selected Work</p>
             <h2 className="text-5xl md:text-6xl font-bold tracking-tighter">Outcomes, not slideware.</h2>
           </div>
           <a href="#" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1">View all <ArrowUpRight className="size-4" /></a>
