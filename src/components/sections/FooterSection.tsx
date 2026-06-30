@@ -78,14 +78,14 @@ export default function FooterSection() {
               <span className="dot" />Get Started
             </div>
             <h2 className="font-black leading-[0.98] tracking-[-0.03em] mb-4"
-              style={{ fontSize: "clamp(2.1rem,4vw,3.2rem)" }}>
+              style={{ fontSize: "clamp(4rem,4vw,3.2rem)" }}>
               Bring AI into{" "}
               <span className="bg-gradient-to-r from-sky-400 to-violet-400 bg-clip-text text-transparent">
                 Finance Workflows
               </span>{" "}
               that matters most
             </h2>
-            <p className="text-white mb-7" style={{ fontSize: "1.02rem", maxWidth: 540 }}>
+            <p className="text-white mb-7" style={{ fontSize: "1.5rem", maxWidth: 540 }}>
               See how 4AT helps teams automate high-friction processes, strengthen control, and turn finance operations into a faster, more scalable system.
             </p>
             <div className="flex gap-4 flex-wrap">

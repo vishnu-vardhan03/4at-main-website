@@ -79,7 +79,7 @@ export default function HowItWorksSection() {
 
           <h2
             className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}
+            style={{ fontSize: "clamp(3.5rem,10vw,3.2rem)" }}
           >
             Transforming Finance Workflows{" "}
             <span className="grad-v">
@@ -89,9 +89,10 @@ export default function HowItWorksSection() {
 
           <p
             className="text-white mx-auto"
-            style={{ maxWidth: 620 }}
+            style={{ maxWidth: 620, fontSize: "1.3rem" }}
           >
             Connect → Understand → Automate → Govern.
+            <br></br>
             Every step builds on the previous one to create a
             fully autonomous finance workflow.
           </p>
@@ -200,7 +201,7 @@ export default function HowItWorksSection() {
                 </p>
 
                 <div
-                  className="mt-5 rounded-2xl border p-4 text-left text-sm transition-all"
+                  className="mt-5 rounded-2xl border p-4 text-left text-sm transition-all "
                   style={{
                     background:
                       active === step.id

@@ -25,12 +25,12 @@ export default function GlimpseSection() {
         </div>
         <h2
           className="font-bold tracking-tight mb-4"
-          style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}
+          style={{ fontSize: "clamp(5rem,4vw,3.2rem)" }}
         >
           See 4AT <span className="grad-v">in Action</span>
         </h2>
-        <p className="text-white text-lg mx-auto mb-12" style={{ maxWidth: 600 }}>
-          Watch reconciliation, fraud detection, and reporting all running live — connected to your actual ERP stack.
+        <p className="text-white text-lg mx-auto mb-14" style={{ maxWidth: 600, fontSize: "1.4rem" }}>
+          Watch reconciliation, fraud detection, and reporting all running live connected to your actual ERP stack.
         </p>
 
         {/* Video frame */}

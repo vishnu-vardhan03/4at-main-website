@@ -321,7 +321,7 @@ export default function WhySection() {
           </div>
           <h2
             className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.4rem)", lineHeight: 1.1 }}
+            style={{ fontSize: "clamp(4rem,4vw,3.4rem)", lineHeight: 1.1 }}
           >
             Built for Finance.{" "}
             <span
@@ -332,7 +332,7 @@ export default function WhySection() {
             </span>{" "}
             for Impact.
           </h2>
-          <p className="text-white mx-auto text-lg" style={{ maxWidth: 600, lineHeight: 1.6 }}>
+          <p className="text-white mx-auto text-lg" style={{ maxWidth: 600, lineHeight: 1.9, fontSize: "1.2rem" }}>
             Our platform combines AI, automation, and human expertise to deliver accurate financial intelligence—faster.
           </p>
         </div>

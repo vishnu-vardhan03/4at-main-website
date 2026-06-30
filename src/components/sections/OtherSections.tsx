@@ -22,10 +22,10 @@ export function SecuritySection() {
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Security</div>
           <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+            style={{ fontSize: "clamp(4rem,4vw,3.2rem)" }}>
             Enterprise-Grade <span className="grad-v">Protection</span>
           </h2>
-          <p className="text-white mx-auto" style={{ maxWidth: 560 }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 560, fontSize: "1.2rem" }}>
             4AT AI is designed for environments where auditability, data protection, and access control are non-negotiable.
           </p>
         </div>
@@ -34,8 +34,8 @@ export function SecuritySection() {
             <TiltCard key={b.title} className="glass-card rounded-2xl p-7 text-center
               transition-colors duration-300 hover:border-teal-400/25">
               <div className="text-4xl mb-4">{b.icon}</div>
-              <h3 className="text-[15px] font-bold mb-2">{b.title}</h3>
-              <p className="text-sm text-white/48 leading-relaxed">{b.desc}</p>
+              <h3 className="text-[25px] font-bold mb-2">{b.title}</h3>
+              <p className="text-m text-white/48 leading-relaxed">{b.desc}</p>
             </TiltCard>
           ))}
         </div>
@@ -85,10 +85,10 @@ export function PricingSection() {
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Flexible ways to adopt 4AT AI </div>
           <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+            style={{ fontSize: "clamp(4rem,4vw,3.2rem)" }}>
             Transparent <span className="grad-v">Plans</span>
           </h2>
-          <p className="text-white/55 mx-auto">Start free. Scale as your operation grows.</p>
+          <p className="text-white mx-auto text-xl">Start free. Scale as your operation grows.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => (
@@ -169,7 +169,7 @@ export function FaqSection() {
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />FAQ</div>
           <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+            style={{ fontSize: "clamp(4rem,4vw,3.2rem)" }}>
             Common <span className="grad-v">Questions</span>
           </h2>
         </div>
@@ -185,23 +185,24 @@ export function FaqSection() {
             >
               <button
                 className="w-full flex items-center justify-between px-6 py-5 text-left
-                  font-bold text-[15px] transition-colors duration-200"
-                style={{ color: open === i ? "#c4b5fd" : "rgba(255,255,255,.85)" }}
+                  font-bold text-[25px] transition-colors duration-200"
+                style={{ color: open === i ? "#c4b5fd" : "rgba(255,255,255,.85)" , }}
                 onClick={() => setOpen(open === i ? null : i)}
               >
                 {f.q}
                 <span
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-xs
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-m
                     flex-shrink-0 ml-4 transition-all duration-300"
                   style={{
                     border: "1px solid rgba(255,255,255,.15)",
                     transform: open === i ? "rotate(180deg)" : "rotate(0)",
                     background: open === i ? "rgba(167,139,250,.15)" : "transparent",
+                    
                   }}
                 >▲</span>
               </button>
               {open === i && (
-                <div className="px-6 pb-5 text-sm text-white leading-relaxed">
+                <div className="px-6 pb-5 text-m text-white leading-relaxed">
                   {f.a}
                 </div>
               )}

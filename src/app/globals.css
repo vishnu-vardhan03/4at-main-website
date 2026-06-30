@@ -145,8 +145,20 @@ body {
 /* ── Section base ────────────────────────────────────── */
 .section {
   position: relative;
-  padding: 30px 20px;  
+  padding: 60px 20px;
   overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 48px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 40px 16px;
+  }
 }
 .section-inner {
   width: min(1200px, 92%);
@@ -209,13 +221,6 @@ html.lenis { height: auto; }
   overflow: hidden;
 }
 
-/* ── Academy card image ──────────────────────────────── */
-.academy-thumb {
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-  width: 100%;
-}
 
 /* ── Reduced motion ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

@@ -52,10 +52,10 @@ export default function HybridSection() {
         <div className="text-center mb-14">
           <div className="eyebrow mb-6 justify-center"><span className="dot" />Support Ecosystem</div>
           <h2 className="font-bold tracking-tight mb-4"
-            style={{ fontSize: "clamp(2rem,4vw,3.2rem)" }}>
+            style={{ fontSize: "clamp(4rem,4vw,3.2rem)" }}>
             AI Speed. <span className="grad-v">Human Judgment.</span>
           </h2>
-          <p className="text-white mx-auto" style={{ maxWidth: 640 }}>
+          <p className="text-white mx-auto" style={{ maxWidth: 640, fontSize: "1.2rem" }}>
            4AT combines automation with finance-specialized human support, so teams move faster without losing control, context, or judgment.  
           </p>
         </div>
@@ -76,8 +76,8 @@ export default function HybridSection() {
                 🤖
               </div>
               <div>
-                <h3 className="text-[17px] font-bold">AI Support Layer</h3>
-                <p className="text-xs text-white/42 mt-0.5">Always on · Instant resolution</p>
+                <h3 className="text-[30px] font-bold">AI Support Layer</h3>
+                <p className="text-m text-white/42 mt-0.5">Always on · Instant resolution</p>
               </div>
             </div>
 
@@ -99,7 +99,7 @@ export default function HybridSection() {
             </div>
 
             <div className="px-7 py-6">
-              <div className="text-[11px] uppercase tracking-widest text-white mb-3">
+              <div className="text-[15px] uppercase tracking-widest text-white mb-3">
                 What AI handles instantly
               </div>
               {aiItems.map((item) => (
@@ -107,7 +107,7 @@ export default function HybridSection() {
                   style={{ borderBottom: "1px solid rgba(255,255,255,.04)" }}>
                   <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
                     style={{ background: "#a78bfa", boxShadow: "0 0 6px rgba(167,139,250,.5)" }} />
-                  <p className="text-[13.5px] text-white/62 leading-snug">{item}</p>
+                  <p className="text-[18px] text-white/62 leading-snug">{item}</p>
                 </div>
               ))}
             </div>
@@ -135,8 +135,8 @@ export default function HybridSection() {
                 👥
               </div>
               <div>
-                <h3 className="text-[17px] font-bold">Human Expert Layer</h3>
-                <p className="text-xs text-white/42 mt-0.5">Finance + AI specialists · Your team&apos;s extension</p>
+                <h3 className="text-[30px] font-bold">Human Expert Layer</h3>
+                <p className="text-m text-white/42 mt-0.5">Finance + AI specialists · Your team&apos;s extension</p>
               </div>
             </div>
 
@@ -158,7 +158,7 @@ export default function HybridSection() {
             </div>
 
             <div className="px-7 py-6">
-              <div className="text-[11px] uppercase tracking-widest text-white mb-3">
+              <div className="text-[15px] uppercase tracking-widest text-white mb-3">
                 Where humans take the lead
               </div>
               {humanItems.map((item) => (
@@ -166,7 +166,7 @@ export default function HybridSection() {
                   style={{ borderBottom: "1px solid rgba(255,255,255,.04)" }}>
                   <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
                     style={{ background: "#2dd4bf", boxShadow: "0 0 6px rgba(45,212,191,.4)" }} />
-                  <p className="text-[13.5px] text-white/62 leading-snug">{item}</p>
+                  <p className="text-[17px] text-white/62 leading-snug">{item}</p>
                 </div>
               ))}
             </div>
@@ -183,8 +183,8 @@ export default function HybridSection() {
         >
           <div className="absolute top-0 left-0 right-0 h-[2px]"
             style={{ background: "linear-gradient(90deg,#a78bfa,#c084fc,#7dd3fc,#2dd4bf)" }} />
-          <h3 className="text-2xl font-bold mb-3">One Unified Experience — Zero Friction</h3>
-          <p className="text-white text-[15px] mx-auto mb-7" style={{ maxWidth: 680 }}>
+          <h3 className="text-4xl font-bold mb-3">One Unified Experience — Zero Friction</h3>
+          <p className="text-white text-[17px] mx-auto mb-7" style={{ maxWidth: 680 }}>
             You never decide who to ask. 4AT routes every issue intelligently: AI resolves it instantly when it can, hands off to a specialist when it should. A single thread, full history, one resolution.
           </p>
           <div className="flex items-center justify-center gap-3 flex-wrap">
