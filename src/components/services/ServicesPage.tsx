@@ -11,15 +11,44 @@ import { Engagement } from "./Engagement";
 import { Testimonials } from "./Testimonials";
 import { ContactCTA } from "./ContactCTA";
 
+import { useEffect, useState } from "react";
+
 export function ServicesPage() {
+  const [stars, setStars] = useState<{ left: string; top: string; size: number; opacity: number }[]>([]);
+  useEffect(() => {
+    setStars(
+      Array.from({ length: 150 }).map(() => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: Math.random() > 0.85 ? 2 : 1,
+        opacity: 0.1 + Math.random() * 0.5,
+      }))
+    );
+  }, []);
+
   return (
     <main id="top" className="services-page dark bg-background text-foreground antialiased min-h-screen relative">
       {/* Fixed Ambient Background Tint (stuck behind scrolling content) */}
       <div className="fixed inset-0 bg-gradient-to-br from-[#011116] via-[#01030e] to-[#010e17] pointer-events-none z-0" />
       
-      {/* Soft fixed ambient glows that stay in place */}
-      <div className="fixed left-0 top-[15%] -translate-x-[25%] w-[600px] h-[600px] rounded-full bg-sky-500/12 blur-[100px] pointer-events-none z-0" />
-      <div className="fixed right-0 top-[25%] translate-x-[25%] w-[700px] h-[700px] rounded-full bg-sky-600/8 blur-[120px] pointer-events-none z-0" />
+
+
+      {/* Global Starfield Background Layer (Fixed parallax dots spanning the whole page) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {stars.map((star, idx) => (
+          <div
+            key={idx}
+            className="absolute bg-white rounded-full"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              opacity: star.opacity,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Content wrapper */}
       <div className="relative z-10">

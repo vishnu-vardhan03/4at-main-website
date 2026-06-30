@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { TiltCard } from "./3d-card";
 
 export function HybridReminder() {
   return (
@@ -6,9 +7,7 @@ export function HybridReminder() {
       id="hybrid-reminder"
       className="relative w-full bg-transparent text-white py-24 lg:py-32 overflow-hidden border-t border-b border-white/5"
     >
-      {/* Background glow effects */}
-      <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-sky-500/5 blur-[120px] pointer-events-none" />
-      <div className="absolute right-1/4 top-1/3 w-[300px] h-[300px] rounded-full bg-sky-500/5 blur-[100px] pointer-events-none" />
+
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
         {/* Header Block */}
@@ -31,7 +30,7 @@ export function HybridReminder() {
             className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]"
           >
             Pick any service.
-            <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+            <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
               We deliver it the same way.
             </span>
           </motion.h2>
@@ -40,86 +39,98 @@ export function HybridReminder() {
         {/* Two-Column Reminder Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Column 1: AI (Science) */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="group relative rounded-[2rem] overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 lg:p-10 transition-all duration-500 ease-out hover:bg-white/[0.08] hover:backdrop-blur-xl hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.15)]"
-          >
-            {/* Top Cyan Accent bar */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-sky-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
+          <TiltCard className="h-full">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative h-full rounded-[2rem] overflow-hidden border border-white/15 bg-[#0b1020]/85 p-8 lg:p-10"
+              style={{ boxShadow: "inset 0 1px 0 rgba(34, 211, 238, 0.13)" }}
+            >
+              {/* Glow Accent Blob */}
+              <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full blur-3xl bg-sky-500/20 pointer-events-none" />
 
-            <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-sky-400 uppercase block mb-3">
-              AUTOMATION LAYER
-            </span>
-            
-            <h3 className="text-2xl lg:text-3xl font-black tracking-tight text-white mb-6">
-              AI handles the science
-            </h3>
+              {/* Top Cyan Accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-sky-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
 
-            <div className="divide-y divide-white/5 border-t border-b border-white/5 mb-8">
-              {[
-                "Document intake and extraction",
-                "Workflow routing and task triggers",
-                "Reconciliation at 99.7% match accuracy",
-                "First-pass reports and journal entries",
-                "Anomaly and exception flagging"
-              ].map((item, idx) => (
-                <div key={idx} className="flex gap-4 py-4 text-sm font-light text-zinc-300 items-start">
-                  <span className="text-sky-400 font-mono font-bold text-xs select-none">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+              <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-sky-400 uppercase block mb-3">
+                AUTOMATION LAYER
+              </span>
+              
+              <h3 className="text-2xl lg:text-3xl font-black tracking-tight text-white mb-6">
+                AI handles the science
+              </h3>
 
-            <div className="text-xs font-semibold uppercase tracking-wider text-sky-400">
-              Powered by Iris, Atlas, Guardian, Connector
-            </div>
-          </motion.div>
+              <div className="divide-y divide-white/5 border-t border-b border-white/5 mb-8">
+                {[
+                  "Document intake and extraction",
+                  "Workflow routing and task triggers",
+                  "Reconciliation at 99.7% match accuracy",
+                  "First-pass reports and journal entries",
+                  "Anomaly and exception flagging"
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 py-4 text-sm font-light text-zinc-300 items-start">
+                    <span className="text-sky-400 font-mono font-bold text-xs select-none">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-xs font-semibold uppercase tracking-wider text-sky-400">
+                Powered by Iris, Atlas, Guardian, Connector
+              </div>
+            </motion.div>
+          </TiltCard>
 
           {/* Column 2: Humans (Art) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="group relative rounded-[2rem] overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 lg:p-10 transition-all duration-500 ease-out hover:bg-white/[0.08] hover:backdrop-blur-xl hover:border-purple-500/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]"
-          >
-            {/* Top Purple Accent bar */}
-            <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-purple-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
+          <TiltCard className="h-full">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative h-full rounded-[2rem] overflow-hidden border border-white/15 bg-[#0b1020]/85 p-8 lg:p-10"
+              style={{ boxShadow: "inset 0 1px 0 rgba(167, 139, 250, 0.13)" }}
+            >
+              {/* Glow Accent Blob */}
+              <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full blur-3xl bg-purple-500/20 pointer-events-none" />
 
-            <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-purple-400 uppercase block mb-3">
-              EXPERT LAYER
-            </span>
+              {/* Top Purple Accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-purple-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
 
-            <h3 className="text-2xl lg:text-3xl font-black tracking-tight text-white mb-6">
-              Senior practitioners handle the art
-            </h3>
+              <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-purple-400 uppercase block mb-3">
+                EXPERT LAYER
+              </span>
 
-            <div className="divide-y divide-white/5 border-t border-b border-white/5 mb-8">
-              {[
-                "Technical accounting judgment",
-                "Review, sign-off, and final accountability",
-                "Complex transactions and exceptions",
-                "Controls remediation and audit defense",
-                "Client communication and decisions"
-              ].map((item, idx) => (
-                <div key={idx} className="flex gap-4 py-4 text-sm font-light text-zinc-300 items-start">
-                  <span className="text-purple-400 font-mono font-bold text-xs select-none">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
+              <h3 className="text-2xl lg:text-3xl font-black tracking-tight text-white mb-6">
+                Senior practitioners handle the art
+              </h3>
 
-            <div className="text-xs font-semibold uppercase tracking-wider text-purple-400">
-              Led by senior CPAs, controllers, and tax leads
-            </div>
-          </motion.div>
+              <div className="divide-y divide-white/5 border-t border-b border-white/5 mb-8">
+                {[
+                  "Technical accounting judgment",
+                  "Review, sign-off, and final accountability",
+                  "Complex transactions and exceptions",
+                  "Controls remediation and audit defense",
+                  "Client communication and decisions"
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 py-4 text-sm font-light text-zinc-300 items-start">
+                    <span className="text-purple-400 font-mono font-bold text-xs select-none">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-xs font-semibold uppercase tracking-wider text-purple-400">
+                Led by senior CPAs, controllers, and tax leads
+              </div>
+            </motion.div>
+          </TiltCard>
         </div>
 
         {/* Footer & CTA Block */}

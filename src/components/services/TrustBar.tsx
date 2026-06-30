@@ -41,7 +41,7 @@ export function TrustBar() {
   ];
 
   return (
-    <div className="relative w-full bg-transparent border-t border-b border-white/5 py-6 overflow-hidden select-none">
+    <div className="relative w-full bg-[#0b1020]/85 border-t border-b border-white/15 py-6 overflow-hidden select-none">
       <div className="mx-auto max-w-7xl px-6 flex flex-wrap items-center justify-center gap-y-6 gap-x-8 lg:gap-x-12">
         {items.map((item, index) => (
           <div key={item.label} className="flex items-center">

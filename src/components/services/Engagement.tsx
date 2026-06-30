@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const steps = [
   {
@@ -28,90 +29,96 @@ const steps = [
 ];
 
 export function Engagement() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const scrollable = el.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+
+      const progress = Math.min(Math.max(scrolled / scrollable, 0), 1);
+      const count = Math.ceil(progress * steps.length);
+      setVisibleCount(count);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section id="engagement" className="relative bg-transparent py-24 lg:py-32 overflow-hidden border-t border-b border-white/5">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid md:grid-cols-12 gap-8 mb-20">
-          <div className="md:col-span-7">
-            <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
-              How an engagement works
-            </div>
-            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
-              Four steps.
-              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-                No SOW. No procurement cycle.
-              </span>
-            </h2>
-          </div>
-          <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white/60 leading-relaxed">
-            Every service above runs on the same engagement model, whether you're subscribing to bookkeeping or hiring a Virtual CFO.
-          </p>
-        </div>
-
-        <div className="relative mt-20">
-          <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Single continuous connecting line */}
-            <div className="hidden lg:block pointer-events-none absolute left-[44px] right-[calc(25%-68px)] top-[44px] h-[2px] bg-white/10 overflow-hidden z-0">
-              <motion.div
-                initial={{ left: "-30%" }}
-                animate={{ left: "130%" }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute top-0 bottom-0 w-[30%] bg-gradient-to-r from-transparent via-sky-400 to-transparent"
-              />
-            </div>
-
-            {steps.map((s, i) => (
-              <motion.div
-                key={s.title}
-                initial="initial"
-                whileInView="animate"
-                whileHover="hover"
-                viewport={{ once: true, margin: "-80px" }}
-                variants={{
-                  initial: { opacity: 0, y: 28 },
-                  animate: { 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      duration: 0.7,
-                      delay: i * 0.1,
-                      ease: [0.16, 1, 0.3, 1]
-                    }
-                  }
-                }}
-                className="group relative"
-              >
-                <motion.div
-                  variants={{
-                    initial: { y: 0 },
-                    animate: { y: 0 },
-                    hover: { y: -6 }
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 12 }}
-                  className="relative z-10 flex items-center justify-center h-[88px] w-[88px] rounded-full bg-[#01030e] border border-white/15 shadow-[0_4px_20px_rgba(0,0,0,0.4)] text-sky-400 text-sm font-mono tracking-widest transition-colors duration-300 group-hover:border-sky-400 group-hover:bg-[#041d2d] group-hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] cursor-default select-none"
-                >
-                  <span>{s.n}</span>
-                </motion.div>
-                
-                <h3 className="mt-8 text-2xl font-bold text-white tracking-tight group-hover:text-sky-400 transition-colors duration-300">
-                  {s.title}
-                </h3>
-                <span className="block text-xs font-bold text-sky-400/80 mt-1.5 uppercase tracking-widest select-none">
-                  {s.timeline}
+    <div ref={containerRef} style={{ height: "240vh" }} className="relative">
+      <section id="engagement" className="sticky top-0 h-screen flex flex-col justify-start pt-28 lg:pt-36 bg-transparent overflow-hidden border-t border-b border-white/5">
+        <div className="mx-auto max-w-7xl px-6 w-full">
+          <div className="grid md:grid-cols-12 gap-8 mb-12">
+            <div className="md:col-span-7">
+              <div className="text-sm md:text-base uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
+                How an engagement works
+              </div>
+              <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
+                Four steps.
+                <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+                  No procurement cycle.
                 </span>
-                
-                <p className="mt-4 text-zinc-400 leading-relaxed text-sm lg:text-base font-normal">
-                  {s.desc}
-                </p>
-              </motion.div>
-            ))}
+              </h2>
+            </div>
+            <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white/60 leading-relaxed">
+              Every service above runs on the same engagement model, whether you're subscribing to bookkeeping or hiring a Virtual CFO.
+            </p>
+          </div>
+
+          <div className="relative mt-12">
+            <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className={`hidden lg:block pointer-events-none absolute left-[44px] right-[calc(25%-44px)] top-[44px] h-[2px] z-0 transition-opacity duration-500 ${visibleCount > 0 ? 'opacity-100' : 'opacity-0'}`}>
+                <div 
+                  className="absolute left-0 top-0 bottom-0 bg-sky-400 transition-all duration-500 ease-out" 
+                  style={{ width: `${visibleCount <= 1 ? 0 : ((visibleCount - 1) / (steps.length - 1)) * 100}%` }}
+                />
+              </div>
+
+              {steps.map((s, index) => {
+                const isVisible = index < visibleCount;
+                return (
+                  <div
+                    key={s.title}
+                    className={`transition-all duration-700 ease-out ${
+                      isVisible 
+                        ? "opacity-100 translate-y-0 scale-100" 
+                        : "opacity-0 translate-y-6 scale-95 pointer-events-none"
+                    }`}
+                  >
+                    <div
+                      className={`relative z-10 flex items-center justify-center h-[88px] w-[88px] rounded-full bg-[#01030e] border shadow-[0_4px_20px_rgba(0,0,0,0.4)] text-sm font-mono tracking-widest transition-all duration-500 cursor-default select-none ${
+                        isVisible 
+                          ? "border-sky-400 text-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.15)]" 
+                          : "border-white/15 text-zinc-600"
+                      }`}
+                    >
+                      <span>{s.n}</span>
+                    </div>
+                    
+                    <h3 className={`mt-8 text-2xl font-bold tracking-tight transition-colors duration-300 ${isVisible ? 'text-white' : 'text-zinc-600'}`}>
+                      {s.title}
+                    </h3>
+                    <span className={`block text-xs font-bold mt-1.5 uppercase tracking-widest select-none transition-colors duration-300 ${isVisible ? 'text-sky-400/80' : 'text-zinc-700'}`}>
+                      {s.timeline}
+                    </span>
+                    
+                    <p className={`mt-4 leading-relaxed text-sm lg:text-base font-normal transition-colors duration-300 ${isVisible ? 'text-zinc-400' : 'text-zinc-700'}`}>
+                      {s.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

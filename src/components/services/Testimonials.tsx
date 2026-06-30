@@ -58,7 +58,7 @@ export function Testimonials() {
           </div>
           <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
             In their own words.
-            <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
+            <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
               What our clients say about us.
             </span>
           </h2>
@@ -71,8 +71,14 @@ export function Testimonials() {
           {[...items, ...items].map((t, idx) => (
             <div
               key={idx}
-              className="w-[350px] md:w-[420px] shrink-0 rounded-2xl p-6 md:p-8 border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:bg-white/[0.08] hover:border-sky-500/50 hover:shadow-[0_0_30px_rgba(14,165,233,0.12)] transition-all duration-500 ease-out flex flex-col justify-between"
+              className="group relative w-[350px] md:w-[420px] shrink-0 rounded-2xl p-6 md:p-8 border border-white/15 bg-[#0b1020]/85 overflow-hidden flex flex-col justify-between"
+              style={{ boxShadow: "inset 0 1px 0 rgba(34, 211, 238, 0.08)" }}
             >
+              {/* Glow Accent Blob */}
+              <div className="absolute -right-12 -top-12 w-24 h-24 rounded-full blur-3xl bg-sky-500/10 pointer-events-none" />
+
+              {/* Subtle top indicator line */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-sky-500/30 opacity-40 group-hover:opacity-100 transition-opacity" />
               <blockquote className="text-white/80 text-sm md:text-base leading-relaxed font-light mb-8">
                 "{t.quote}"
               </blockquote>

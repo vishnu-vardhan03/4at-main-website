@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import logoMark from "@/assets/services/4at-mark.png";
-import { LogoIsometricBlocks } from "./LogoIsometricBlocks";
+import { InteractiveSphere } from "./InteractiveSphere";
 
 const slides = [
   {
@@ -125,8 +125,34 @@ export function Hero() {
       ref={ref}
       className="dark relative min-h-screen w-full overflow-hidden bg-transparent text-white flex flex-col justify-between"
     >
-      {/* 4AT Isometric Blocks Background */}
-      <LogoIsometricBlocks activeIndex={index} onClick={handleNextSlide} />
+      {/* Background Decorators & Perspective Grid (matching product page aesthetics) */}
+      <div className="absolute inset-0 z-[-10] pointer-events-none overflow-hidden bg-transparent">
+
+
+        {/* 3D Perspective Grid */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[250px] opacity-25"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(167, 139, 250, 0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(167, 139, 250, 0.15) 1px, transparent 1px)
+            `,
+            backgroundSize: "80px 80px",
+            transform: "perspective(800px) rotateX(75deg)",
+            transformOrigin: "bottom",
+          }}
+        />
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(circle at center, transparent 0%, rgba(4, 6, 15, 0.2) 50%, rgba(4, 6, 15, 0.8) 100%)",
+          }}
+        />
+      </div>
+
+
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
@@ -138,7 +164,7 @@ export function Hero() {
         {/* Main Hero Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-auto mb-16 w-full">
           {/* Left Text & CTA Column - Sized to lg:col-span-7 for optimal home page hero alignment */}
-          <div className="lg:col-span-7 flex flex-col items-start w-full">
+          <div className="lg:col-span-7 flex flex-col items-start w-full relative z-10">
             {/* Logo Badge */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -166,7 +192,7 @@ export function Hero() {
               <span className="block text-white opacity-95">
                 Eleven services.
               </span>
-              <span className="block py-1 bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_4px_20px_rgba(99,102,241,0.25)] animate-gradient-x">
+              <span className="block py-2.5 px-1 bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_4px_20px_rgba(99,102,241,0.25)] animate-gradient-x">
                 One subscription.
               </span>
               <span className="block text-zinc-700 text-[clamp(1.1rem,2.5vw,2.2rem)] font-black tracking-tight mt-2">
@@ -208,18 +234,23 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-8 inline-flex flex-wrap items-center gap-y-2 rounded-lg border border-white/10 bg-white/[0.02] p-1.5 text-[13px] font-medium tracking-wide text-zinc-400"
+              className="mt-8 inline-flex flex-wrap items-center gap-y-2 rounded-lg border border-white/15 bg-[#0b1020]/85 p-1.5 text-[13px] font-medium tracking-wide text-zinc-400"
             >
-              <span className="px-4 py-2 border-r border-white/10 last:border-r-0">
+              <span className="px-4 py-2 border-r border-white/15 last:border-r-0">
                 99.7% reconciliation accuracy
               </span>
-              <span className="px-4 py-2 border-r border-white/10 last:border-r-0">
+              <span className="px-4 py-2 border-r border-white/15 last:border-r-0">
                 Senior CPAs on every engagement
               </span>
               <span className="px-4 py-2 last:border-r-0">
                 Live across 10+ countries
               </span>
             </motion.div>
+          </div>
+
+          {/* Right Holographic Interactive Sphere Column */}
+          <div className="lg:col-span-5 flex items-center justify-center w-full relative z-10">
+            <InteractiveSphere categoryIndex={index} onClick={handleNextSlide} />
           </div>
         </div>
 
