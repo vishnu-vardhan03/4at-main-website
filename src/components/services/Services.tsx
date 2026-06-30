@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, AlertCircle, ArrowRight, X } from "lucide-react";
+import { TiltCard } from "./3d-card";
 
 interface ServiceItem {
   n: string;
@@ -745,22 +746,22 @@ export function Services() {
   }, [selectedService]);
 
   return (
-    <section id="services" className="relative bg-transparent site-section">
+    <section id="services" className="relative bg-transparent py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="grid lg:grid-cols-12 gap-8 mb-24 items-end">
           <div className="lg:col-span-7">
-            <div className="section-badge mb-6">
+            <div className="text-sm uppercase tracking-[0.25em] font-semibold text-sky-400 mb-6">
               Services
             </div>
-            <h2 className="site-heading text-white overflow-visible">
+            <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
               Eleven services.
-              <span className="block mt-2 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x overflow-visible">
+              <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
                 Grouped by what's keeping you up at night.
               </span>
             </h2>
           </div>
-          <p className="site-subheading lg:col-span-4 lg:col-start-9 self-end text-zinc-400 font-light">
+          <p className="lg:col-span-4 lg:col-start-9 self-end text-lg text-zinc-400 leading-relaxed font-light">
             Most buyers don't shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here's the shortcut.
           </p>
         </div>
@@ -783,12 +784,12 @@ export function Services() {
                 </h3>
                 
                 <div className="space-y-4 w-full">
-                  <div className="text-sm text-zinc-400">
-                    <span className="text-zinc-500 uppercase tracking-wider text-xs block mb-1">Target</span>
+                  <div className="text-sm text-white">
+                    <span className="text-zinc-400 uppercase tracking-wider text-xs block mb-1">Target</span>
                     <p className="font-light">{group.forText}</p>
                   </div>
                   
-                  <div className="rounded-xl border border-white/5 bg-white/[0.01] p-4 border-l-2 border-l-sky-500/50">
+                  <div className="rounded-xl border border-white/15 bg-[#0b1020]/85 p-4 border-l-2 border-l-sky-500/50">
                     <span className="text-sky-400 uppercase tracking-wider text-[10px] font-bold block mb-1">Trigger Scenario</span>
                     <p className="text-zinc-300 italic text-sm font-light">
                       &ldquo;{group.triggerText}&rdquo;
@@ -800,76 +801,81 @@ export function Services() {
               {/* Right Column: Services Grid */}
               <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {group.services.map((service, sIdx) => (
-                  <motion.div
-                    key={service.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: sIdx * 0.1 }}
-                    className="group relative rounded-[2rem] overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-sm p-8 flex flex-col justify-between hover:border-sky-500/50 hover:bg-white/[0.08] hover:backdrop-blur-xl hover:shadow-[0_0_30px_rgba(14,165,233,0.15)] transition-all duration-500 ease-out"
-                  >
-                    {/* Hover subtle glow overlay */}
-                    <span className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 [background:radial-gradient(60%_60%_at_50%_0%,rgba(14,165,233,0.08),transparent_70%)]" />
+                  <div key={service.title} className="h-full">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.6, delay: sIdx * 0.1 }}
+                      className="group relative h-full rounded-[2rem] overflow-hidden border border-white/15 bg-[#0b1020]/85 p-8 flex flex-col justify-between"
+                      style={{ boxShadow: "inset 0 1px 0 rgba(34, 211, 238, 0.13)" }}
+                    >
+                      {/* Glow Accent Blob */}
+                      <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full blur-3xl bg-sky-500/15 pointer-events-none" />
 
-                    <div>
-                      {/* Service Number & Title */}
-                      <div className="flex items-start justify-between gap-4 mb-6">
-                        <span className="text-xs font-mono font-bold text-sky-400 select-none">
-                          {service.n}
-                        </span>
-                        <h4 className="text-xl font-bold tracking-tight text-white group-hover:text-sky-400 transition-colors text-right flex-1">
-                          {service.title}
-                        </h4>
-                      </div>
+                      {/* Top indicator bar */}
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-sky-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
 
-                      {/* Description */}
-                      <p className="text-zinc-400 text-sm font-light leading-relaxed mb-6">
-                        {service.desc}
-                      </p>
-
-                      {/* Structured Details */}
-                      <div className="space-y-4 pt-4 border-t border-white/5">
-                        {/* What's Standard */}
-                        <div>
-                          <span className="text-[10px] uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 mb-1.5">
-                            <Check className="h-3 w-3 text-sky-400" />
-                            What's Standard
+                      <div>
+                        {/* Service Number & Title */}
+                        <div className="flex items-start justify-between gap-4 mb-6">
+                          <span className="text-xs font-mono font-bold text-sky-400 select-none">
+                            {service.n}
                           </span>
-                          <p className="text-xs text-zinc-300 font-light leading-relaxed">
-                            {service.standard}
-                          </p>
+                          <h4 className="text-xl font-bold tracking-tight text-white group-hover:text-sky-400 transition-colors text-right flex-1">
+                            {service.title}
+                          </h4>
                         </div>
 
-                        {/* Trigger to Add */}
-                        <div>
-                          <span className="text-[10px] uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 mb-1.5">
-                            <AlertCircle className="h-3 w-3 text-purple-400" />
-                            Trigger to Add
-                          </span>
-                          <p className="text-xs text-zinc-300 font-light leading-relaxed">
-                            {service.trigger}
-                          </p>
+                        {/* Description */}
+                        <p className="text-white text-sm font-light leading-relaxed mb-6">
+                          {service.desc}
+                        </p>
+
+                        {/* Structured Details */}
+                        <div className="space-y-4 pt-4 border-t border-white/5">
+                          {/* What's Standard */}
+                          <div>
+                            <span className="text-[10px] uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 mb-1.5">
+                              <Check className="h-3 w-3 text-sky-400" />
+                              What's Standard
+                            </span>
+                            <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                              {service.standard}
+                            </p>
+                          </div>
+
+                          {/* Trigger to Add */}
+                          <div>
+                            <span className="text-[10px] uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 mb-1.5">
+                              <AlertCircle className="h-3 w-3 text-purple-400" />
+                              Trigger to Add
+                            </span>
+                            <p className="text-xs text-zinc-300 font-light leading-relaxed">
+                              {service.trigger}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* CTA Buttons */}
-                    <div className="mt-8 pt-4 flex flex-col gap-2.5 pointer-events-auto w-full">
-                      <button
-                        onClick={() => setSelectedService(service)}
-                        className="w-full inline-flex items-center gap-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 px-4 py-2.5 text-[11px] font-semibold text-sky-400 hover:bg-sky-400 hover:text-black hover:border-sky-400 transition-all duration-300 justify-center cursor-pointer select-none"
-                      >
-                        Learn More
-                      </button>
-                      <a
-                        href="#contact"
-                        className="w-full inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-4 py-2.5 text-[11px] font-semibold text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 justify-center select-none"
-                      >
-                        {service.cta.replace(/[\[\]]/g, '').replace(/→/g, '').trim()}
-                        <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
-                      </a>
-                    </div>
-                  </motion.div>
+                      {/* CTA Buttons */}
+                      <div className="mt-8 pt-4 flex flex-col gap-2.5 pointer-events-auto w-full">
+                        <button
+                          onClick={() => setSelectedService(service)}
+                          className="w-full inline-flex items-center gap-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 px-4 py-2.5 text-[11px] font-semibold text-sky-400 hover:bg-sky-400 hover:text-black hover:border-sky-400 transition-all duration-300 justify-center cursor-pointer select-none"
+                        >
+                          Learn More
+                        </button>
+                        <a
+                          href="#contact"
+                          className="w-full inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-4 py-2.5 text-[11px] font-semibold text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 justify-center select-none"
+                        >
+                          {service.cta.replace(/[\[\]]/g, '').replace(/→/g, '').trim()}
+                          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                        </a>
+                      </div>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
