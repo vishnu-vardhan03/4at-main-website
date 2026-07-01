@@ -115,12 +115,29 @@ export default function AboutClient() {
     );
   });
 
+  const principlesSectionRef = useRef<HTMLElement>(null);
+  const [visiblePrincipleCount, setVisiblePrincipleCount] = useState(0);
+  const { scrollYProgress: principlesScrollProgress } = useScroll({
+    target: principlesSectionRef,
+    offset: ["start 62%", "end 48%"],
+  });
+
+  useMotionValueEvent(principlesScrollProgress, "change", (progress) => {
+    const nextCount = prefersReducedMotion
+      ? leadershipPrinciples.length
+      : Math.ceil(progress * leadershipPrinciples.length);
+
+    setVisiblePrincipleCount((currentCount) =>
+      currentCount === nextCount ? currentCount : nextCount
+    );
+  });
+
   return (
     <div className="about-page constant-site-background min-h-screen overflow-x-hidden text-white">
       <Nav />
 
       <main>
-        <section className="relative overflow-hidden bg-transparent site-section pt-32 md:pt-36">
+        <section id="vision" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section pt-32 md:pt-36">
           <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:88px_88px]" />
           <div className="absolute -left-32 top-10 size-[26rem] rounded-full bg-[#38bdf8]/12 blur-3xl" />
 
@@ -131,20 +148,18 @@ export default function AboutClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-4xl"
               >
-                <span className="text-xs font-black uppercase tracking-[0.28em] text-[#7dd3fc]">
-                  Vision
+                <span className="section-badge uppercase tracking-[0.18em]">
+                  The Future We&apos;re Building
                 </span>
-                <h2 className="mt-5 site-heading uppercase xl:whitespace-nowrap">
-                  The future we are <span className="text-brand-gradient-flow">building toward.</span>
-                </h2>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.8, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="relative mt-12 w-full"
+                className="relative mt-8 w-full"
               >
                 <div className="mb-8 h-px w-full bg-gradient-to-r from-[#7dd3fc]/60 via-white/15 to-transparent" />
                 <p className={statementTextClass}>
@@ -157,7 +172,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-transparent site-section">
+        <section id="mission" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
           <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.07)_1px,transparent_1px)] bg-[size:88px_88px]" />
           <div className="absolute -right-32 bottom-10 size-[28rem] rounded-full bg-[#a78bfa]/14 blur-3xl" />
 
@@ -168,20 +183,18 @@ export default function AboutClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-4xl"
               >
-                <span className="text-xs font-black uppercase tracking-[0.28em] text-[#a78bfa]">
-                  Mission
+                <span className="section-badge uppercase tracking-[0.18em] !text-[#a78bfa]">
+                  What We Do Every Day
                 </span>
-                <h2 className="mt-5 site-heading uppercase">
-                  The role we are <span className="text-brand-gradient-flow">built to own.</span>
-                </h2>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                className="relative mt-12 w-full"
+                className="relative mt-8 w-full"
               >
                 <div className="mb-8 h-px w-full bg-gradient-to-r from-[#a78bfa]/60 via-white/15 to-transparent" />
                 <MagicText
@@ -193,7 +206,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section ref={valuesSectionRef} className="relative overflow-hidden bg-transparent site-section">
+        <section id="our-values" ref={valuesSectionRef} className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
           <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
           <div className="pointer-events-none absolute -left-40 top-20 size-[30rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
           <div className="pointer-events-none absolute -right-40 bottom-20 size-[30rem] rounded-full bg-[#a78bfa]/12 blur-3xl" />
@@ -206,7 +219,7 @@ export default function AboutClient() {
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
               className="max-w-4xl"
             >
-              <span className="text-xs font-black uppercase tracking-[0.28em] text-[#2dd4bf]">
+              <span className="section-badge uppercase tracking-[0.18em] !text-[#2dd4bf]">
                 Our Values
               </span>
               <h2 className="mt-5 site-heading uppercase">
@@ -265,7 +278,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-transparent site-section">
+        <section id="leadership-principles" ref={principlesSectionRef} className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
           <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
           <div className="pointer-events-none absolute -left-40 top-20 size-[30rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
           <div className="pointer-events-none absolute -right-40 bottom-20 size-[30rem] rounded-full bg-[#a78bfa]/12 blur-3xl" />
@@ -278,7 +291,7 @@ export default function AboutClient() {
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
               className="max-w-4xl"
             >
-              <span className="text-xs font-black uppercase tracking-[0.28em] text-[#7dd3fc]">
+              <span className="section-badge uppercase tracking-[0.18em]">
                 Leadership Principles
               </span>
               <h2 className="mt-5 site-heading uppercase">
@@ -291,46 +304,51 @@ export default function AboutClient() {
               </p>
             </motion.div>
 
-            <div className="mt-14 grid gap-5 md:grid-cols-2">
+            <div className="mt-14 flex flex-col gap-6">
               {leadershipPrinciples.map((principle, index) => (
                 <motion.article
                   key={principle.number}
-                  initial={{ opacity: 0, y: 34 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
+                  initial={false}
+                  animate={visiblePrincipleCount > index
+                    ? { opacity: 1, x: 0 }
+                    : {
+                        opacity: 0,
+                        x: prefersReducedMotion ? 0 : index % 2 === 0 ? -72 : 72,
+                      }}
                   transition={{
-                    duration: 0.7,
-                    delay: Math.min(index * 0.05, 0.25),
+                    duration: prefersReducedMotion ? 0.2 : 0.6,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group relative min-h-[300px] overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/88 p-7 shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/22 md:p-8"
+                  className={`group relative w-full transform-gpu overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[.075] to-white/[.025] shadow-[0_22px_60px_rgba(0,0,0,.26)] will-change-transform transition-[border-color,box-shadow] duration-300 hover:border-white/20 md:w-[92%] ${index % 2 === 0 ? "mr-auto" : "ml-auto"}`}
                 >
                   <div
-                    className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full opacity-20 blur-3xl transition-opacity duration-300 group-hover:opacity-35"
+                    className="pointer-events-none absolute -right-16 -top-20 size-52 rounded-full opacity-15 blur-3xl transition-opacity duration-300 group-hover:opacity-25"
                     style={{ backgroundColor: principle.accent }}
                   />
                   <div
-                    className="absolute left-0 top-0 h-full w-1 opacity-80"
+                    className="absolute inset-x-0 top-0 h-px opacity-90"
                     style={{ backgroundColor: principle.accent }}
                   />
 
-                  <div className="relative flex h-full flex-col">
-                    <div className="mb-8 flex items-start justify-between gap-6">
+                  <div className="relative grid gap-6 p-7 md:grid-cols-[140px_1fr] md:items-center md:gap-8 md:p-9">
+                    <div className="flex items-center gap-5 md:block">
                       <span
-                        className="font-mono text-5xl font-black leading-none md:text-6xl"
-                        style={{ color: principle.accent }}
+                        className="grid size-20 shrink-0 place-items-center rounded-full border bg-black/20 font-mono text-2xl font-black leading-none md:size-24 md:text-3xl"
+                        style={{ color: principle.accent, borderColor: `${principle.accent}55` }}
                       >
                         {principle.number}
                       </span>
-                      <span className="mt-4 h-px flex-1 bg-gradient-to-r from-white/25 to-transparent" />
+                      <span className="h-px flex-1 bg-gradient-to-r from-white/25 to-transparent md:mt-6 md:block md:w-24" />
                     </div>
 
-                    <h3 className="text-2xl font-black uppercase leading-tight tracking-tight text-white md:text-3xl">
-                      {principle.title}
-                    </h3>
-                    <p className="mt-5 text-sm font-semibold leading-relaxed text-white/66 md:text-base">
-                      {principle.body}
-                    </p>
+                    <div>
+                      <h3 className="text-xl font-black uppercase leading-tight tracking-tight text-white md:text-2xl">
+                        {principle.title}
+                      </h3>
+                      <p className="mt-4 text-sm font-semibold leading-relaxed text-white/66 md:text-base">
+                        {principle.body}
+                      </p>
+                    </div>
                   </div>
                 </motion.article>
               ))}

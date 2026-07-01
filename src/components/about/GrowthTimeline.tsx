@@ -77,7 +77,7 @@ export function GrowthTimeline() {
   });
 
   return (
-    <section id="our-growth" className="relative overflow-hidden bg-transparent site-section">
+    <section id="our-growth" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section !py-10 md:!py-16">
       <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
       <div className="pointer-events-none absolute -left-48 top-1/4 size-[34rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-48 bottom-1/4 size-[34rem] rounded-full bg-[#a78bfa]/10 blur-3xl" />
@@ -91,16 +91,16 @@ export function GrowthTimeline() {
           className="mx-auto max-w-4xl text-center"
         >
           <span className="section-badge">Our Growth</span>
-          <h2 className="mt-5 site-heading uppercase">
+          <h2 className="mt-3 site-heading uppercase">
             From Vision to <span className="text-brand-gradient-flow">Value</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-3xl text-base font-semibold leading-relaxed text-white/70 md:text-lg">
+          <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-relaxed text-white/70 md:text-lg">
             Our journey has been defined by continuous innovation, trusted partnerships,
             and a commitment to delivering measurable business outcomes.
           </p>
         </motion.div>
 
-        <div ref={timelineRef} className="relative mt-16 md:mt-20">
+        <div ref={timelineRef} className="relative mt-10 md:mt-12">
           <div className="absolute bottom-0 left-5 top-0 w-px bg-white/12 md:left-1/2" />
           <motion.div
             aria-hidden="true"
@@ -108,7 +108,7 @@ export function GrowthTimeline() {
             style={{ scaleY: lineProgress }}
           />
 
-          <div className="space-y-14 md:space-y-20">
+          <div className="space-y-9 md:space-y-12">
             {milestones.map((milestone, index) => {
               const cardOnRight = index % 2 === 0;
 
@@ -154,7 +154,7 @@ export function GrowthTimeline() {
                     whileInView={{ opacity: 1, x: 0, y: 0 }}
                     viewport={{ once: true, amount: 0.25 }}
                     transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group relative ml-14 overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/90 p-6 shadow-[0_26px_80px_rgba(0,0,0,.34)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/25 md:ml-0 md:p-8 ${
+                    className={`group relative ml-14 overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/90 p-5 shadow-[0_26px_80px_rgba(0,0,0,.34)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-white/25 md:ml-0 md:p-6 ${
                       cardOnRight ? "md:order-2" : "md:order-1"
                     }`}
                   >
@@ -174,7 +174,7 @@ export function GrowthTimeline() {
                       <h3 className="mt-3 text-2xl font-black uppercase leading-tight text-white md:text-3xl">
                         {milestone.title}
                       </h3>
-                      <ul className="mt-6 space-y-3">
+                      <ul className="mt-4 space-y-2">
                         {milestone.points.map((point) => (
                           <li
                             key={point}

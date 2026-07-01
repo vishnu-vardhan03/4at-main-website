@@ -30,7 +30,17 @@ const academyMenuItems = [
   { label: "Connect", href: "/academy#contact-us" },
 ];
 
+const aboutMenuItems = [
+  { label: "Vision", href: "/about#vision" },
+  { label: "Mission", href: "/about#mission" },
+  { label: "Our Values", href: "/about#our-values" },
+  { label: "Leadership Principles", href: "/about#leadership-principles" },
+  { label: "Our Growth", href: "/about#our-growth" },
+  { label: "Our Leadership", href: "/about#executive-team" },
+];
+
 const mobileNavGroups = [
+  { label: "About", href: "/about", items: aboutMenuItems },
   { label: "Services", href: "/services", items: serviceMenuItems },
   { label: "Product", href: "/product", items: productMenuItems },
   { label: "Academy", href: "/academy", items: academyMenuItems },
@@ -210,13 +220,18 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           className={`hidden items-center justify-self-center gap-5 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
           }`}
         >
-          <Link
+          <NavDropdown
+            label="About"
             href="/about"
-            aria-current={isPathActive(pathname, "/about") ? "page" : undefined}
-            className={`transition-colors ${isPathActive(pathname, "/about") ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
-          >
-            About
-          </Link>
+            imageHref="/about#vision"
+            imageSrc="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80"
+            imageAlt="4AT team collaborating"
+            eyebrow="About 4AT"
+            headline="Meet the vision, values, and people behind 4AT"
+            items={aboutMenuItems}
+            isDarkBg={isDarkBg}
+            isActive={isPathActive(pathname, "/about")}
+          />
           <NavDropdown
             label="Services"
             href="/services"
@@ -328,15 +343,6 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="mt-3 max-h-[calc(100dvh-6.5rem)] overflow-y-auto rounded-2xl border border-white/10 bg-[#070a14]/97 p-3 text-white shadow-[0_24px_70px_rgba(0,0,0,.55)] backdrop-blur-2xl md:hidden"
         >
-          <Link
-            href="/about"
-            onClick={closeMobileMenu}
-            aria-current={isPathActive(pathname, "/about") ? "page" : undefined}
-            className={`flex min-h-12 items-center rounded-xl px-4 text-sm font-semibold transition hover:bg-white/[.06] ${isPathActive(pathname, "/about") ? "bg-sky-400/10 text-sky-300" : ""}`}
-          >
-            About
-          </Link>
-
           {mobileNavGroups.map((group) => {
             const expanded = mobileGroup === group.label;
             const active = isPathActive(pathname, group.href);

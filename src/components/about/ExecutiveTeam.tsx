@@ -45,6 +45,7 @@ const executiveTeam: ExecutiveMember[] = [
     bio: "Visionary CEO leading 4AT with a focus on building intelligent, scalable solutions that transform finance and enterprise operations across global markets.",
     image: prudviRaju,
     accent: "#7dd3fc",
+    objectPosition: "50% 8%",
   },
   {
     name: "Shashank",
@@ -74,6 +75,7 @@ const executiveTeam: ExecutiveMember[] = [
     bio: "Driving operational excellence and strategic initiatives across 4AT's growing portfolio. Focused on building scalable systems that empower teams and deliver consistent client value.",
     image: vanditaKondapaneni,
     accent: "#7dd3fc",
+    objectPosition: "50% 0%",
   },
   {
     name: "Vivek Varshith Velichala",
@@ -88,7 +90,7 @@ export function ExecutiveTeam() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <section id="executive-team" className="relative overflow-hidden bg-transparent site-section">
+    <section id="executive-team" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
       <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
       <div className="pointer-events-none absolute -left-44 top-24 size-[32rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-44 bottom-24 size-[32rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
