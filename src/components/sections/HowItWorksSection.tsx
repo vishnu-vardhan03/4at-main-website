@@ -223,7 +223,7 @@ export default function HowItWorksSection() {
                     Tech Layer
                   </div>
 
-                  <div className="text-white/55">
+                  <div className="text-white">
 
                     {step.detail}
 
@@ -332,7 +332,7 @@ export default function HowItWorksSection() {
         Tech Layer
       </div>
 
-      <div className="text-sm text-white/55 leading-6">
+      <div className="text-sm text-white leading-6">
 
         {step.detail}
 

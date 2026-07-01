@@ -354,7 +354,7 @@ export default function WhySection() {
                 {/* Description below window */}
                 <div className="mt-6">
                   <h3 className="text-[18px] font-bold mb-2">{card.title}</h3>
-                  <p className="text-sm text-white/55 leading-relaxed">{card.desc}</p>
+                  <p className="text-sm text-white leading-relaxed">{card.desc}</p>
                 </div>
               </TiltCard>
             );

@@ -146,7 +146,7 @@ export default function FooterSection() {
           {/* Left: brand + socials */}
           <div className="footer-brand">
             <div className="footer-wordmark" aria-hidden="true">4AT</div>
-            <div className="text-[11px] tracking-[3px] text-white/35 mt-3 mb-4">SOCIAL MEDIA</div>
+            <div className="text-[11px] tracking-[3px] text-white mt-3 mb-4">SOCIAL MEDIA</div>
             <div className="flex gap-2.5">
               {socials.map((s) => (
                 <a
@@ -173,13 +173,13 @@ export default function FooterSection() {
             {offices.map((o) => (
               <div key={o.region}>
                 <div className="text-[12px] font-bold tracking-[2px] text-white mb-3">{o.region}</div>
-                <div className="text-[13px] leading-[1.6] text-white/55">
+                <div className="text-[13px] leading-[1.6] text-white">
                   {o.address.map((line) => (
                     <div key={line}>{line}</div>
                   ))}
                 </div>
                 {o.phones.length > 0 && (
-                  <div className="text-[13px] leading-[1.55] text-white/80 mt-2.5">
+                  <div className="text-[13px] leading-[1.55] text-white mt-2.5">
                     {o.phones.map((p) => (
                       <div key={p}>{p}</div>
                     ))}

@@ -50,7 +50,7 @@ export default function GlimpseSection() {
             <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
             <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
             <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-3 text-xs text-white/35">4AT Finance Copilot — Live Demo</span>
+            <span className="ml-3 text-xs text-white">4AT Finance Copilot — Live Demo</span>
           </div>
 
           {/* Dashboard screenshot placeholder */}
@@ -102,7 +102,7 @@ export default function GlimpseSection() {
           ].map((s) => (
             <div key={s.val} className="text-center">
               <div className="text-4xl font-bold grad-v">{s.val}</div>
-              <div className="text-sm text-white/45 mt-1.5 uppercase tracking-widest">{s.label}</div>
+              <div className="text-sm text-white mt-1.5 uppercase tracking-widest">{s.label}</div>
             </div>
           ))}
         </div>

@@ -78,7 +78,7 @@ export default function IntegrationsSection() {
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-sm text-white/40 mb-2 uppercase tracking-widest">Architecture</div>
+              {/* <div className="text-sm text-white/40 mb-2 uppercase tracking-widest">Architecture</div> */}
               <div className="text-lg font-bold text-white/70">
                 {/* NestJS API Layer → FastAPI AI Layer → PostgreSQL → ElastiCache (Redis) → CloudFront CDN */}
               </div>
