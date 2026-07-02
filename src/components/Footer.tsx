@@ -50,9 +50,13 @@ const footerColumns: Array<{ title: string; href: string; items: FooterItem[] }>
 
 const legalLinks = ["Privacy policy", "Terms of service", "Cookies"];
 
-export function Footer() {
+interface FooterProps {
+  className?: string;
+}
+
+export function Footer({ className = "m-3" }: FooterProps) {
   return (
-    <footer className="m-3 overflow-hidden rounded-xl bg-[#0a0a0a] text-white">
+    <footer className={`overflow-hidden rounded-xl bg-[#0a0a0a] text-white ${className}`}>
       <div className="mx-auto max-w-6xl px-8 pb-8 pt-12">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.35fr_1.45fr_repeat(3,1fr)] lg:gap-6">
           <div className="col-span-2 lg:col-span-1">

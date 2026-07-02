@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, AlertCircle, ArrowRight, X } from "lucide-react";
 import { TiltCard } from "./3d-card";
+import { ServiceDoodle } from "./ServiceDoodle";
+import { ServiceBlueprintDoodle } from "./ServiceBlueprintDoodle";
 
 interface ServiceItem {
   n: string;
@@ -817,14 +819,22 @@ export function Services() {
                       <div className="absolute top-0 left-0 right-0 h-[2px] bg-sky-500/50 opacity-50 group-hover:opacity-100 transition-opacity" />
 
                       <div>
-                        {/* Service Number & Title */}
-                        <div className="flex items-start justify-between gap-4 mb-6">
-                          <span className="text-xs font-mono font-bold text-sky-400 select-none">
-                            {service.n}
-                          </span>
-                          <h4 className="text-xl font-bold tracking-tight text-white group-hover:text-sky-400 transition-colors text-right flex-1">
-                            {service.title}
-                          </h4>
+                        {/* Service Number, Doodle & Title */}
+                        <div 
+                          onClick={() => setSelectedService(service)}
+                          className="flex items-center gap-4 mb-6 cursor-pointer group/header select-none"
+                        >
+                          <div className="flex-shrink-0 transition-transform duration-300 group-hover/header:scale-105">
+                            <ServiceDoodle serviceId={service.n} sizeClass="w-14 h-14" />
+                          </div>
+                          <div className="flex-1 min-w-0 text-left">
+                            <span className="text-xs font-mono font-bold text-sky-400 select-none block mb-1">
+                              {service.n}
+                            </span>
+                            <h4 className="text-xl font-bold tracking-tight text-white group-hover/header:text-sky-400 transition-colors leading-tight">
+                              {service.title}
+                            </h4>
+                          </div>
                         </div>
 
                         {/* Description */}
@@ -918,6 +928,10 @@ export function Services() {
                 >
                   {detail ? (
                     <div className="space-y-8 pr-2">
+                      <div className="pr-8 md:pr-10">
+                        <ServiceBlueprintDoodle serviceId={selectedService.n} />
+                      </div>
+
                       {/* Header */}
                       <div>
                         <span className="text-xs font-mono text-sky-400 tracking-wider">SERVICE {selectedService.n}</span>
@@ -934,8 +948,8 @@ export function Services() {
                         <div className="grid md:grid-cols-2 gap-6">
                           {detail.sections.map((sec, idx) => (
                             <div key={idx} className="bg-white/[0.02] border border-white/5 rounded-xl p-5 hover:border-white/10 transition-colors">
-                              <h4 className="text-sm font-semibold uppercase tracking-wider text-sky-400 mb-2">{sec.title}</h4>
-                              <p className="text-sm text-white font-light leading-relaxed whitespace-pre-line">{sec.content}</p>
+                              <h4 className="text-sm md:text-[15px] font-semibold uppercase tracking-wider text-sky-400 mb-2">{sec.title}</h4>
+                              <p className="text-sm md:text-[15px] text-white/90 font-light leading-relaxed whitespace-pre-line">{sec.content}</p>
                             </div>
                           ))}
                         </div>
@@ -950,13 +964,13 @@ export function Services() {
                           {detail.capabilities.map((cap, idx) => (
                             <div key={idx} className="border-b border-white/5 pb-6 last:border-b-0">
                               <h4 className="text-lg font-bold text-white mb-2">{cap.title}</h4>
-                              <p className="text-sm text-white font-light leading-relaxed mb-4">{cap.desc}</p>
+                              <p className="text-sm md:text-[15px] text-white/90 font-light leading-relaxed mb-4">{cap.desc}</p>
                               
                               <div className="mt-2">
-                                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold block mb-2">Key Activities:</span>
+                                <span className="text-xs uppercase tracking-wider text-zinc-400 font-bold block mb-2">Key Activities:</span>
                                 <div className="flex flex-wrap gap-2">
                                   {cap.activities.map((act, aIdx) => (
-                                    <span key={aIdx} className="text-xs bg-white/[0.04] border border-white/5 text-white px-3 py-1 rounded-full font-light">
+                                    <span key={aIdx} className="text-xs md:text-[13px] bg-white/[0.04] border border-white/5 text-white/90 px-3 py-1 rounded-full font-light">
                                       {act}
                                     </span>
                                   ))}
@@ -982,15 +996,15 @@ export function Services() {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-center gap-6 py-12">
-                      <span className="text-5xl">📄</span>
+                    <div className="flex flex-col items-center justify-center h-full text-center gap-6 py-8 w-full max-w-lg mx-auto">
+                      <ServiceBlueprintDoodle serviceId={selectedService.n} />
                       <div>
                         <h2 className="text-2xl font-bold text-white">{selectedService.title} Details</h2>
-                        <p className="text-sm text-white mt-2 max-w-md">Detailed capabilities, activity logs, and key SLA structures for this service will be uploaded shortly.</p>
+                        <p className="text-sm md:text-[15px] text-white/90 mt-2 max-w-md">Detailed capabilities, activity logs, and key SLA structures for this service will be uploaded shortly.</p>
                       </div>
                       <div className="border-l-2 border-sky-500/30 pl-4 py-2 text-left max-w-lg">
-                        <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold block mb-1">Overview Description</span>
-                        <p className="text-white text-sm font-light leading-relaxed">{selectedService.desc}</p>
+                        <span className="text-xs uppercase tracking-wider text-zinc-400 font-bold block mb-1">Overview Description</span>
+                        <p className="text-white/90 text-sm md:text-[15px] font-light leading-relaxed">{selectedService.desc}</p>
                       </div>
                       <div className="pt-4">
                         <a

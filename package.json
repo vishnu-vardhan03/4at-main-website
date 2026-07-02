@@ -1,49 +1,16 @@
 {
-<<<<<<< HEAD
   "name": "4at-ai",
-=======
-  "name": "nova-ai-next",
->>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-<<<<<<< HEAD
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@gsap/react": "^2.1.1",
-    "@react-three/drei": "^9.108.3",
-    "@react-three/fiber": "^8.17.5",
-    "@vercel/analytics": "^2.0.1",
-    "clsx": "^2.1.1",
-    "framer-motion": "^11.3.8",
-    "gsap": "^3.12.5",
-    "lenis": "^1.1.9",
-    "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18",
-    "tailwind-merge": "^2.4.0",
-    "three": "^0.166.1"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@types/three": "^0.166.0",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-=======
     "lint": "next lint",
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
@@ -76,6 +43,7 @@
     "@react-three/fiber": "^9.6.1",
     "@sanity/client": "^7.23.0",
     "@sanity/image-url": "^2.1.1",
+    "@vercel/analytics": "^2.0.1",
     "bcrypt": "^6.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -116,6 +84,5 @@
     "prisma": "^7.8.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.8.3"
->>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552
   }
 }

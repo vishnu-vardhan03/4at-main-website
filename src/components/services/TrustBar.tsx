@@ -49,12 +49,12 @@ export function TrustBar() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center gap-1.5 text-center"
+              className="flex flex-col items-center gap-1.5 text-center group cursor-default"
             >
-              <span className="uppercase tracking-[0.18em] text-[12px] font-bold text-zinc-400">
+              <span className="uppercase tracking-[0.18em] text-[12px] font-bold text-zinc-400 group-hover:text-zinc-300 transition-colors duration-300">
                 {item.label}
               </span>
-              <span className="text-2xl sm:text-3xl font-black text-sky-400 tracking-tight filter drop-shadow-[0_2px_10px_rgba(56,189,248,0.25)]">
+              <span className="text-2xl sm:text-3xl font-black text-sky-400 group-hover:text-white transition-colors duration-300 tracking-tight filter drop-shadow-[0_2px_10px_rgba(56,189,248,0.25)] group-hover:drop-shadow-[0_2px_10px_rgba(255,255,255,0.35)]">
                 <Counter value={item.value} />
               </span>
             </motion.div>

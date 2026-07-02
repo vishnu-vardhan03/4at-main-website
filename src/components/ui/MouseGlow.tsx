@@ -28,18 +28,10 @@ export default function MouseGlow() {
       style={{
         background: `radial-gradient(
           400px at ${position.x}px ${position.y}px,
-<<<<<<< HEAD
           rgba(167,139,250,0.06),
-=======
-          rgba(99,102,241,0.08),
->>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552
           transparent 400%
         )`,
       }}
     />
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552

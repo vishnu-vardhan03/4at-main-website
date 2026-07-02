@@ -3,25 +3,25 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const steps = [
   {
-    n: "01",
+    n: "1",
     title: "Subscribe",
     timeline: "Day 0",
     desc: "Pick the service(s) you need. Pay your first month. That's the entire procurement cycle. No SOW. No legal review. No 6-week sales cycle."
   },
   {
-    n: "02",
+    n: "2",
     title: "Onboard",
     timeline: "Days 1–7",
     desc: "Connector ingests your ERP, ledgers, and policies. Your dedicated pod of AI agents plus senior practitioners is live within 7 days. You don't change tools. We meet you inside the systems you already use."
   },
   {
-    n: "03",
+    n: "3",
     title: "We run it",
     timeline: "Day 8 onward",
     desc: "Iris reconciles. Guardian monitors controls. Atlas builds your reports. Senior practitioners review everything before it reaches you. You see it all in one dashboard. One bill. One team."
   },
   {
-    n: "04",
+    n: "4",
     title: "You scale",
     timeline: "Month 3 and beyond",
     desc: "Add controls. Add tax. Add audit readiness. Add a vCFO. Every new service line plugs into the same subscription. This is where most clients start with one service and end the year running their entire finance function on 4AT."
@@ -93,10 +93,10 @@ export function Engagement() {
                     }`}
                   >
                     <div
-                      className={`relative z-10 flex items-center justify-center h-[88px] w-[88px] rounded-full bg-[#01030e] border shadow-[0_4px_20px_rgba(0,0,0,0.4)] text-sm font-mono tracking-widest transition-all duration-500 cursor-default select-none ${
+                      className={`relative z-10 flex items-center justify-center h-[88px] w-[88px] rounded-full bg-[#01030e] border shadow-[0_4px_20px_rgba(0,0,0,0.4)] text-2xl font-black tracking-tight transition-all duration-300 cursor-default select-none ${
                         isVisible 
-                          ? "border-sky-400 text-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.15)]" 
-                          : "border-white/15 text-zinc-600"
+                          ? "border-sky-400 text-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.15)] filter drop-shadow-[0_2px_8px_rgba(56,189,248,0.25)] hover:scale-110 hover:border-sky-300 hover:text-sky-300 hover:shadow-[0_0_25px_rgba(56,189,248,0.35)]" 
+                          : "border-white/15 text-zinc-600 hover:scale-105 hover:border-zinc-500 hover:text-zinc-400"
                       }`}
                     >
                       <span>{s.n}</span>
