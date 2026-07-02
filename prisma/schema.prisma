@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Inquiry {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  phone          String
+  courseInterest String
+  message        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("inquiries")
+}
+
+model Registration {
+  id               String   @id @default(cuid())
+  // Step 1: Basic Details
+  firstName        String
+  lastName         String
+  gender           String
+
+  // Step 2: Education Profile
+  college          String
+  programName      String?
+  academicYear     String
+  highestEducation String
+  department       String
+  referredBy       String?
+
+  // Step 3: Location Details
+  country          String
+  state            String
+  city             String
+
+  // Step 4: Security & Contact
+  email            String   @unique
+  mobileNumber     String
+  emergencyContact String
+  username         String   @unique
+  passwordHash     String
+  termsAccepted    Boolean
+  
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("registrations")
+}

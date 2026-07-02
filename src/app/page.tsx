@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Nav from "@/components/layout/Nav";
 import HeroSection from "@/components/hero/HeroSection";
 import GlimpseSection from "@/components/sections/GlimpseSection";
@@ -96,4 +97,20 @@ export default function HomePage() {
       <FooterSection />
     </main>
   );
+=======
+import type { Metadata } from "next";
+import HomeClient from "./HomeClient";
+
+export const metadata: Metadata = {
+  title: "4AT | AI-Driven Digital Experiences",
+  description: "Premium AI consulting studio helping ambitious teams simplify workflows and ship intelligent products.",
+  openGraph: {
+    title: "4AT | AI-Driven Digital Experiences",
+    description: "Premium AI consulting studio helping ambitious teams simplify workflows and ship intelligent products.",
+  },
+};
+
+export default function Home() {
+  return <HomeClient />;
+>>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552
 }
