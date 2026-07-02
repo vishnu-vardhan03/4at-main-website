@@ -77,7 +77,7 @@ export function GrowthTimeline() {
   });
 
   return (
-    <section id="our-growth" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section !py-10 md:!py-16">
+    <section id="our-growth" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
       <div className="pointer-events-none absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:84px_84px]" />
       <div className="pointer-events-none absolute -left-48 top-1/4 size-[34rem] rounded-full bg-[#38bdf8]/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-48 bottom-1/4 size-[34rem] rounded-full bg-[#a78bfa]/10 blur-3xl" />

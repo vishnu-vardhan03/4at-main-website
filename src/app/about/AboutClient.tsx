@@ -137,8 +137,7 @@ export default function AboutClient() {
       <Nav />
 
       <main>
-        <section id="vision" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section pt-32 md:pt-36">
-          <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.08)_1px,transparent_1px)] bg-[size:88px_88px]" />
+        <section id="vision" className="relative scroll-mt-24 overflow-visible bg-transparent site-section pt-32 md:pt-36">
           <div className="absolute -left-32 top-10 size-[26rem] rounded-full bg-[#38bdf8]/12 blur-3xl" />
 
           <div className="relative z-10 mx-auto w-full max-w-[1200px]">
@@ -172,8 +171,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        <section id="mission" className="relative scroll-mt-24 overflow-hidden bg-transparent site-section">
-          <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,.07)_1px,transparent_1px)] bg-[size:88px_88px]" />
+        <section id="mission" className="relative scroll-mt-24 overflow-visible bg-transparent site-section">
           <div className="absolute -right-32 bottom-10 size-[28rem] rounded-full bg-[#a78bfa]/14 blur-3xl" />
 
           <div className="relative z-10 mx-auto w-full max-w-[1200px]">

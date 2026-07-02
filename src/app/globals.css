@@ -490,6 +490,11 @@ html.lenis, html.lenis body { height: auto; }
   background-color: transparent !important;
 }
 
+/* Avoid doubled vertical spacing where About-page sections meet. */
+.about-page main > section + section {
+  padding-top: 0 !important;
+}
+
 .home-page .hero-ecosystem-orbit-ring-one {
   border-color: rgba(56, 189, 248, .46);
   border-top-color: #38bdf8;
