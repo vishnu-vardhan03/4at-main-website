@@ -5,7 +5,7 @@ import { offerings } from "@/lib/site-data";
 
 export function CourseDirectory({ sectionId = "courses" }: { sectionId?: string }) {
   return (
-    <section id={sectionId} className="site-shell section-frame site-section-y">
+    <section id={sectionId} className="site-shell section-frame section-padding">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -42,12 +42,12 @@ export function CourseDirectory({ sectionId = "courses" }: { sectionId?: string 
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
               key={offering.title}
-              className={`group relative z-10 min-h-[300px] overflow-hidden rounded-[28px] p-6 transition-[box-shadow,transform] duration-300 hover-fine:scale-[1.02] hover-fine:-translate-y-1.2 hover-fine:z-20 hover-fine:shadow-2xl sm:min-h-[320px] ${
+              className={`group relative z-10 min-h-[300px] overflow-hidden rounded-[28px] p-6 transition-[box-shadow,transform] duration-300 hover-fine:scale-[1.02] hover-fine:-translate-y-1.2 hover-fine:z-20 hover-fine:shadow-2xl sm:min-h-[320px] backdrop-blur-2xl ${
                 featured
                   ? index === 0
-                    ? "bg-[#121212] text-white shadow-panel md:col-span-2"
-                    : "bg-[#0d0d0d] text-white shadow-panel md:col-span-2"
-                  : "bg-[#181818] text-white shadow-soft"
+                    ? "bg-brand/60 text-white shadow-panel md:col-span-2"
+                    : "bg-brand/40 text-white shadow-panel md:col-span-2"
+                  : "bg-white/40 text-ink shadow-soft"
               }`}
             >
               {/* Ambient hover glow effect */}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { ProductCurtain } from "@/components/academy/ProductCurtain";
 import { DeferredSection } from "@/components/academy/DeferredSection";
@@ -15,32 +14,22 @@ const Faculty = dynamic(() => import("@/components/academy/Faculty").then(mod =>
 const TestimonialsSocialProof = dynamic(() => import("@/components/academy/TestimonialsSocialProof").then(mod => mod.TestimonialsSocialProof), { loading: () => <SectionLoader /> });
 const ContactUs = dynamic(() => import("@/components/academy/ContactUs").then(mod => mod.ContactUs), { loading: () => <SectionLoader /> });
 
-export function PageShell({ ctaRoute, children }: { ctaRoute: string; children?: React.ReactNode }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+import { HowItWorks } from "@/components/academy/HowItWorks";
 
+export function PageShell({ ctaRoute }: { ctaRoute: string }) {
   return (
-    <div ref={containerRef} className="relative w-full overflow-x-hidden bg-transparent">
-      {/* Solid canvas background wrapper placed at the very bottom stacking context */}
-      <div className="absolute inset-0 bg-canvas z-[-20] pointer-events-none" />
-
-      <div className="relative z-10 w-full bg-transparent">
-        {children}
-        <About />
-        <ProductCurtain
-          lmsSection={<DeferredSection section="lms-courses" sectionId="courses" />}
-        >
-          <CourseRecommender />
-          <CoreFeatures />
-          <DeferredSection section="how-it-works" sectionId="features" />
-          <CredibilityRecruiters />
-          <Faculty />
-          <TestimonialsSocialProof />
-          <DeferredSection section="enrollment-cta" sectionId="enroll" href={ctaRoute} />
-          <div id="contact-us" className="scroll-mt-28">
-            <ContactUs />
-          </div>
-        </ProductCurtain>
-      </div>
-    </div>
+    <>
+      <About />
+      <CoreFeatures />
+      <ProductCurtain>
+        <DeferredSection section="lms-courses" sectionId="courses" />
+        <HowItWorks sectionId="features" />
+        <CredibilityRecruiters />
+        <Faculty />
+        <TestimonialsSocialProof />
+        <DeferredSection section="enrollment-cta" sectionId="enroll" href={ctaRoute} />
+        <ContactUs />
+      </ProductCurtain>
+    </>
   );
 }

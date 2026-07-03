@@ -1,277 +1,397 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { badgeCopy, partnerLogos } from "@/lib/site-data";
-import Image from "next/image";
-import { BeamsBackground } from "@/components/ui/beams-background";
 import gsap from "gsap";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
-import { client } from "@/lib/sanity";
-
-const students = ["A", "B", "C"];
+import { Menu, X, ChevronDown } from "lucide-react";
+import { badgeCopy, navigationItems, partnerLogos, ctaRoute } from "@/lib/site-data";
+import Image from "next/image";
+import { HeroIllustration } from "@/components/academy/HeroIllustration";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Hero({ children }: { children?: React.ReactNode }) {
   const containerRef = useRef<HTMLElement>(null);
-  const [heroTitle, setHeroTitle] = useState("Finance training built for careers, not just certificates.");
-  const [partners, setPartners] = useState<Array<{ name: string; src: string }>>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const heroMarqueeRef = useRef<HTMLDivElement>(null);
+  const heroMarqueeTl = useRef<gsap.core.Tween | null>(null);
+  const heroMarqueeTargetScale = useRef(1);
+  const heroMarqueeCurrent = useRef(1);
+  const heroMarqueeRaf = useRef<number>(0);
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
-    async function fetchSettings() {
-      try {
-        const query = `*[_type == "siteSettings"][0] { heroTitle }`;
-        const data = await client.fetch(query);
-        if (data && data.heroTitle) {
-          setHeroTitle(data.heroTitle);
-        }
-      } catch (err) {
-        console.warn("Failed to fetch site settings, using default:", err);
-      }
-    }
-    async function fetchPartners() {
-      try {
-        const query = `*[_type == "partner"] {
-          name,
-          "src": logo.asset->url
-        }`;
-        const data = await client.fetch(query);
-        if (data && data.length > 0) {
-          const valid = data.filter((p: any) => p.src);
-          if (valid.length > 0) {
-            setPartners(valid);
-          }
-        }
-      } catch (err) {
-        console.warn("Failed to fetch partners, using static defaults:", err);
-      }
-    }
-    fetchSettings();
-    fetchPartners();
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", listener);
+    return () => mediaQuery.removeEventListener("change", listener);
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ((window as any).isSiteRevealed) {
+        setIsRevealed(true);
+      } else {
+        const handleReveal = () => setIsRevealed(true);
+        window.addEventListener("site-revealed", handleReveal);
+        return () => window.removeEventListener("site-revealed", handleReveal);
+      }
+    }
+  }, []);
+
+  // GSAP-driven hero marquee with velocity-linked timeScale
+  useEffect(() => {
+    const track = heroMarqueeRef.current;
+    if (!track) return;
+    const halfWidth = track.scrollWidth / 2;
+    heroMarqueeTl.current = gsap.to(track, {
+      x: `-=${halfWidth}`,
+      duration: 28,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((v: string | number) => parseFloat(String(v)) % halfWidth, "px"),
+      },
+    });
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const onVelocity = (e: Event) => {
+      const vel = Math.abs((e as CustomEvent<{ velocity: number }>).detail?.velocity ?? 0);
+      heroMarqueeTargetScale.current = 1 + Math.min(vel * 0.22, 3);
+    };
+    window.addEventListener("lenis-velocity", onVelocity);
+    const tick = () => {
+      heroMarqueeCurrent.current = lerp(heroMarqueeCurrent.current, heroMarqueeTargetScale.current, 0.07);
+      heroMarqueeTargetScale.current = lerp(heroMarqueeTargetScale.current, 1, 0.04);
+      heroMarqueeTl.current?.timeScale(heroMarqueeCurrent.current);
+      heroMarqueeRaf.current = requestAnimationFrame(tick);
+    };
+    heroMarqueeRaf.current = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("lenis-velocity", onVelocity);
+      cancelAnimationFrame(heroMarqueeRaf.current);
+      heroMarqueeTl.current?.kill();
+    };
+  }, []);
+
+  const [navState, setNavState] = useState({
+    navVisible: true,
+    isPastHero: false,
+    isAtTop: true,
+  });
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const lastScrollRef = useRef(0);
+  const navVisibleRef = useRef(true);
+  const tickingRef = useRef(false);
+
+  useEffect(() => {
+    const updateNavState = () => {
+      const currentScroll = window.scrollY;
+      const heroHeight = window.innerHeight * 0.9;
+      const nextIsPastHero = currentScroll > heroHeight;
+
+      // Calculate scroll progress percentage
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalHeight > 0 ? (currentScroll / totalHeight) * 100 : 0;
+      const scrollProgressBar = document.getElementById("scroll-progress");
+      if (scrollProgressBar) {
+        scrollProgressBar.style.width = `${progress}%`;
+      }
+
+      const scrollDiff = currentScroll - lastScrollRef.current;
+      let nextNavVisible = navVisibleRef.current;
+
+      if (currentScroll <= 100) {
+        nextNavVisible = true;
+      } else if (scrollDiff < -15) {
+        nextNavVisible = true;
+      } else if (scrollDiff > 15) {
+        nextNavVisible = false;
+      }
+
+      navVisibleRef.current = nextNavVisible;
+      const nextIsAtTop = currentScroll === 0;
+
+      setNavState((prev) => {
+        if (
+          prev.navVisible === nextNavVisible &&
+          prev.isPastHero === nextIsPastHero &&
+          prev.isAtTop === nextIsAtTop
+        ) {
+          return prev;
+        }
+        return {
+          navVisible: nextNavVisible,
+          isPastHero: nextIsPastHero,
+          isAtTop: nextIsAtTop,
+        };
+      });
+
+      lastScrollRef.current = currentScroll;
+      tickingRef.current = false;
+    };
+
+    const handleScroll = () => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(updateNavState);
+    };
+
+    // Canvas background faint particles drift loop
+    const canvas = canvasRef.current;
+    let animationFrameId: number;
+    let resizeCanvas: () => void;
+
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        let particles: Array<{
+          x: number;
+          y: number;
+          initialY: number;
+          size: number;
+          speed: number;
+          opacity: number;
+          amplitude: number;
+          angle: number;
+          color: string;
+        }> = [];
+
+        resizeCanvas = () => {
+          if (canvas) {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            initParticles();
+          }
+        };
+
+        const initParticles = () => {
+          particles = [];
+          const particleCount = Math.min(60, Math.floor((canvas.width * canvas.height) / 18000));
+          for (let i = 0; i < particleCount; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const isTeal = Math.random() < 0.5;
+            const rgb = isTeal ? "83, 231, 255" : "168, 109, 255";
+            particles.push({
+              x,
+              y,
+              initialY: y,
+              size: Math.random() * 1.5 + 0.5,
+              speed: 0.005 + Math.random() * 0.01,
+              opacity: 0.1 + Math.random() * 0.25,
+              amplitude: 10 + Math.random() * 15,
+              angle: Math.random() * Math.PI * 2,
+              color: rgb,
+            });
+          }
+        };
+
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach((p) => {
+            p.angle += p.speed;
+            p.y = p.initialY + Math.sin(p.angle) * p.amplitude;
+            ctx.fillStyle = `rgba(${p.color}, ${p.opacity})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          });
+          animationFrameId = requestAnimationFrame(draw);
+        };
+
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+        draw();
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (resizeCanvas) {
+        window.removeEventListener("resize", resizeCanvas);
+      }
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, []);
+
+  const { navVisible, isPastHero, isAtTop } = navState;
+
   return (
-    <section ref={containerRef} id="hero" className="relative w-full overflow-x-hidden bg-transparent">
+    <section
+      ref={containerRef}
+      className="site-shell relative w-full overflow-x-hidden bg-transparent min-h-[100dvh] flex flex-col justify-between"
+    >
+      {/* Deep-Space Background Layers */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isRevealed ? { opacity: 1 } : undefined}
+        transition={{ duration: 1.5, delay: 0 }}
+        className="absolute inset-0 bg-transparent z-0 overflow-hidden pointer-events-none"
+      >
+        {/* Subtle Star Field Layer */}
+        <div
+          className="absolute inset-0 opacity-[0.25] mix-blend-screen"
+          style={{
+            backgroundImage:
+              "radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 150px 80px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 280px 220px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 450px 140px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 600px 310px, #fff, rgba(0,0,0,0)), radial-gradient(2.5px 2.5px at 800px 120px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 1000px 420px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 1200px 180px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 1400px 290px, #fff, rgba(0,0,0,0))",
+            backgroundSize: "350px 350px",
+            backgroundRepeat: "repeat",
+          }}
+        />
 
+        {/* Twinkling Stars Overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.15] animate-[pulse_4s_infinite]"
+          style={{
+            backgroundImage:
+              "radial-gradient(1.5px 1.5px at 80px 120px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 380px 40px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 520px 180px, #fff, rgba(0,0,0,0)), radial-gradient(1.5px 1.5px at 730px 280px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 950px 90px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 1150px 340px, #fff, rgba(0,0,0,0))",
+            backgroundSize: "400px 400px",
+            backgroundRepeat: "repeat",
+          }}
+        />
 
+        {/* Soft Purple Nebula */}
+        <div className="absolute top-0 right-0 w-[65%] h-[65%] rounded-full bg-[radial-gradient(circle_at_80%_20%,rgba(168,109,255,0.14),transparent_65%)] filter blur-[120px]" />
 
-      {/* Main fullscreen container */}
-      <div className="relative z-10 w-full min-h-[100svh] flex items-center justify-center">
-        <div className="hero-inner-card relative min-h-[100svh] w-full overflow-hidden flex flex-col justify-center py-14 sm:py-18 lg:py-22 px-6 sm:px-10 lg:px-14 xl:px-20 2xl:px-28 bg-[#0a0a0a]">
+        {/* Blue Ambient Glow */}
+        <div className="absolute bottom-0 left-0 w-[55%] h-[55%] rounded-full bg-[radial-gradient(circle_at_20%_80%,rgba(83,231,255,0.08),transparent_60%)] filter blur-[100px]" />
 
-          {/* Beams Background underlay */}
-          <BeamsBackground className="absolute inset-0 w-full h-full min-h-0 bg-transparent z-0 pointer-events-none" intensity="medium" />
+        {/* Dark Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#0a0a0a_95%)]" />
 
-          {/* Opaque black overlays */}
-          <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent z-10 pointer-events-none" />
-
-          {/* Enhanced radial grid overlay (1px thin crisp lines on top) */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-[0.25] z-20"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(246, 246, 246, 0.3) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(246, 246, 246, 0.3) 1px, transparent 1px)
-              `,
-              backgroundSize: "60px 60px",
-              maskImage: "radial-gradient(circle at 50% 50%, black 50%, transparent 95%)",
-              WebkitMaskImage: "radial-gradient(circle at 50% 50%, black 50%, transparent 95%)",
-            }}
+        {/* Dynamic Canvas Particles */}
+        {!prefersReducedMotion && (
+          <motion.canvas
+            initial={{ opacity: 0 }}
+            animate={isRevealed ? { opacity: 0.35 } : undefined}
+            transition={{ duration: 1.5, delay: 0 }}
+            ref={canvasRef}
+            className="absolute inset-0 w-full h-full mix-blend-screen"
           />
+        )}
+      </motion.div>
 
+      {/* Desktop Left Sidebar Page Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isRevealed ? { opacity: 1 } : undefined}
+        transition={{ duration: 0.7, delay: 0.8, ease: [0.25, 1, 0.5, 1] }}
+        className="absolute left-8 bottom-[18%] hidden xl:flex flex-col items-center gap-4 z-40 select-none pointer-events-none"
+      >
+        {/* Active Dot and 01 */}
+        <motion.div
+          initial={{ opacity: 0, x: -8 }}
+          animate={isRevealed ? { opacity: 1, x: 0 } : undefined}
+          transition={{ duration: 0.5, delay: 0.9 }}
+          className="flex items-center gap-2 text-xs font-bold text-white tracking-widest font-sans"
+        >
+          <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+          <span>01</span>
+        </motion.div>
 
-          {/* Centered Hero Content Area */}
-          <div className="hero-content-area relative z-30 flex-1 flex flex-col justify-center items-center py-6 w-full max-w-full mx-auto">
-            <NeonGlowOrb
-              className="left-[30%] top-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-              size={450}
-              opacity={0.18}
-              blur={50}
-            />
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full relative z-10">
-              {/* Left Column */}
-              <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <div className="hero-badge mb-6 inline-flex items-center justify-center rounded-full border border-white/[0.06] bg-white/[0.04] px-4 sm:px-5 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_4px_20px_rgba(0,0,0,0.15)] backdrop-blur-md">
-                  <span className="text-eyebrow font-semibold tracking-wider capitalize text-white/90 font-sans">
-                    Career-focused training
-                  </span>
-                </div>
+        {/* Divider Dots */}
+        <div className="flex flex-col gap-2 opacity-30 py-2">
+          <motion.div initial={{ opacity: 0 }} animate={isRevealed ? { opacity: 1 } : undefined} transition={{ delay: 1.0 }} className="w-1.5 h-1.5 rounded-full bg-white" />
+          <motion.div initial={{ opacity: 0 }} animate={isRevealed ? { opacity: 1 } : undefined} transition={{ delay: 1.08 }} className="w-1.5 h-1.5 rounded-full bg-white" />
+          <motion.div initial={{ opacity: 0 }} animate={isRevealed ? { opacity: 1 } : undefined} transition={{ delay: 1.16 }} className="w-1.5 h-1.5 rounded-full bg-white" />
+          <motion.div initial={{ opacity: 0 }} animate={isRevealed ? { opacity: 1 } : undefined} transition={{ delay: 1.24 }} className="w-1.5 h-1.5 rounded-full bg-white" />
+        </div>
 
-                <h1 className="site-hero-heading font-sans text-white leading-[1.18] tracking-[-0.01em] w-full">
-                  {heroTitle === "Finance training built for careers, not just certificates." ? (
-                    <>
-                      Finance training<br />
-                      built for <span className="hero-title-shimmer">careers</span>,<br />
-                      not just certificates<span className="text-accent">.</span>
-                    </>
-                  ) : (
-                    heroTitle
-                  )}
-                </h1>
+        {/* Vertical Text */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : undefined}
+          transition={{ duration: 0.5, delay: 1.1 }}
+        >
+          <motion.div
+            animate={isRevealed && !prefersReducedMotion ? {
+              y: [0, 4, 0]
+            } : {}}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1.6
+            }}
+            className="text-[10px] font-bold tracking-[0.25em] text-[#A7A9C4]/40 uppercase my-4 whitespace-nowrap"
+            style={{
+              writingMode: "vertical-rl",
+              transform: "rotate(180deg)",
+            }}
+          >
+            Scroll to explore
+          </motion.div>
+        </motion.div>
 
-                <div className="w-full">
-                  {children}
-                </div>
-              </div>
+        {/* Long Vertical Line with pulsing dot */}
+        <div className="w-[1px] h-32 bg-gradient-to-b from-white/20 via-white/10 to-transparent relative">
+          <div className="absolute bottom-0 -left-1 w-2.5 h-2.5 rounded-full bg-[#A86DFF] shadow-[0_0_10px_#A86DFF] animate-pulse" />
+        </div>
+      </motion.div>
 
-              {/* Right Column: Doodle (with identical animation & design) */}
-              <div className="lg:col-span-5 flex justify-center w-full hero-svg-container">
-                <div className="relative w-full max-w-[420px] sm:max-w-[460px] lg:max-w-[500px]">
-                  <style>{`
-                    @keyframes floatHeroAnimation {
-                      0%, 100% { transform: translateY(0px); }
-                      50% { transform: translateY(-8px); }
-                    }
-                    @keyframes pulseHeroGlow {
-                      0%, 100% { opacity: 0.4; }
-                      50% { opacity: 0.8; }
-                    }
-                    .hero-svg-float {
-                      animation: floatHeroAnimation 4s ease-in-out infinite;
-                    }
-                    .hero-svg-pulse {
-                      animation: pulseHeroGlow 2.5s ease-in-out infinite;
-                    }
-                  `}</style>
-                  <svg className="w-full h-auto opacity-90 transition-opacity duration-300" viewBox="0 0 400 250" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <defs>
-                      <radialGradient id="heroGlowGrad" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="var(--color-accent, #00e5c3)" stopOpacity="0.25" />
-                        <stop offset="100%" stopColor="var(--color-accent, #00e5c3)" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-
-                    {/* Background Glow */}
-                    <circle cx="200" cy="125" r="80" fill="url(#heroGlowGrad)" className="hero-svg-pulse" />
-
-                    {/* Connection lines */}
-                    <path d="M 90 90 Q 150 100 170 120" stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-                    <path d="M 310 90 Q 250 100 230 120" stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-                    <path d="M 120 180 Q 170 160 185 140" stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-                    <path d="M 280 180 Q 230 160 215 140" stroke="rgba(255,255,255,0.08)" strokeDasharray="4 4" />
-                    <path d="M 200 65 V 100" stroke="rgba(255,255,255,0.12)" strokeDasharray="4 4" />
-
-                    {/* Graduation Cap */}
-                    <g className="hero-svg-float" style={{ transformOrigin: '200px 125px' }}>
-                      <path d="M 175 130 V 138 C 175 145, 225 145, 225 138 V 130" stroke="#00e5c3" strokeWidth="2" fill="#030303" />
-                      <path d="M 200 110 L 245 122 L 200 134 L 155 122 Z" stroke="#00e5c3" strokeWidth="2" fill="#030303" />
-                      <path d="M 200 122 L 165 128 V 140" stroke="#00e5c3" strokeWidth="1.5" />
-                      <circle cx="165" cy="142" r="2.5" fill="#00e5c3" />
-                    </g>
-
-                    {/* Lightbulb */}
-                    <g className="hero-svg-pulse">
-                      <path d="M 190 40 C 190 25, 210 25, 210 40 C 210 48, 204 50, 204 55 H 196 C 196 50, 190 48, 190 40 Z" stroke="white" strokeWidth="1.5" fill="none" />
-                      <path d="M 197 58 H 203 M 198 61 H 202" stroke="white" strokeWidth="1.5" />
-                      <line x1="200" y1="20" x2="200" y2="12" stroke="#00e5c3" strokeWidth="1.5" />
-                      <line x1="180" y1="30" x2="173" y2="24" stroke="#00e5c3" strokeWidth="1.5" />
-                      <line x1="220" y1="30" x2="227" y2="24" stroke="#00e5c3" strokeWidth="1.5" />
-                    </g>
-
-                    {/* Laptop / Screen */}
-                    <g>
-                      <rect x="55" y="65" width="40" height="26" rx="3" stroke="white" strokeWidth="1.5" fill="#030303" />
-                      <line x1="50" y1="91" x2="100" y2="91" stroke="white" strokeWidth="2" />
-                      <circle cx="75" cy="74" r="4" stroke="white" strokeWidth="1" />
-                      <path d="M 68 83 C 68 79, 82 79, 82 83" stroke="white" strokeWidth="1" />
-                      <polygon points="61,71 61,77 66,74" fill="#00e5c3" stroke="#00e5c3" strokeWidth="1" />
-                    </g>
-
-                    {/* User Group */}
-                    <g>
-                      <circle cx="75" cy="140" r="14" stroke="white" strokeWidth="1.5" strokeDasharray="3 3" />
-                      <circle cx="75" cy="135" r="3.5" fill="white" />
-                      <path d="M 68 145 C 68 141, 82 141, 82 145" fill="white" />
-                      <circle cx="68" cy="139" r="2.5" fill="rgba(255,255,255,0.7)" />
-                      <circle cx="82" cy="139" r="2.5" fill="rgba(255,255,255,0.7)" />
-                    </g>
-
-                    {/* Certificate */}
-                    <g>
-                      <rect x="305" y="65" width="35" height="26" rx="2" stroke="white" strokeWidth="1.5" fill="#030303" />
-                      <line x1="312" y1="71" x2="333" y2="71" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                      <line x1="312" y1="76" x2="333" y2="76" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                      <line x1="312" y1="81" x2="325" y2="81" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-                      <circle cx="328" cy="81" r="3.5" fill="#00e5c3" />
-                      <polygon points="328,83 326,89 330,89" fill="#00e5c3" />
-                    </g>
-
-                    {/* Student at Desk (Left) */}
-                    <g>
-                      <path d="M 50 215 H 100" stroke="white" strokeWidth="1.5" />
-                      <path d="M 75 195 L 85 208 M 75 195 L 65 208" stroke="white" strokeWidth="1.5" />
-                      <rect x="68" y="190" width="14" height="10" rx="1" stroke="white" strokeWidth="1" fill="#030303" />
-                      <circle cx="60" cy="178" r="4.5" stroke="white" strokeWidth="1.5" />
-                      <path d="M 50 195 C 50 188, 70 188, 70 195" stroke="white" strokeWidth="1.5" fill="none" />
-                    </g>
-
-                    {/* Books Stack */}
-                    <g>
-                      <rect x="180" y="200" width="40" height="8" rx="1" stroke="white" strokeWidth="1.2" fill="#030303" />
-                      <rect x="183" y="193" width="34" height="7" rx="1" stroke="white" strokeWidth="1.2" fill="#030303" />
-                      <rect x="181" y="186" width="38" height="7" rx="1" stroke="white" strokeWidth="1.2" fill="#030303" />
-                      <rect x="225" y="192" width="10" height="16" rx="1" stroke="white" strokeWidth="1.5" fill="#030303" />
-                      <path d="M 235 196 H 237 V 204 H 235" stroke="white" strokeWidth="1.2" />
-                      <line x1="228" y1="192" x2="226" y2="182" stroke="#00e5c3" strokeWidth="1" />
-                      <line x1="232" y1="192" x2="234" y2="184" stroke="white" strokeWidth="1" />
-                    </g>
-
-                    {/* Student at Desk (Right) */}
-                    <g>
-                      <path d="M 300 215 H 350" stroke="white" strokeWidth="1.5" />
-                      <rect x="315" y="190" width="16" height="10" rx="1" stroke="white" strokeWidth="1" fill="#030303" />
-                      <circle cx="338" cy="178" r="4.5" stroke="white" strokeWidth="1.5" />
-                      <path d="M 328 195 C 328 188, 348 188, 348 195" stroke="white" strokeWidth="1.5" fill="none" />
-                      <rect x="290" y="192" width="4" height="12" fill="#00e5c3" />
-                      <rect x="295" y="196" width="4" height="8" fill="rgba(255,255,255,0.7)" />
-                    </g>
-                  </svg>
-                </div>
-              </div>
-            </div>
+      {/* Hero Section Grid Area */}
+      <div className="site-shell px-6 md:px-12 lg:px-20 relative z-10 flex-1 flex items-center justify-center pt-[110px] pb-[150px] lg:pt-[96px] lg:pb-[96px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[46%_54%] items-center gap-12 lg:gap-[64px] w-full">
+          
+          {/* Left Column: Children (HeroContent) */}
+          <div className="w-full flex items-center justify-start z-20">
+            {children}
           </div>
 
-          {/* Bottom Bar: Scroll to Explore + Student Avatars Overlay */}
-          <div className="absolute bottom-8 left-0 w-full z-30 px-6 sm:px-10 lg:px-14 xl:px-20 2xl:px-28 pointer-events-none flex items-center justify-center sm:justify-between">
-            {/* Scroll Indicator */}
-            <div className="flex flex-col items-center gap-2 text-[10px] font-bold tracking-widest text-white/40 uppercase font-sans">
-              <span>Scroll to explore</span>
-              <div className="hero-scroll-line mt-1" />
-            </div>
-
-            {/* Social Proof */}
-            <div className="hidden sm:flex items-center gap-3">
-              <div className="flex">
-                {students.map((student, index) => (
-                  <div
-                    key={student}
-                    className={`grid size-[32px] place-items-center rounded-full border border-white/[0.06] bg-brand-soft/80 text-eyebrow font-bold text-white shadow-sm ${index > 0 ? "-ml-3" : ""}`}
-                  >
-                    {student}
-                  </div>
-                ))}
-              </div>
-              <span className="tracking-[0.04em] text-[#cccccc] text-sm-ui font-semibold font-sans whitespace-nowrap">
-                Trusted by 1,000+ finance professionals
-              </span>
-            </div>
+          {/* Right Column: HeroIllustration */}
+          <div className="w-full flex items-center justify-center z-10 overflow-visible">
+            <HeroIllustration />
           </div>
+
         </div>
       </div>
 
-      <div className="relative overflow-hidden bg-[#f6f6f6]">
-        <div className="absolute left-0 top-0 z-10 flex h-full w-full max-w-[300px] items-center justify-center bg-[#f6f6f6]/95 px-8 shadow-[20px_0_40px_rgba(0,0,0,0.03)] border-r border-[#e2e8f0]">
-          <p className="max-w-[194px] text-center text-sm-ui font-medium leading-[1.4] text-slate-600">
-            {badgeCopy}
-          </p>
-        </div>
-        <div className="overflow-hidden border-y border-[#e2e8f0] bg-[#f6f6f6] px-4 py-6 sm:px-6 lg:px-10">
-          <div className="marquee-track flex min-w-max animate-[marquee_28s_linear_infinite] hover:[animation-play-state:paused] items-center gap-12 pr-12 will-change-transform">
-            {(() => {
-              const activePartners = partners.length > 0 ? partners : partnerLogos;
-              return [...activePartners, ...activePartners].map((logo, index) => (
+      {/* Glassmorphic Partner Logo Marquee */}
+      <motion.div
+        initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
+        animate={isRevealed ? { opacity: 1, y: 0 } : undefined}
+        transition={{
+          duration: 0.6,
+          delay: 1.8,
+          ease: [0.25, 1, 0.5, 1] // ease-out-quart
+        }}
+        className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden bg-white/[0.02] backdrop-blur-lg border-t border-white/10 w-full"
+      >
+        <div className="flex flex-col md:flex-row items-center">
+          
+          {/* Left static label */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isRevealed ? { opacity: 1 } : undefined}
+            transition={{ duration: 0.5, delay: 1.9 }}
+            className="z-10 flex items-center justify-center bg-transparent px-8 py-5 border-b md:border-b-0 md:border-r border-white/10 w-full md:w-auto md:min-w-[280px] backdrop-blur-xl"
+          >
+            <p className="text-center md:text-left text-xs font-semibold uppercase tracking-wider text-white/60 max-w-[220px]">
+              {badgeCopy}
+            </p>
+          </motion.div>
+
+          {/* Scrolling track */}
+          <div
+            className="overflow-hidden px-6 py-6 flex-1 w-full relative"
+            style={{ maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)" }}
+          >
+            <div
+              ref={heroMarqueeRef}
+              className="flex min-w-max items-center gap-12 pr-12 will-change-transform"
+              style={{ transform: "translateX(0px)" }}
+            >
+              {[...partnerLogos, ...partnerLogos].map((logo, index) => (
                 <div
                   key={`${logo.name}-${index}`}
-                  className="relative h-8 w-24 shrink-0 opacity-70 grayscale transition-all duration-300 hover:grayscale-0 hover:opacity-100 hover:scale-110 cursor-pointer"
+                  className="relative h-7 w-20 shrink-0 opacity-100 grayscale invert brightness-200 transition-all duration-300 hover:scale-105 cursor-pointer"
                 >
                   <Image
                     src={logo.src}
@@ -281,56 +401,14 @@ export function Hero({ children }: { children?: React.ReactNode }) {
                     className="object-contain"
                   />
                 </div>
-              ));
-            })()}
+              ))}
+            </div>
           </div>
+
         </div>
-      </div>
-      <style>{`
-        .hero-title-shimmer {
-          background: linear-gradient(90deg, #2dd4bf, #7dd3fc, #a78bfa, #2dd4bf);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          animation: shimmer 6s linear infinite;
-        }
-        @keyframes shimmer {
-          to { background-position: 200% center; }
-        }
+      </motion.div>
 
-        .hero-radial-mask {
-          mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 95%);
-          -webkit-mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 95%);
-        }
-        .hero-grid-mask {
-          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
-          mask-size: 60px 60px;
-          mask-repeat: repeat;
-          -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M 60 0 L 0 0 0 60' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E");
-          -webkit-mask-size: 60px 60px;
-          -webkit-mask-repeat: repeat;
-        }
 
-        .navbar-transition {
-          transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      translate 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      padding 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      background-color 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      border-color 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      border-radius 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      color 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      width 800ms cubic-bezier(0.16, 1, 0.3, 1),
-                      box-shadow 800ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-scroll-line {
-          height: 32px;
-          width: 1px;
-          background: #555;
-          transform-origin: top;
-        }
-      `}</style>
     </section>
   );
 }

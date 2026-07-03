@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function MicrographicLoader() {
   const counterRef = useRef<HTMLDivElement>(null);
@@ -19,10 +20,18 @@ export function MicrographicLoader() {
       // Instantly reveal content and hide loader
       const mainContent = document.getElementById("main-content");
       if (mainContent) {
-        gsap.set(mainContent, { opacity: 1, scale: 1 });
+        gsap.set(mainContent, { opacity: 1, scale: 1, clearProps: "all" });
       }
       setIsVisible(false);
+      ScrollTrigger.refresh();
+      (window as any).isSiteRevealed = true;
+      window.dispatchEvent(new CustomEvent("site-revealed"));
       return;
+    }
+
+    const mainContentInitial = document.getElementById("main-content");
+    if (mainContentInitial) {
+      gsap.set(mainContentInitial, { scale: 1.04, transformOrigin: "center top" });
     }
 
     // Initialize counter animation
@@ -45,8 +54,16 @@ export function MicrographicLoader() {
         const mainContent = document.getElementById("main-content");
         
         const loaderTl = gsap.timeline({
+          onStart: () => {
+            (window as any).isSiteRevealed = true;
+            window.dispatchEvent(new CustomEvent("site-revealed"));
+          },
           onComplete: () => {
             setIsVisible(false);
+            if (mainContent) {
+              gsap.set(mainContent, { clearProps: "all" });
+            }
+            ScrollTrigger.refresh();
           }
         });
 

@@ -1,490 +1,675 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Target, Users, Sparkles, ShieldCheck, MonitorPlay, Check, Play, ChevronRight, Terminal } from "lucide-react";
-import { ScrollRevealText } from "@/components/academy/ScrollRevealText";
-import { cn } from "@/lib/utils";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
+import { useRef, useLayoutEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CountUpNumber } from "@/components/academy/CountUpNumber";
+import { Target, Briefcase, Bot, Globe, Users, Star, Shield, IndianRupee } from "lucide-react";
 
-interface FeatureItem {
+interface CardProps {
   id: string;
   title: string;
   body: string;
   icon: React.ComponentType<any>;
+  badges?: string[];
+  graphic: React.ReactNode;
+  spanClass?: string;
+  glowColor?: string;
+  themeColorClass?: string; // used for icon border/text coloring
+  minHeightClass?: string;  // custom height targeting row 1 vs row 2
+  fullGraphic?: boolean;    // let graphic fill the entire box
 }
 
-const features: FeatureItem[] = [
-  {
-    id: "01",
-    title: "Career-aligned tracks",
-    body: "Every program is mapped to real finance roles, so learners train with the destination in mind.",
-    icon: Target,
-  },
-  {
-    id: "02",
-    title: "Role-based pathways",
-    body: "Freshers, early-career professionals, and specialists do not need the same curriculum, so we do not treat them the same.",
-    icon: Users,
-  },
-  {
-    id: "03",
-    title: "AI and automation exposure",
-    body: "Learners build familiarity with the tools shaping today’s finance workflows.",
-    icon: Sparkles,
-  },
-  {
-    id: "04",
-    title: "Global finance context",
-    body: "Compliance, audit discipline, reporting standards, and control awareness are built into the learning experience.",
-    icon: ShieldCheck,
-  },
-  {
-    id: "05",
-    title: "Practical simulations",
-    body: "Learners apply concepts through cases, scenarios, and workflows that resemble actual finance work.",
-    icon: MonitorPlay,
-  },
-];
+function BentoCard({
+  id,
+  title,
+  body,
+  icon: Icon,
+  badges,
+  graphic,
+  spanClass = "",
+  glowColor = "rgba(45, 212, 191, 0.08)",
+  themeColorClass = "text-emerald-400 border-emerald-500/20 bg-emerald-500/5",
+  minHeightClass = "min-h-[325px] sm:min-h-[240px] md:min-h-[385px] lg:min-h-[365px]",
+  fullGraphic = false,
+}: CardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+
+  function handleMouseEnter() {
+    if (cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+  }
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!rectRef.current) {
+      if (cardRef.current) {
+        rectRef.current = cardRef.current.getBoundingClientRect();
+      } else {
+        return;
+      }
+    }
+    const left = rectRef.current.left;
+    const top = rectRef.current.top;
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+  }
+
+  function handleMouseLeave() {
+    rectRef.current = null;
+  }
+
+  let hoverAccentColor = "rgba(52, 211, 153, 0.25)"; // green/emerald
+  let badgeColors = "text-emerald-400 border-emerald-500/20 bg-emerald-500/5 hover:shadow-[0_0_8px_rgba(45,212,191,0.25)]";
+  let numColor = "text-emerald-400/80";
+  let radialGlowBg = "rgba(16, 201, 129, 0.25)";
+  let cardBorderGrad = "linear-gradient(to bottom right, rgba(16, 201, 129, 0.24) 0%, rgba(45, 212, 191, 0.15) 50%, rgba(16, 201, 129, 0.24) 100%)";
+  let cardGlowShadow = "0 8px 32px rgba(0,0,0,0.6), inset 0 0 15px rgba(16, 201, 129, 0.04)";
+  let cardHoverShadow = "0 16px 40px rgba(0,0,0,0.8), inset 0 0 25px rgba(16, 201, 129, 0.18)";
+  let iconGlowClass = "shadow-[inset_0_1.5px_0_rgba(255,255,255,0.15),0_0_12px_rgba(16,201,129,0.35)] group-hover:shadow-[inset_0_1.5px_0_rgba(255,255,255,0.25),0_0_20px_rgba(16,201,129,0.65)]";
+  let imageContainerBorderClass = "border-emerald-500/15 group-hover:border-emerald-500/35 shadow-[0_0_10px_rgba(16,201,129,0.06)] group-hover:shadow-[0_0_15px_rgba(16,201,129,0.16)]";
+
+  if (glowColor.includes("168") || glowColor.includes("139") || glowColor.includes("purple") || glowColor.includes("indigo")) {
+    hoverAccentColor = "rgba(168, 85, 247, 0.25)"; // purple
+    badgeColors = "text-purple-400 border-purple-500/20 bg-purple-500/5 hover:shadow-[0_0_8px_rgba(168,85,247,0.25)]";
+    numColor = "text-purple-400/80";
+    radialGlowBg = "rgba(168, 85, 247, 0.25)";
+    cardBorderGrad = "linear-gradient(to bottom right, rgba(16, 85, 247, 0.24) 0%, rgba(139, 92, 246, 0.15) 50%, rgba(16, 85, 247, 0.24) 100%)";
+    cardGlowShadow = "0 8px 32px rgba(0,0,0,0.6), inset 0 0 15px rgba(168, 85, 247, 0.04)";
+    cardHoverShadow = "0 16px 40px rgba(0,0,0,0.8), inset 0 0 25px rgba(168, 85, 247, 0.18)";
+    iconGlowClass = "shadow-[inset_0_1.5px_0_rgba(255,255,255,0.15),0_0_12px_rgba(168,85,247,0.35)] group-hover:shadow-[inset_0_1.5px_0_rgba(255,255,255,0.25),0_0_20px_rgba(168,85,247,0.65)]";
+    imageContainerBorderClass = "border-purple-500/15 group-hover:border-purple-500/35 shadow-[0_0_10px_rgba(168,85,247,0.06)] group-hover:shadow-[0_0_15px_rgba(168,85,247,0.16)]";
+  } else if (glowColor.includes("6,") || glowColor.includes("cyan")) {
+    hoverAccentColor = "rgba(6, 182, 212, 0.25)"; // cyan
+    badgeColors = "text-cyan-400 border-cyan-500/20 bg-cyan-500/5 hover:shadow-[0_0_8px_rgba(6,182,212,0.25)]";
+    numColor = "text-cyan-400/80";
+    radialGlowBg = "rgba(6, 182, 212, 0.25)";
+    cardBorderGrad = "linear-gradient(to bottom right, rgba(6, 182, 212, 0.24) 0%, rgba(56, 189, 248, 0.15) 50%, rgba(6, 182, 212, 0.24) 100%)";
+    cardGlowShadow = "0 8px 32px rgba(0,0,0,0.6), inset 0 0 15px rgba(6, 182, 212, 0.04)";
+    cardHoverShadow = "0 16px 40px rgba(0,0,0,0.8), inset 0 0 25px rgba(6, 182, 212, 0.18)";
+    iconGlowClass = "shadow-[inset_0_1.5px_0_rgba(255,255,255,0.15),0_0_12px_rgba(6,182,212,0.35)] group-hover:shadow-[inset_0_1.5px_0_rgba(255,255,255,0.25),0_0_20px_rgba(6,182,212,0.65)]";
+    imageContainerBorderClass = "border-cyan-500/15 group-hover:border-cyan-500/35 shadow-[0_0_10px_rgba(6,182,212,0.06)] group-hover:shadow-[0_0_15px_rgba(6,182,212,0.16)]";
+  }
+
+  let pColor1 = "rgba(52, 211, 153, 0.5)"; // green
+  let pColor2 = "rgba(6, 182, 212, 0.5)"; // cyan
+  let pColor3 = "rgba(168, 85, 247, 0.5)"; // purple
+
+  let dividerColor = "via-emerald-500/22";
+  let borderColor = "rgba(16, 201, 129, 0.35)";
+  let glowShadow = "inset 0 0 18px rgba(16,201,129,0.18), inset 0 0 60px rgba(16,201,129,0.07)";
+  if (glowColor.includes("168") || glowColor.includes("139") || glowColor.includes("purple") || glowColor.includes("indigo")) {
+    dividerColor = "via-purple-500/22";
+    borderColor = "rgba(168, 85, 247, 0.35)";
+    glowShadow = "inset 0 0 18px rgba(168,85,247,0.18), inset 0 0 60px rgba(168,85,247,0.07)";
+  } else if (glowColor.includes("6,") || glowColor.includes("cyan")) {
+    dividerColor = "via-cyan-500/22";
+    borderColor = "rgba(6, 182, 212, 0.35)";
+    glowShadow = "inset 0 0 18px rgba(6,182,212,0.18), inset 0 0 60px rgba(6,182,212,0.07)";
+  }
+
+  return (
+    <div className={`bento-card-wrapper h-full ${spanClass}`}>
+      <div
+        ref={cardRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 sm:p-8 h-full animate-card ${minHeightClass}`}
+        style={{
+          borderRadius: "16px",
+          background: "#090B0F",
+          border: `1px solid ${borderColor}`,
+          boxShadow: `${glowShadow}, 0 8px 32px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04)`,
+          transition: "box-shadow 250ms ease, transform 250ms ease",
+          "--hover-accent": hoverAccentColor,
+          "--card-border-grad": cardBorderGrad,
+          "--card-glow-shadow": cardGlowShadow,
+          "--card-hover-shadow": cardHoverShadow,
+        } as React.CSSProperties}
+      >
+        {/* Interactive Radial Hover Glow */}
+        <div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-500 group-hover:opacity-100 z-0"
+          style={{
+            background: `radial-gradient(300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), ${glowColor}, transparent 80%)`,
+          }}
+        />
+        
+        {/* Static Right Corners Glow */}
+        <div
+          className="pointer-events-none absolute -inset-px opacity-[0.7] transition duration-500 group-hover:opacity-[0.1] z-0"
+          style={{
+            background: `radial-gradient(350px circle at 100% 0%, ${glowColor}, transparent 70%), radial-gradient(350px circle at 100% 100%, ${glowColor}, transparent 70%)`,
+          }}
+        />
+
+        <div className="flex flex-col justify-between h-full relative z-10 w-full">
+          {/* Upper Section: 2-Column Split Layout for Graphic and Heading/Description */}
+          <div className="grid grid-cols-1 sm:grid-cols-[145px_1fr] gap-5 items-stretch w-full">
+            
+            {/* Left: Graphic and Icon Container (Stretches to match height on desktop sm:h-full) */}
+            <div className={`relative flex flex-col items-center justify-center min-h-[135px] sm:h-full w-full sm:w-[145px] rounded-2xl bg-[#08090c] border overflow-hidden z-0 shadow-[inset_0_2px_8px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.02)] transition-all duration-500 ${
+              fullGraphic ? "p-0" : "p-2"
+            } ${imageContainerBorderClass}`}>
+              {/* Soft radial glow behind the illustration (very subtle to avoid muddy tint) */}
+              <div 
+                className="absolute w-32 h-32 rounded-full blur-2xl opacity-30 pointer-events-none transition-all duration-500 group-hover:opacity-45 group-hover:scale-110 z-0"
+                style={{
+                  background: `radial-gradient(circle, ${radialGlowBg} 0%, transparent 70%)`
+                }}
+              />
+
+              {/* Faint floating particles around the illustration */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                <div 
+                  className="absolute w-[3px] h-[3px] rounded-full top-[25%] left-[20%] animate-float-p1"
+                  style={{ backgroundColor: pColor1, opacity: 0.4 }}
+                />
+                <div 
+                  className="absolute w-[4px] h-[4px] rounded-full bottom-[25%] right-[20%] animate-float-p2"
+                  style={{ backgroundColor: pColor2, opacity: 0.3 }}
+                />
+                <div 
+                  className="absolute w-[3px] h-[3px] rounded-full top-[60%] right-[30%] animate-float-p3"
+                  style={{ backgroundColor: pColor3, opacity: 0.4 }}
+                />
+              </div>
+
+              {/* Circular Icon in Top-Left */}
+              <div className={`absolute top-2.5 left-2.5 w-9.5 h-9.5 rounded-full border flex items-center justify-center transition-all duration-500 group-hover:scale-110 ${themeColorClass} ${iconGlowClass} z-20`}>
+                <Icon className="w-4.5 h-4.5" />
+              </div>
+
+              {/* Visual Graphic Representation */}
+              <div 
+                className={`w-full h-full flex items-center justify-center z-10 ${
+                  fullGraphic ? "relative" : "py-2 scale-90 transition-all duration-500 group-hover:scale-[0.93]"
+                }`}
+              >
+                {graphic}
+              </div>
+            </div>
+
+            {/* Right: Text Container (Heading & Description with increased vertical rhythm) */}
+            <div className="flex flex-col justify-start pt-1.5 sm:pt-0">
+              <span className={`text-[10px] font-mono tracking-[0.15em] uppercase font-semibold ${numColor}`}>
+                {id}
+              </span>
+              <h3 className="mt-3.5 text-lg sm:text-xl font-bold leading-[1.2] tracking-tight text-white/95 font-display group-hover:text-white transition-colors duration-300">
+                {title}
+              </h3>
+              <p className="mt-3 text-[13px] sm:text-[14px] font-normal leading-[1.6] text-white/65 font-sans tracking-wide group-hover:text-white/85 transition-colors duration-300">
+                {body}
+              </p>
+            </div>
+          </div>
+
+          {/* Divider line between upper content zone and lower pills zone spanning the full width */}
+          {badges && badges.length > 0 && (
+            <div className="w-full h-[1px] bg-white/[0.06] mt-6 mb-4 relative z-10" />
+          )}
+
+          {/* Lower Section: Pills spanning the full card width */}
+          {badges && badges.length > 0 && (
+            <div className="flex flex-wrap gap-2 w-full relative z-10 mt-1">
+              {badges.map((badge) => (
+                <span
+                  key={badge}
+                  className={`rounded-full border px-3.5 py-1 text-[10px] font-mono tracking-wider uppercase leading-tight font-medium transition-all duration-300 hover:-translate-y-0.5 cursor-default ${badgeColors}`}
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function CoreFeatures({ sectionId = "core-features" }: { sectionId?: string }) {
-  const [activeId, setActiveId] = useState("01");
-  const [activeRoleTab, setActiveRoleTab] = useState("grad");
+  const containerRef = useRef<HTMLElement>(null);
 
-  // Helper to render mock UI depending on selected feature
-  const renderMockUI = () => {
-    switch (activeId) {
-      case "01":
-        // Career-aligned tracks: Learning Roadmap
-        return (
-          <div className="flex flex-col h-full justify-between text-left font-sans">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                <div>
-                  <div className="text-[10px] font-mono text-accent uppercase tracking-wider">Active Curriculum</div>
-                  <h4 className="text-sm font-semibold text-white mt-1">Corporate Finance Analyst Pathway</h4>
-                </div>
-                <span className="text-[10px] font-mono bg-accent/10 text-accent px-2 py-0.5 rounded border border-accent/20">Level 1</span>
-              </div>
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      // Fade-in headings
+      gsap.fromTo(
+        ".diff-heading",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".diff-heading",
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
 
-              <div className="space-y-4">
-                {/* Step 1 */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 text-accent" />
-                  </div>
-                  <div>
-                    <h5 className="text-xs font-semibold text-white">Phase 1: Valuation & Accounting Foundations</h5>
-                    <p className="text-[11px] text-white/50 mt-0.5">Excel modeling, three-statement basics, and ratio analysis</p>
-                  </div>
-                </div>
+      // Bento cards staggered entrance
+      gsap.fromTo(
+        ".bento-card-wrapper",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power3.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: ".bento-grid",
+            start: "top 80%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
 
-                {/* Step 2 */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent flex items-center justify-center shrink-0 animate-pulse">
-                    <div className="w-2 h-2 rounded-full bg-accent" />
-                  </div>
-                  <div>
-                    <h5 className="text-xs font-semibold text-accent flex items-center gap-1.5">
-                      Phase 2: Advanced Deal Structuring
-                      <span className="text-[8px] uppercase tracking-widest bg-accent text-[#04060f] px-1 font-bold rounded">In Progress</span>
-                    </h5>
-                    <p className="text-[11px] text-white/70 mt-0.5">DCF models, sensitivity analysis, and debt scheduling</p>
-                  </div>
-                </div>
+      // Metrics strip stagger entrance
+      gsap.fromTo(
+        ".metric-block",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".metrics-strip",
+            start: "top 90%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    }, containerRef.current || undefined);
 
-                {/* Step 3 */}
-                <div className="flex items-start gap-4 opacity-40">
-                  <div className="w-6 h-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                    <span className="text-[10px] font-mono">3</span>
-                  </div>
-                  <div>
-                    <h5 className="text-xs font-semibold text-white">Phase 3: Real M&A Deal Simulation</h5>
-                    <p className="text-[11px] text-white/50 mt-0.5">Sponsor buyout case study and presentation to partners</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-white/40">
-              <span>EST. TIME: 4 Weeks Remaining</span>
-              <span className="text-accent">Outcome: Investment Ready</span>
-            </div>
-          </div>
-        );
-
-      case "02":
-        // Role-based pathways: Custom Curriculum Switcher
-        return (
-          <div className="flex flex-col h-full justify-between text-left font-sans">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
-                <div>
-                  <div className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Switch Pathway View</div>
-                  <h4 className="text-sm font-semibold text-white mt-1">Adaptive Curriculum Builder</h4>
-                </div>
-              </div>
-
-              {/* Tabs */}
-              <div className="flex gap-2 bg-white/5 p-1 rounded-lg mb-6 border border-white/5">
-                <button
-                  onClick={() => setActiveRoleTab("grad")}
-                  className={cn(
-                    "flex-1 text-[11px] py-1.5 rounded-md transition-all font-medium cursor-pointer",
-                    activeRoleTab === "grad" ? "bg-accent text-[#04060f] font-bold" : "text-white/60 hover:text-white"
-                  )}
-                >
-                  Undergrad / Fresher
-                </button>
-                <button
-                  onClick={() => setActiveRoleTab("pro")}
-                  className={cn(
-                    "flex-1 text-[11px] py-1.5 rounded-md transition-all font-medium cursor-pointer",
-                    activeRoleTab === "pro" ? "bg-accent text-[#04060f] font-bold" : "text-white/60 hover:text-white"
-                  )}
-                >
-                  Early Professional
-                </button>
-                <button
-                  onClick={() => setActiveRoleTab("spec")}
-                  className={cn(
-                    "flex-1 text-[11px] py-1.5 rounded-md transition-all font-medium cursor-pointer",
-                    activeRoleTab === "spec" ? "bg-accent text-[#04060f] font-bold" : "text-white/60 hover:text-white"
-                  )}
-                >
-                  Specialist
-                </button>
-              </div>
-
-              {/* Tab Contents */}
-              <div className="min-h-[120px] bg-white/[0.02] border border-white/5 rounded-xl p-4">
-                {activeRoleTab === "grad" && (
-                  <div className="space-y-2.5">
-                    <div className="text-xs font-semibold text-white">Target Skill Gap: Academic to Practical</div>
-                    <ul className="space-y-1.5 text-[11px] text-white/60">
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Real-world Accounting Standards (GAAP/IFRS)</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Financial Modeling & Excel Workflows</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Interview Prep & Pitch Presentation Drill</li>
-                    </ul>
-                  </div>
-                )}
-                {activeRoleTab === "pro" && (
-                  <div className="space-y-2.5">
-                    <div className="text-xs font-semibold text-white">Target Skill Gap: Acceleration & Upskill</div>
-                    <ul className="space-y-1.5 text-[11px] text-white/60">
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Advanced Leveraged Buyout Modeling (LBO)</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> M&A Transaction Structures & Negotiation</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Dynamic Forecasting & Scenario Automation</li>
-                    </ul>
-                  </div>
-                )}
-                {activeRoleTab === "spec" && (
-                  <div className="space-y-2.5">
-                    <div className="text-xs font-semibold text-white">Target Skill Gap: Sector & Vertical Domination</div>
-                    <ul className="space-y-1.5 text-[11px] text-white/60">
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Real Estate & Infrastructure Modeling</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Biotech/SaaS Enterprise Valuation Metrics</li>
-                      <li className="flex items-center gap-2"><div className="w-1 h-1 rounded-full bg-accent" /> Distressed Asset Valuation & Credit Modeling</li>
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/5 text-[10px] font-mono text-white/40 flex justify-between">
-              <span>CURRICULUM STREAMS: 3 distinct paths</span>
-              <span className="text-accent">100% Adaptive learning system</span>
-            </div>
-          </div>
-        );
-
-      case "03":
-        // AI and automation exposure: Code Terminal
-        return (
-          <div className="flex flex-col h-full text-left font-mono text-[11px] leading-relaxed">
-            <div className="flex items-center gap-2 border-b border-white/5 pb-3 mb-4 shrink-0 text-white/40">
-              <Terminal className="w-3.5 h-3.5 text-accent" />
-              <span>data_pipeline.py</span>
-              <div className="ml-auto flex gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/60" />
-                <span className="w-1.5 h-1.5 rounded-full bg-accent/60" />
-              </div>
-            </div>
-
-            <div className="flex-grow space-y-2 pr-2">
-              <p className="text-white/40"># Initialize automation ledger tools</p>
-              <p className="text-white"><span className="text-purple-400">import</span> pyfinance_agent <span className="text-purple-400">as</span> fa</p>
-              <p className="text-white">agent = fa.FinanceAgent(model=<span className="text-emerald-400">"ledger-v4"</span>)</p>
-              <br />
-              <p className="text-white/60">[INFO] Connecting to corporate ERP endpoints...</p>
-              <p className="text-accent">[SUCCESS] Connected (HTTP 200 OK)</p>
-              <p className="text-white/60">[RUNNING] Fetching transaction ledgers for FY 2026...</p>
-              <p className="text-white/80"> - Processed 42,400 journal entries in 2.1s</p>
-              <p className="text-white/60">[RUNNING] Reconciling and calculating cashflow forecasts...</p>
-              <p className="text-emerald-400">✓ No discrepancies detected. Cash balance matches.</p>
-              <p className="text-white/40"># Save automatically generated workbook</p>
-              <p className="text-white">agent.export_to_excel(<span className="text-emerald-400">"fy26_cashflow_model.xlsx"</span>)</p>
-              <p className="text-accent font-bold">[SUCCESS] File saved successfully. Ready for partner review.</p>
-            </div>
-          </div>
-        );
-
-      case "04":
-        // Global finance context: Audit/Compliance Checklist
-        return (
-          <div className="flex flex-col h-full justify-between text-left font-sans">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-5">
-                <div>
-                  <div className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Internal Audit Control</div>
-                  <h4 className="text-sm font-semibold text-white mt-1">Audit Trail & Control Log</h4>
-                </div>
-                <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Active Monitor
-                </span>
-              </div>
-
-              <div className="space-y-3.5">
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-semibold text-white">IAS 1 Presentation Framework</div>
-                    <div className="text-[10px] text-white/40 mt-0.5">Accrual basis of accounting & materiality logic</div>
-                  </div>
-                  <span className="text-[10px] bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 px-2 py-0.5 rounded">Verified</span>
-                </div>
-
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-semibold text-white">SEC Section 404 Control Check</div>
-                    <div className="text-[10px] text-white/40 mt-0.5">Internal control over financial reporting documentation</div>
-                  </div>
-                  <span className="text-[10px] bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 px-2 py-0.5 rounded">Verified</span>
-                </div>
-
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5 flex items-center justify-between">
-                  <div>
-                    <div className="text-xs font-semibold text-white">SOX Section 302 Disclosure</div>
-                    <div className="text-[10px] text-white/40 mt-0.5">Officer sign-off simulation and compliance log verification</div>
-                  </div>
-                  <span className="text-[10px] bg-emerald-400/10 text-emerald-400 border border-emerald-400/20 px-2 py-0.5 rounded">Verified</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/5 text-[10px] font-mono text-white/40 flex justify-between">
-              <span>SYSTEM: Multi-region Compliance Audit</span>
-              <span className="text-accent">Target: ZERO Errors</span>
-            </div>
-          </div>
-        );
-
-      case "05":
-        // Practical simulations: Balance Sheet Chart
-        return (
-          <div className="flex flex-col h-full justify-between text-left font-sans">
-            <div>
-              <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4">
-                <div>
-                  <div className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Asset Simulation Workspace</div>
-                  <h4 className="text-sm font-semibold text-white mt-1">Simulated Balance Sheet & KPIs</h4>
-                </div>
-                <span className="text-[10px] font-mono bg-white/5 text-white/60 px-2 py-0.5 rounded">Workbook 04</span>
-              </div>
-
-              {/* Numbers */}
-              <div className="grid grid-cols-3 gap-3 mb-5">
-                <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5">
-                  <div className="text-[9px] text-white/45 uppercase tracking-wider font-mono">Revenue</div>
-                  <div className="text-sm font-bold text-white mt-0.5">$12,420,000</div>
-                  <div className="text-[8px] text-emerald-400 font-mono mt-0.5">+14.2% YoY</div>
-                </div>
-                <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5">
-                  <div className="text-[9px] text-white/45 uppercase tracking-wider font-mono">EBITDA Margin</div>
-                  <div className="text-sm font-bold text-white mt-0.5">25.8%</div>
-                  <div className="text-[8px] text-emerald-400 font-mono mt-0.5">+1.8% QoQ</div>
-                </div>
-                <div className="bg-white/[0.02] border border-white/5 rounded-lg p-2.5">
-                  <div className="text-[9px] text-white/45 uppercase tracking-wider font-mono">Free Cash Flow</div>
-                  <div className="text-sm font-bold text-white mt-0.5">$1,840,000</div>
-                  <div className="text-[8px] text-rose-400 font-mono mt-0.5">-2.4% Capital Exp</div>
-                </div>
-              </div>
-
-              {/* Visual Bars representation */}
-              <div className="bg-white/[0.02] border border-white/5 rounded-lg p-3">
-                <div className="text-[9px] text-white/45 uppercase tracking-wider font-mono mb-2.5">Projected Cash Balance (6 months)</div>
-                <div className="flex items-end gap-2 h-[50px] pt-2">
-                  <div className="flex-1 bg-white/5 rounded-t h-[40%] hover:bg-accent/40 transition-colors" />
-                  <div className="flex-1 bg-white/5 rounded-t h-[55%] hover:bg-accent/40 transition-colors" />
-                  <div className="flex-1 bg-white/5 rounded-t h-[50%] hover:bg-accent/40 transition-colors" />
-                  <div className="flex-1 bg-white/5 rounded-t h-[70%] hover:bg-accent/40 transition-colors" />
-                  <div className="flex-1 bg-white/5 rounded-t h-[80%] hover:bg-accent/40 transition-colors" />
-                  <div className="flex-1 bg-accent rounded-t h-[95%]" />
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-3 border-t border-white/5 text-[10px] font-mono text-white/40 flex justify-between">
-              <span>FINANCE RUNTIME: active workbook loaded</span>
-              <span className="text-accent">Drill-down active</span>
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
-    }
-  };
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
+      ref={containerRef}
       id={sectionId}
-      className="w-full bg-transparent text-white section-padding overflow-visible relative"
+      className="site-shell relative overflow-hidden bg-transparent section-padding text-white"
     >
-      <NeonGlowOrb 
-        className="left-[20%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
-      <NeonGlowOrb 
-        className="left-[75%] top-[70%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
+      {/* Decorative Grid Mesh (Clean Neutral Overlay) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293708_1px,transparent_1px),linear-gradient(to_bottom,#1f293708_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
+      {/* Embedded Animations CSS Stylesheet */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes dash {
+          to {
+            stroke-dashoffset: -20;
+          }
+        }
+        .animate-road {
+          stroke-dasharray: 6 4;
+          animation: dash 3s linear infinite;
+        }
+        .group:hover .animate-road {
+          animation: dash 1.5s linear infinite;
+        }
+        @keyframes float-hologram {
+          0% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-6px) rotate(1deg); }
+          100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .float-visual {
+          animation: float-hologram 5s ease-in-out infinite;
+        }
+        .bar-transition {
+          transform-origin: bottom;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .bar-1 { transform: scaleY(1.15); }
+        .group:hover .bar-2 { transform: scaleY(1.25); }
+        .group:hover .bar-3 { transform: scaleY(1.35); }
+
+        .bento-card {
+          position: relative;
+          backdrop-filter: blur(28px);
+          -webkit-backdrop-filter: blur(28px);
+          transition: background 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease-out;
+        }
+        .bento-card:hover {
+          transform: translateY(-2px) scale(1.005);
+        }
+      `}} />
 
       <div className="site-shell relative z-10">
-        {/* Storytelling Header Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 lg:mb-24 items-start">
-          <div className="lg:col-span-7">
-            <span className="section-eyebrow">
-              CORE FEATURES
+
+        {/* [TOP HEADER ZONE] */}
+        <div className="diff-heading flex flex-col items-start mb-16 lg:mb-20 max-w-4xl">
+          {/* Green outline pill badge matching reference */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.15em] uppercase text-emerald-400 font-mono mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            WHY OUR PRODUCT
+          </div>
+
+          <h2 className="section-title">
+            Built for{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 font-sans">
+              Finance,
+            </span>{" "}
+            Designed for{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 font-sans">
+              Outcomes.
             </span>
-            <h2 className="section-title">
-              Why learners and employers take 4AT Academy seriously
-            </h2>
+          </h2>
+
+          {/* Separator timeline/slider line below heading */}
+          <div className="w-full max-w-[280px] h-[2px] bg-white/10 rounded-full mt-6 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-1/4 h-full bg-gradient-to-r from-purple-500 to-sky-500 rounded-full" />
+            <div className="absolute top-1/2 left-[25%] -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]" />
           </div>
-          <div className="lg:col-span-5 lg:mt-12">
-            <div className="border-l-2 border-accent/40 pl-6">
-              <ScrollRevealText
-                text="Most finance training stops at content delivery. We go further by connecting learning to job roles, practical workflows, readiness checks, and the expectations of modern finance teams."
-                className="section-desc"
-              />
-            </div>
-          </div>
+
+          <p className="section-desc">
+            We engineered this platform specifically for the complexity, compliance demands, and pace of financial education. That means structured tracks built around real job roles, with SOX, IFRS, and Big 4 standards treated as foundation rather than add-ons.
+          </p>
         </div>
 
-        {/* Feature Showcase Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left panel: Feature Explorer list */}
-          <div className="lg:col-span-5 space-y-4">
-            {features.map((feat) => {
-              const IconComp = feat.icon;
-              const isActive = activeId === feat.id;
-              
-              return (
-                <div
-                  key={feat.id}
-                  onClick={() => setActiveId(feat.id)}
-                  className={cn(
-                    "flex flex-col text-left p-6 rounded-xl border transition-all duration-300 select-none cursor-pointer",
-                    isActive 
-                      ? "bg-[#121212]/60 border-accent/20 shadow-[0_12px_30px_rgba(0,0,0,0.3)]" 
-                      : "bg-transparent border-transparent hover-fine:bg-[#121212]/20"
-                  )}
-                >
-                  <div className="flex items-center gap-4">
-                    {/* Glowing index or icon indicator */}
-                    <div
-                      className={cn(
-                        "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
-                        isActive 
-                          ? "bg-accent/10 border border-accent/30 text-[var(--color-accent)]" 
-                          : "bg-white/5 border border-white/10 text-white/40"
-                      )}
-                    >
-                      <IconComp className="w-5 h-5" />
-                    </div>
+        {/* [BENTO GRID WORKSPACE] */}
+        <div className="bento-grid grid grid-cols-1 md:grid-cols-6 gap-6">
 
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-white/30 tracking-wider">FEAT_{feat.id}</span>
-                        {isActive && <span className="w-1 h-1 rounded-full bg-accent animate-ping" />}
-                      </div>
-                      <h3
-                        className={cn(
-                          "text-base font-bold font-sans mt-0.5 transition-colors duration-300",
-                          isActive ? "text-accent" : "text-white/80"
-                        )}
-                      >
-                        {feat.title}
-                      </h3>
-                    </div>
-                  </div>
+          {/* Card 01 - Career-aligned tracks */}
+          <BentoCard
+            id="01"
+            title="Career-aligned tracks"
+            body="Start with the job you want, then follow a learning path built backward from that destination."
+            icon={Target}
+            badges={["Career Destination", "Role-Based"]}
+            glowColor="rgba(45, 212, 191, 0.08)"
+            themeColorClass="text-emerald-400 border-emerald-500/20 bg-emerald-500/5"
+            spanClass="col-span-1 md:col-span-2"
+            minHeightClass="min-h-[320px] sm:min-h-[220px] md:min-h-[360px] lg:min-h-[340px]"
+            graphic={
+              <div className="relative w-full h-[140px] flex items-center justify-center float-visual">
+                <svg className="w-full h-full max-w-[145px]" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="road-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor="#10b981" stopOpacity="0.05" />
+                      <stop offset="60%" stopColor="#10b981" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#2dd4bf" stopOpacity="0.8" />
+                    </linearGradient>
+                    <linearGradient id="flag-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#2dd4bf" />
+                      <stop offset="100%" stopColor="#10b981" />
+                    </linearGradient>
+                    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="5" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  {/* Perspective grid lines */}
+                  <path d="M 20 140 L 180 140" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                  <path d="M 40 115 L 160 115" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+                  <path d="M 60 90 L 140 90" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
 
-                  {/* Expanded description inside left panel */}
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                        animate={{ height: "auto", opacity: 1, marginTop: 12 }}
-                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-sm font-normal leading-relaxed text-ink-secondary pl-14 pr-4">
-                          {feat.body}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
-          </div>
+                  {/* Glowing Road Path */}
+                  <path d="M 30 140 C 65 130, 85 95, 75 75 C 65 55, 115 35, 135 25" stroke="url(#road-grad)" strokeWidth="5" strokeLinecap="round" fill="none" filter="url(#neon-glow)" />
+                  <path d="M 30 140 C 65 130, 85 95, 75 75 C 65 55, 115 35, 135 25" stroke="#fff" strokeWidth="1" className="animate-road" strokeLinecap="round" fill="none" opacity="0.7" />
 
-          {/* Right panel: High-Fidelity Mock Screen Area */}
-          <div className="lg:col-span-7 lg:sticky lg:top-28">
-            <div className="relative w-full aspect-[16/11] rounded-2xl bg-[#121212] border border-white/8 p-6 sm:p-8 shadow-[0_30px_70px_rgba(0,0,0,0.7)] flex flex-col justify-between overflow-hidden">
-              {/* Decorative top dot status header */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0" />
-              
-              {/* Inner glowing radial blob */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/3 rounded-full blur-[70px] pointer-events-none" />
+                  {/* Flagpole & Flag */}
+                  <line x1="135" y1="25" x2="135" y2="5" stroke="#10b981" strokeWidth="1.5" />
+                  <path d="M 135 5 L 152 10 L 135 15 Z" fill="url(#flag-grad)" filter="url(#neon-glow)" />
 
-              {/* Render dynamic screens based on state with fade animations */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeId}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="h-full w-full"
-                >
-                  {renderMockUI()}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
+                  {/* Glow circles */}
+                  <circle cx="30" cy="140" r="3" fill="#10b981" filter="url(#neon-glow)" />
+                  <circle cx="75" cy="75" r="3" fill="#10b981" filter="url(#neon-glow)" />
+                  <circle cx="135" cy="25" r="4.5" fill="#2dd4bf" filter="url(#neon-glow)" />
+                </svg>
+              </div>
+            }
+          />
+
+          {/* Card 02 - Practical finance training */}
+          <BentoCard
+            id="02"
+            title="Practical finance training"
+            body="Learn the workflows, tools, and reporting logic used in real accounting, audit, tax, and FP&A environments."
+            icon={Briefcase}
+            badges={["Accounting", "Audit & Tax", "FP&A"]}
+            glowColor="rgba(6, 182, 212, 0.1)"
+            themeColorClass="text-cyan-400 border-cyan-500/20 bg-cyan-500/5"
+            spanClass="col-span-1 md:col-span-2"
+            minHeightClass="min-h-[320px] sm:min-h-[220px] md:min-h-[360px] lg:min-h-[340px]"
+            graphic={
+              <div className="relative w-full h-[140px] flex items-center justify-center float-visual">
+                <svg className="w-full h-full max-w-[145px]" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="bar-grad-1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#38bdf8" />
+                      <stop offset="100%" stopColor="#0284c7" stopOpacity="0.05" />
+                    </linearGradient>
+                    <linearGradient id="bar-grad-2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#06b6d4" />
+                      <stop offset="100%" stopColor="#0891b2" stopOpacity="0.05" />
+                    </linearGradient>
+                    <linearGradient id="bar-grad-3" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2dd4bf" />
+                      <stop offset="100%" stopColor="#0d9488" stopOpacity="0.05" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Platform Grid */}
+                  <path d="M 25 125 L 175 125 L 145 95 L 55 95 Z" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+
+                  {/* Grid Lines */}
+                  <line x1="82" y1="125" x2="102" y2="95" stroke="rgba(255,255,255,0.02)" />
+                  <line x1="118" y1="125" x2="128" y2="95" stroke="rgba(255,255,255,0.02)" />
+
+                  {/* Bar 1 */}
+                  <rect x="60" y="65" width="18" height="55" rx="3" fill="url(#bar-grad-1)" stroke="#38bdf8" strokeWidth="1" className="bar-transition bar-1" />
+
+                  {/* Bar 2 */}
+                  <rect x="90" y="45" width="18" height="75" rx="3" fill="url(#bar-grad-2)" stroke="#06b6d4" strokeWidth="1" className="bar-transition bar-2" />
+
+                  {/* Bar 3 */}
+                  <rect x="120" y="25" width="18" height="95" rx="3" fill="url(#bar-grad-3)" stroke="#2dd4bf" strokeWidth="1" className="bar-transition bar-3" />
+
+                  {/* Connecting Sparkline Chart Overlay */}
+                  <path d="M 69 60 L 99 40 L 129 20" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+                  <circle cx="69" cy="60" r="2.5" fill="#fff" />
+                  <circle cx="99" cy="40" r="2.5" fill="#fff" />
+                  <circle cx="129" cy="20" r="2.5" fill="#fff" />
+                </svg>
+              </div>
+            }
+          />
+
+          {/* Card 03 - AI and automation exposure */}
+          <BentoCard
+            id="03"
+            title="AI and automation exposure"
+            body="Build fluency in the digital tools modern finance teams increasingly expect."
+            icon={Bot}
+            badges={["Digital Fluency", "Modern Tools"]}
+            glowColor="rgba(139, 92, 246, 0.1)"
+            themeColorClass="text-indigo-400 border-indigo-500/20 bg-indigo-500/5"
+            spanClass="col-span-1 md:col-span-2"
+            minHeightClass="min-h-[320px] sm:min-h-[220px] md:min-h-[360px] lg:min-h-[340px]"
+            graphic={
+              <div className="relative w-full h-[140px] flex items-center justify-center float-visual">
+                <svg className="w-full h-full max-w-[145px]" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="cube-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#c084fc" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.1" />
+                    </linearGradient>
+                    <linearGradient id="cube-left" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#6366f1" stopOpacity="0.05" />
+                    </linearGradient>
+                    <linearGradient id="cube-right" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#2dd4bf" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#0d9488" stopOpacity="0.05" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Isometric Cube Group */}
+                  <g transform="translate(100, 75)">
+                    {/* Shadow / Bottom Ring */}
+                    <ellipse cx="0" cy="40" rx="45" ry="12" fill="none" stroke="rgba(167, 139, 250, 0.1)" strokeWidth="1" />
+                    {/* Glow Orb in center */}
+                    <circle cx="0" cy="0" r="22" fill="rgba(167, 139, 250, 0.05)" filter="url(#neon-glow)" />
+
+                    {/* Left Face */}
+                    <path d="M -35 0 L 0 18 L 0 50 L -35 32 Z" fill="url(#cube-left)" stroke="#a78bfa" strokeWidth="0.75" />
+
+                    {/* Right Face */}
+                    <path d="M 0 18 L 35 0 L 35 32 L 0 50 Z" fill="url(#cube-right)" stroke="#2dd4bf" strokeWidth="0.75" />
+
+                    {/* Top Face */}
+                    <path d="M -35 0 L 0 -18 L 35 0 L 0 18 Z" fill="url(#cube-top)" stroke="#c084fc" strokeWidth="0.75" />
+
+                    {/* AI Text on Right Face */}
+                    <text x="16" y="27" fill="#fff" fontSize="13" fontWeight="bold" fontFamily="sans-serif" transform="skewY(-17)" textAnchor="middle" filter="url(#neon-glow)">AI</text>
+
+                    {/* Connected circuitry lines floating around */}
+                    <circle cx="-45" cy="-15" r="2" fill="#a78bfa" />
+                    <line x1="-45" y1="-15" x2="-35" y2="0" stroke="rgba(167, 139, 250, 0.25)" strokeWidth="0.5" />
+                    <circle cx="45" cy="-12" r="2" fill="#2dd4bf" />
+                    <line x1="45" y1="-12" x2="35" y2="0" stroke="rgba(45, 212, 191, 0.25)" strokeWidth="0.5" />
+                  </g>
+                </svg>
+              </div>
+            }
+          />
+
+          {/* Card 04 - Readiness for global standards */}
+          <BentoCard
+            id="04"
+            title="Readiness for global standards"
+            body="Train in the context of IFRS, SOX, audit discipline, and employer expectations from day one."
+            icon={Globe}
+            badges={["SOX & IFRS", "Employer Expectation"]}
+            glowColor="rgba(56, 189, 248, 0.1)"
+            themeColorClass="text-sky-400 border-sky-500/20 bg-sky-500/5"
+            spanClass="col-span-1 md:col-span-3"
+            minHeightClass="min-h-[290px] sm:min-h-[220px] md:min-h-[320px] lg:min-h-[300px]"
+            fullGraphic={true}
+            graphic={
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                {/* Background asset globe.png loaded from Generated_Assets */}
+                <Image
+                  src="/Generated_Assets/globe.png"
+                  alt="Holographic Globe Icon"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 145px"
+                  className="object-cover opacity-85 mix-blend-lighten pointer-events-none filter drop-shadow-[0_0_20px_rgba(56,189,248,0.25)] transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
+              </div>
+            }
+          />
+
+          {/* Card 05 - Assessment and placement support */}
+          <BentoCard
+            id="05"
+            title="Assessment and placement support"
+            body="Move through pre-assessment, post-training evaluation, and interview support before placement routing."
+            icon={Users}
+            badges={["Pre-Assessment", "Evaluation", "Interview Prep"]}
+            glowColor="rgba(168, 85, 247, 0.1)"
+            themeColorClass="text-purple-400 border-purple-500/20 bg-purple-500/5"
+            spanClass="col-span-1 md:col-span-3"
+            minHeightClass="min-h-[290px] sm:min-h-[220px] md:min-h-[320px] lg:min-h-[300px]"
+            fullGraphic={true}
+            graphic={
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                {/* Background asset stairway.png loaded from Generated_Assets */}
+                <Image
+                  src="/Generated_Assets/stairway.png"
+                  alt="Holographic Stairway Icon"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 145px"
+                  className="object-cover opacity-85 mix-blend-lighten pointer-events-none filter drop-shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
+              </div>
+            }
+          />
         </div>
 
-        {/* Double Column Narrative Footer */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 mt-20 lg:mt-28 pt-12 border-t border-white/8 text-base font-normal leading-relaxed text-ink-secondary font-sans">
-          <div>
-            <p>
-              Our curriculum-mapping and job role targets ensure that every hour spent studying translates directly into employer-valued skills. We align closely with corporate finance teams to meet hiring demands.
-            </p>
+        {/* [FOOTER TIED STRIP - METRICS] */}
+        <div className="metrics-strip mt-8 border border-white/[0.06] rounded-[24px] bg-[#0b0e1a]/40 backdrop-blur-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-y-0 divide-white/[0.06]">
+
+          {/* Column 1 - 4.8★ */}
+          <div className="metric-block p-6 sm:p-8 flex items-center gap-4 transition-colors hover:bg-white/[0.02] group">
+            <div className="w-12 h-12 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0 shadow-[0_0_15px_rgba(16,201,129,0.2)] transition-all duration-300 group-hover:scale-110">
+              <Star className="w-5.5 h-5.5 fill-emerald-400" />
+            </div>
+            <div>
+              <span className="text-3xl font-extrabold tracking-tight text-white font-sans block leading-none">
+                <CountUpNumber value="4.8★" duration={1.5} />
+              </span>
+              <span className="mt-2 text-[10px] font-semibold leading-[1.3] text-white/50 tracking-wider uppercase font-mono block max-w-[20ch]">
+                AVERAGE RATING ACROSS ALL COURSES
+              </span>
+            </div>
           </div>
-          <div>
-            <p>
-              By introducing automation, real audit disciplines, and practical simulations early, we prepare candidates to hit the ground running from day one, minimizing training costs for recruiters.
-            </p>
+
+          {/* Column 2 - 141+ */}
+          <div className="metric-block p-6 sm:p-8 flex items-center gap-4 border-t sm:border-t-0 sm:border-l border-white/[0.06] transition-colors hover:bg-white/[0.02] group">
+            <div className="w-12 h-12 rounded-full border border-cyan-500/30 bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300 group-hover:scale-110">
+              <Users className="w-5.5 h-5.5" />
+            </div>
+            <div>
+              <span className="text-3xl font-extrabold tracking-tight text-white font-sans block leading-none">
+                <CountUpNumber value="141+" duration={1.5} />
+              </span>
+              <span className="mt-2 text-[10px] font-semibold leading-[1.3] text-white/50 tracking-wider uppercase font-mono block max-w-[20ch]">
+                VERIFIED LEARNER REVIEWS
+              </span>
+            </div>
           </div>
+
+          {/* Column 3 - 5 */}
+          <div className="metric-block p-6 sm:p-8 flex items-center gap-4 border-t sm:border-t lg:border-t-0 lg:border-l border-white/[0.06] transition-colors hover:bg-white/[0.02] group">
+            <div className="w-12 h-12 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0 shadow-[0_0_15px_rgba(16,201,129,0.2)] transition-all duration-300 group-hover:scale-110">
+              <Shield className="w-5.5 h-5.5" />
+            </div>
+            <div>
+              <span className="text-3xl font-extrabold tracking-tight text-white font-sans block leading-none">
+                <CountUpNumber value="5" duration={1.2} />
+              </span>
+              <span className="mt-2 text-[10px] font-semibold leading-[1.3] text-white/50 tracking-wider uppercase font-mono block max-w-[20ch]">
+                SPECIALISED FINTECH TRACKS
+              </span>
+            </div>
+          </div>
+
+          {/* Column 4 - ₹999 */}
+          <div className="metric-block p-6 sm:p-8 flex items-center gap-4 border-t sm:border-t sm:border-l border-white/[0.06] transition-colors hover:bg-white/[0.02] group">
+            <div className="w-12 h-12 rounded-full border border-purple-500/30 bg-purple-500/10 flex items-center justify-center text-purple-400 shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.2)] transition-all duration-300 group-hover:scale-110">
+              <IndianRupee className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-3xl font-extrabold tracking-tight text-white font-sans block leading-none">
+                ₹<CountUpNumber value="999" duration={1.5} />
+              </span>
+              <span className="mt-2 text-[10px] font-semibold leading-[1.3] text-white/50 tracking-wider uppercase font-mono block max-w-[20ch]">
+                COMMITMENT FEE TO START
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

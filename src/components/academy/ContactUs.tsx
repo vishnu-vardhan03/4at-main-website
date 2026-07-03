@@ -6,8 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./Button";
 import { lmsCourses } from "@/lib/site-data";
-import posthog from "posthog-js";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
 export function ContactUs() {
   const [formData, setFormData] = useState({
@@ -85,44 +83,18 @@ export function ContactUs() {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      try {
-        const response = await fetch("/api/academy-inquiry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setIsSubmitted(true);
-          // Analytics capture for low-intent inquiry submit success
-          posthog.capture("inquiry_submitted", {
-            course_interest: formData.courseInterest,
-            has_message: !!formData.message,
-          });
-        } else {
-          setErrors({ form: data.error || "Something went wrong." });
-        }
-      } catch (error) {
-        console.error("Submission error:", error);
-        setErrors({ form: "Failed to submit inquiry. Please try again." });
-      }
+      console.log("Inquiry submitted successfully:", formData);
+      setIsSubmitted(true);
     }
   };
 
   return (
-    <section ref={sectionRef} id="academy-contact-form" className="relative w-full overflow-visible bg-transparent text-ink-primary section-padding">
-      <NeonGlowOrb 
-        className="left-[25%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
+    <section ref={sectionRef} id="contact-us" className="site-shell relative overflow-hidden bg-transparent text-ink-primary section-padding">
+      {/* Subtle gradient fade divider replacing the hard border */}
+      <div className="absolute top-0 left-0 right-0 h-[120px] bg-gradient-to-b from-transparent via-[#2ACDFF]/8 to-[#9C5BFF]/8 blur-[60px] pointer-events-none opacity-10 z-20" />
 
       <div className="site-shell relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-16 lg:gap-24 items-center">
@@ -132,12 +104,10 @@ export function ContactUs() {
             <span className="section-eyebrow mb-6 text-accent uppercase tracking-widest text-[11px] font-bold">
               GET IN TOUCH
             </span>
-            <h2 className="font-sans text-4xl sm:text-5xl font-bold tracking-tight text-white mt-6 leading-none">
-              Start Your <span className="font-serif italic font-bold text-accent">Career</span>
-              <br />
-              Transition Today.
+            <h2 className="section-title">
+              Start Your <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400">Career</span> <br /> Transition Today.
             </h2>
-            <p className="mt-6 text-base text-ink-secondary leading-relaxed max-w-[48ch]">
+            <p className="section-desc">
               Have questions about our training tracks, corporate partnerships, or placement assistance? Speak with our admissions advisors to find your path.
             </p>
 
@@ -179,7 +149,7 @@ export function ContactUs() {
           </div>
 
           {/* Right Column: Glassmorphic inquiry Form Card */}
-          <div className="contact-form-side relative rounded-3xl border border-white/8 bg-[#121212] p-8 sm:p-10 shadow-2xl overflow-hidden max-w-[480px] mx-auto lg:ml-auto w-full">
+          <div className="contact-form-side relative rounded-3xl border border-white/8 bg-[#0b0e1a]/40 p-8 sm:p-10 shadow-2xl backdrop-blur-xl overflow-hidden max-w-[480px] mx-auto lg:ml-auto w-full">
             <div className="absolute -inset-px bg-gradient-to-br from-accent/10 to-transparent rounded-3xl pointer-events-none z-0" />
 
             <div className="relative z-10">
@@ -199,88 +169,87 @@ export function ContactUs() {
                   <h3 className="text-2xl font-bold text-white leading-tight">Quick Inquiry</h3>
                   <p className="text-sm text-slate-400 leading-snug">Fill out the details below and an advisor will contact you within 24 hours.</p>
 
-                  {errors.form && (
-                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs">
-                      {errors.form}
-                    </div>
-                  )}
-
-                  <div className="space-y-4 pt-4">
-                    <div>
-                      <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Full Name <span className="text-accent">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        required
-                        placeholder="Enter full name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
-                      />
-                      {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Email Address <span className="text-accent">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        required
-                        placeholder="name@example.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
-                      />
-                      {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                  <div className="pt-4 space-y-4">
+                    {/* Row 1: Name + Email */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                          Full Name <span className="text-accent">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          required
+                          placeholder="Enter full name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
+                        />
+                        {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                          Email Address <span className="text-accent">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          required
+                          placeholder="name@example.com"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
+                        />
+                        {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Phone Number <span className="text-accent">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        required
-                        placeholder="Enter your mobile number"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
-                      />
-                      {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+                    {/* Row 2: Phone + Course */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                          Phone Number <span className="text-accent">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          required
+                          placeholder="Your mobile number"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white placeholder-slate-600 outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors"
+                        />
+                        {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
+                      </div>
+                      <div>
+                        <label htmlFor="courseInterest" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                          Course / Topic <span className="text-accent">*</span>
+                        </label>
+                        <select
+                          id="courseInterest"
+                          required
+                          value={formData.courseInterest}
+                          onChange={(e) => setFormData({ ...formData, courseInterest: e.target.value })}
+                          className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors appearance-none cursor-pointer"
+                          style={{
+                            backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "right 12px center",
+                            backgroundSize: "14px"
+                          }}
+                        >
+                          <option value="" className="bg-[#0b0e1a]">Select topic</option>
+                          {lmsCourses.map((c) => (
+                            <option key={c.title} value={c.title} className="bg-[#0b0e1a]">{c.title}</option>
+                          ))}
+                          <option value="General Inquiry" className="bg-[#0b0e1a]">General Inquiry</option>
+                          <option value="Other" className="bg-[#0b0e1a]">Other</option>
+                        </select>
+                        {errors.courseInterest && <p className="text-red-400 text-xs mt-1">{errors.courseInterest}</p>}
+                      </div>
                     </div>
 
-                    <div>
-                      <label htmlFor="courseInterest" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Course Interest / Topic <span className="text-accent">*</span>
-                      </label>
-                      <select
-                        id="courseInterest"
-                        required
-                        value={formData.courseInterest}
-                        onChange={(e) => setFormData({ ...formData, courseInterest: e.target.value })}
-                        className="w-full rounded-xl border border-white/8 bg-[#04060f]/60 px-4 py-3.5 text-sm text-white outline-none hover:border-white/15 focus:border-accent focus:bg-[#04060f]/80 transition-colors appearance-none cursor-pointer"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "right 16px center",
-                          backgroundSize: "16px"
-                        }}
-                      >
-                        <option value="" className="bg-[#0b0e1a]">Select topic</option>
-                        {lmsCourses.map((c) => (
-                          <option key={c.title} value={c.title} className="bg-[#0b0e1a]">{c.title}</option>
-                        ))}
-                        <option value="General Inquiry" className="bg-[#0b0e1a]">General Inquiry / Placements</option>
-                        <option value="Other" className="bg-[#0b0e1a]">Other</option>
-                      </select>
-                      {errors.courseInterest && <p className="text-red-400 text-xs mt-1">{errors.courseInterest}</p>}
-                    </div>
-
+                    {/* Row 3: Message — full width */}
                     <div>
                       <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
                         Message / Query
@@ -314,3 +283,4 @@ export function ContactUs() {
     </section>
   );
 }
+
