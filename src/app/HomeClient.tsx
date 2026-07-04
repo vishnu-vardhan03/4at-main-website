@@ -11,7 +11,8 @@ import { Clients } from "@/components/home/Clients";
 import { ClientVoices } from "@/components/home/ClientVoices";
 import { Contact } from "@/components/home/Contact";
 import { Footer } from "@/components/Footer";
+import { FloatingWidget } from "@/components/LeadCollection/FloatingWidget";
 
 export default function HomeClient() {
-  return <div className="home-page constant-site-background min-h-screen text-white"><Nav contactHref="#contact" /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /></div>;
+  return <div className="home-page constant-site-background min-h-screen text-white"><Nav contactHref="#contact" /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /><FloatingWidget /></div>;
 }
