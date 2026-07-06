@@ -194,7 +194,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             <motion.span
               aria-label="4AT Logo"
               role="img"
-              className="brand-logo-gradient relative z-10 !h-7 !w-11"
+              className="brand-logo-gradient relative z-10 !h-8 !w-12"
               style={{ WebkitMaskImage: `url(${logo.src})`, maskImage: `url(${logo.src})` }}
               variants={{
                 initial: { scale: 1 },
@@ -217,7 +217,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           </motion.div>
         </Link>
         <nav
-          className={`hidden items-center justify-self-center gap-5 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
+          className={`hidden items-center justify-self-center gap-6 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-10 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
           }`}
         >
           <NavDropdown

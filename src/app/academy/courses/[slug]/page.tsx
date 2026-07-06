@@ -3,7 +3,7 @@
 import { use, useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Clock, Award, CheckCircle, ChevronDown, BookOpen, AlertCircle, Sparkles, UserCheck } from "lucide-react";
-import { lmsCourses, type LmsCourse } from "@/lib/site-data";
+import { ctaRoute, lmsCourses, type LmsCourse } from "@/lib/site-data";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/academy/Button";
@@ -644,7 +644,7 @@ export default function CourseDetailsPage({
                 {/* Main CTAs */}
                 <div className="flex flex-col gap-3">
                   <Button
-                    href="https://lms.4at-academy.com/#/register/user"
+                    href={ctaRoute}
                     variant="primary"
                     className="w-full font-bold tracking-wider py-4 shadow-[0_0_20px_rgba(0,229,195,0.2)] text-center justify-center"
                   >

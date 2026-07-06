@@ -57,8 +57,8 @@ interface FooterProps {
 export function Footer({ className = "m-3" }: FooterProps) {
   return (
     <footer className={`overflow-hidden rounded-xl bg-[#0a0a0a] text-white ${className}`}>
-      <div className="mx-auto max-w-6xl px-8 pb-8 pt-12">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.35fr_1.45fr_repeat(3,1fr)] lg:gap-6">
+      <div className="mx-auto max-w-6xl px-8 pb-6 pt-8">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-[1.35fr_1.45fr_repeat(3,1fr)] lg:gap-5">
           <div className="col-span-2 lg:col-span-1">
             <Link
               href="/"
@@ -66,10 +66,10 @@ export function Footer({ className = "m-3" }: FooterProps) {
             >
               4AT
             </Link>
-            <p className="mt-3.5 max-w-[220px] text-[13px] leading-[1.7] text-white/50">
+            <p className="mt-2.5 max-w-[220px] text-[13px] leading-[1.6] text-white/50">
               The hybrid AI-and-human financial ecosystem for finance, accounting, and audit teams.
             </p>
-            <div className="mt-5 flex gap-3.5">
+            <div className="mt-4 flex gap-3.5">
               <a
                 href="https://www.linkedin.com/company/4at-consulting/"
                 target="_blank"
@@ -84,12 +84,12 @@ export function Footer({ className = "m-3" }: FooterProps) {
 
           {footerColumns.map((column) => (
             <div key={column.title}>
-              <h2 className="mb-3.5 text-[13px] font-medium text-white">
+              <h2 className="mb-2.5 text-[13px] font-medium text-white">
                 <Link href={column.href} className="transition-colors hover:text-sky-300">
                   {column.title}
                 </Link>
               </h2>
-              <ul className="flex flex-col gap-[11px]">
+              <ul className="flex flex-col gap-2">
                 {column.items.map((item) => (
                   <li key={item.label} className="text-[13px] leading-5">
                     <Link href={item.href} className="text-white/50 transition-colors hover:text-white">
@@ -102,7 +102,7 @@ export function Footer({ className = "m-3" }: FooterProps) {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-7 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-xs text-white/40">© 2026 4AT. All rights reserved.</span>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {legalLinks.map((item) => (
