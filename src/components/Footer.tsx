@@ -12,7 +12,7 @@ const footerColumns: Array<{ title: string; href: string; items: FooterItem[] }>
     href: "/services",
     items: [
       { label: "Run My Finance Operations", href: "/services#run-finance-operations" },
-      { label: "Get Audit-Ready (and Stay That Way)", href: "/services#audit-ready" },
+      { label: "Get Audit-Ready", href: "/services#audit-ready" },
       { label: "Prepare for a Transaction", href: "/services#prepare-transaction" },
       { label: "Modernize Your Finance Stack", href: "/services#modernize-finance-stack" },
     ],

@@ -59,7 +59,7 @@ export function Hero() {
           <span className="block max-w-4xl text-2xl sm:text-3xl md:text-4xl leading-[1.12]">
             The new way to run
           </span>
-          <span className="site-hero-heading relative mt-5 block min-h-[1.3em] max-w-5xl pb-3">
+          <span className="site-hero-heading relative mt-5 block min-h-[1.35em] max-w-5xl overflow-visible pb-3">
             <AnimatePresence mode="wait">
               <motion.span
                 key={HYBRID_SERVICES[activeService]}
@@ -67,7 +67,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -35, filter: "blur(8px)" }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="text-brand-gradient-flow block"
+                className="text-brand-gradient-flow inline-block whitespace-nowrap pb-[0.14em] leading-[1.15]"
               >
                 {HYBRID_SERVICES[activeService]}
               </motion.span>
