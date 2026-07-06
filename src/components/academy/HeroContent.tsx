@@ -8,7 +8,7 @@ import { Magnetic } from "@/components/academy/Magnetic";
 
 export function HeroContent() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
+  const isRevealed = true;
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -16,18 +16,6 @@ export function HeroContent() {
     const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", listener);
     return () => mediaQuery.removeEventListener("change", listener);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if ((window as any).isSiteRevealed) {
-        setIsRevealed(true);
-      } else {
-        const handleReveal = () => setIsRevealed(true);
-        window.addEventListener("site-revealed", handleReveal);
-        return () => window.removeEventListener("site-revealed", handleReveal);
-      }
-    }
   }, []);
 
   const headlineWords = [
