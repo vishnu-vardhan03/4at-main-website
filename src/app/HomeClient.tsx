@@ -14,5 +14,5 @@ import { Footer } from "@/components/Footer";
 import { FloatingWidget } from "@/components/LeadCollection/FloatingWidget";
 
 export default function HomeClient() {
-  return <div className="home-page constant-site-background min-h-screen text-white"><Nav contactHref="#contact" /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /><FloatingWidget /></div>;
+  return <div className="home-page constant-site-background min-h-screen text-white"><Nav /><main><Hero /><OurVision /><Results /><Process /><UseCases /><HowItWorks /><Clients /><ClientVoices /><Contact /></main><Footer /><FloatingWidget /></div>;
 }

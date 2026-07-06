@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+declare global {
+  interface Window {
+    isSiteRevealed?: boolean;
+  }
+}
+
 export function MicrographicLoader() {
   const counterRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -24,7 +30,7 @@ export function MicrographicLoader() {
       }
       setIsVisible(false);
       ScrollTrigger.refresh();
-      (window as any).isSiteRevealed = true;
+      window.isSiteRevealed = true;
       window.dispatchEvent(new CustomEvent("site-revealed"));
       return;
     }
@@ -55,7 +61,7 @@ export function MicrographicLoader() {
         
         const loaderTl = gsap.timeline({
           onStart: () => {
-            (window as any).isSiteRevealed = true;
+            window.isSiteRevealed = true;
             window.dispatchEvent(new CustomEvent("site-revealed"));
           },
           onComplete: () => {

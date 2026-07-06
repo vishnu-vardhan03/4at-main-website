@@ -21,7 +21,7 @@ const sizeClasses = {
 };
 
 export const Button = React.forwardRef<
-  HTMLButtonElement & HTMLAnchorElement,
+  HTMLElement,
   ButtonProps
 >(
   (
@@ -31,8 +31,8 @@ export const Button = React.forwardRef<
       target,
       rel,
       children,
-      showHudCorners = true,
-      neon = true,
+      showHudCorners: _showHudCorners = true,
+      neon: _neon = true,
       variant = "primary",
       size = "md",
       type = "button",
@@ -40,15 +40,17 @@ export const Button = React.forwardRef<
     },
     ref
   ) => {
-    const localRef = useRef<any>(null);
+    void _showHudCorners;
+    void _neon;
+    const localRef = useRef<HTMLElement | null>(null);
 
     // Merge refs so parent can still reference the node if needed
-    const combinedRef = (node: any) => {
+    const combinedRef = (node: HTMLElement | null) => {
       localRef.current = node;
       if (typeof ref === "function") {
         ref(node);
       } else if (ref) {
-        (ref as any).current = node;
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
       }
     };
 
@@ -146,7 +148,7 @@ export const Button = React.forwardRef<
             rel={rel}
             className={buttonClass}
             ref={combinedRef}
-            {...(props as any)}
+            {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
           >
             {innerContent}
           </a>
@@ -160,7 +162,7 @@ export const Button = React.forwardRef<
           rel={rel}
           className={buttonClass}
           ref={combinedRef}
-          {...(props as any)}
+          {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {innerContent}
         </Link>

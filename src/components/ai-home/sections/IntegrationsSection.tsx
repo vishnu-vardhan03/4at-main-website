@@ -1,6 +1,7 @@
 "use client";
 
 import AmbientBackground from "@/components/ai-home/3d/AmbientBackground";
+import Image from "next/image";
 
 const integrations = [
   { name: "SAP",        type: "ERP",         emoji: "📊", img: null },
@@ -68,10 +69,11 @@ export default function IntegrationsSection() {
        {/* /* Architecture reference image */}
         <div className="relative mx-auto mb-10 rounded-xl overflow-hidden"
           style={{ maxWidth: 860, height: 200 }}>
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80"
             alt="System integration architecture showing ERP, banking API, and payment gateway connections"
             className="object-cover opacity-35"
+            fill
             sizes="860px"
           />
           <div className="absolute inset-0 flex items-center justify-center">

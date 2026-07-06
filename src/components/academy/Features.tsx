@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { featureCards, ratings, type FeatureCard } from "@/lib/site-data";
 import { ScrollRevealText } from "@/components/academy/ScrollRevealText";
 import { DecryptedText } from "@/components/academy/DecryptedText";
-import { client } from "@/lib/sanity";
 import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
 // Per-card ambient accent config (index 0–4)

@@ -6,6 +6,7 @@ import talentScreeningImg from "@/assets/talent_screening.png";
 import customerSupportImg from "@/assets/customer_support.png";
 import healthcareDiagnosticsImg from "@/assets/healthcare_diagnostics.png";
 import contentPersonalizationImg from "@/assets/content_personalization.png";
+import Image from "next/image";
 
 const BENEFITS = [
   { title: "Faster execution on repeatable workflows", image: fleetMaintenanceImg },
@@ -71,11 +72,12 @@ export function Results() {
             </p>
             <div className="relative mx-auto flex aspect-[4/3] w-full max-w-[320px] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#2dd4bf]/35 via-[#7dd3fc]/20 to-[#a78bfa]/35 shadow-md">
               {BENEFITS.map((benefit, index) => (
-                <img
+                <Image
                   key={benefit.title}
-                  src={benefit.image.src}
+                  src={benefit.image}
+                  fill sizes="320px"
                   alt={benefit.title}
-                  className={`absolute inset-0 h-full w-full object-cover transition-all duration-500 ${hoveredBenefit === benefit.title || (!hoveredBenefit && index === 0) ? "scale-100 opacity-100" : "scale-105 opacity-0"}`}
+                  className={`object-cover transition-all duration-500 ${hoveredBenefit === benefit.title || (!hoveredBenefit && index === 0) ? "scale-100 opacity-100" : "scale-105 opacity-0"}`}
                 />
               ))}
               <div className="absolute inset-0 bg-black/55" />

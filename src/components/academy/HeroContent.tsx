@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { ArrowRight, Phone } from "lucide-react";
-import { ctaRoute } from "@/lib/site-data";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/academy/Magnetic";
+import Link from "next/link";
 
 export function HeroContent() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -185,15 +185,15 @@ export function HeroContent() {
           }}
         >
           <Magnetic range={80} strength={0.32}>
-            <a
-              href={ctaRoute}
+            <Link
+              href="/academy/courses"
               className="fx-primary-btn relative group inline-flex items-center justify-center font-sans font-bold capitalize tracking-[0.05em] text-sm text-white px-7 py-3.5 rounded-xl active:scale-[0.98] select-none cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 Explore Courses
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
-            </a>
+            </Link>
           </Magnetic>
         </motion.div>
 
@@ -208,7 +208,7 @@ export function HeroContent() {
         >
           <Magnetic range={70} strength={0.28}>
             <a
-              href="#contact-us"
+              href="/contact"
               className="fx-ghost-btn relative group inline-flex items-center justify-center font-sans font-bold capitalize tracking-[0.05em] text-sm text-white px-7 py-3.5 rounded-xl active:scale-[0.98] select-none cursor-pointer"
             >
               <span className="flex items-center gap-2">

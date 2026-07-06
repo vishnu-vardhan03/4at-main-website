@@ -21,7 +21,7 @@ export function DecryptedText({ text, className = "", speed = 30, delay = 0 }: D
 
     let isCancelled = false;
     let iteration = 0;
-    let interval: any;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     const startAnimation = () => {
       interval = setInterval(() => {
@@ -53,7 +53,7 @@ export function DecryptedText({ text, className = "", speed = 30, delay = 0 }: D
 
     return () => {
       isCancelled = true;
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
       clearTimeout(timeout);
     };
   }, [isInView, text, speed, delay]);

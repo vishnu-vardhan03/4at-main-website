@@ -19,7 +19,7 @@ interface NodeData {
   angle: number; // Trigonometric angle (0 to 360)
   color: string; // Accent color hex
   rgb: string; // Accent RGB value
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   description: string;
   tags: string[];
   outcome: string;
@@ -99,7 +99,7 @@ export function CredibilityRecruiters() {
   // Fade transition states for card content switching
   const [renderedNodeId, setRenderedNodeId] = useState<string>("accounting");
   const [contentOpacity, setContentOpacity] = useState<number>(1);
-  const transitionTimeoutRef = useRef<any>(null);
+  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -181,7 +181,6 @@ export function CredibilityRecruiters() {
     }
   };
 
-  const activeNode = NODES_DATA.find((n) => n.id === (selectedNodeId || hoveredNodeId || "accounting")) || NODES_DATA[0];
   const renderedNode = NODES_DATA.find((n) => n.id === renderedNodeId) || NODES_DATA[0];
   const RenderedIcon = renderedNode.icon;
 

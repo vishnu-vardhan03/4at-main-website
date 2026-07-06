@@ -97,16 +97,16 @@ export function ServicesPage() {
           const isSparkle = star.type === "sparkle";
           const isGlow = star.type === "glow";
 
-          const starStyles: React.CSSProperties = {
+          const starStyles: React.CSSProperties & Record<`--${string}`, string | number> = {
             left: star.left,
             top: star.top,
             width: `${star.size}px`,
             height: `${star.size}px`,
             opacity: star.opacity,
             // Inline variables for keyframe interpolation
-            ["--star-max-opacity" as any]: star.opacity,
-            ["--star-duration" as any]: star.twinkleDuration,
-            ["--star-delay" as any]: star.twinkleDelay,
+            "--star-max-opacity": star.opacity,
+            "--star-duration": star.twinkleDuration,
+            "--star-delay": star.twinkleDelay,
           };
 
           if (isGlow) {

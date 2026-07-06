@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type Lenis from "lenis";
 
 export default function SmoothScrollProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const lenisRef = useRef<any>(null);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     // Dynamically import Lenis to avoid SSR issues

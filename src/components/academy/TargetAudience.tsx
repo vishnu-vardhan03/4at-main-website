@@ -154,7 +154,7 @@ export function TargetAudience({ sectionId = "audience-spectrum" }: { sectionId?
           </h2>
 
           <p className="section-desc">
-            Whether you're starting your finance career or building on existing experience, each pathway is designed around your current stage while leading to the same placement-ready outcome.
+            Whether you&apos;re starting your finance career or building on existing experience, each pathway is designed around your current stage while leading to the same placement-ready outcome.
           </p>
         </div>
 

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 import blog1 from "@/assets/blog1.png";
 import blog2 from "@/assets/blog2.png";
+import Image from "next/image";
 
 interface BlogPost {
   title: string;
@@ -31,17 +32,17 @@ const BLOGS: BlogPost[] = [
         <div>
           <h5 className="font-bold text-black uppercase text-sm mt-4 mb-2">On government pandemic loans and grants for businesses</h5>
           <p className="italic border-l-2 border-zinc-300 pl-4 text-black my-2 leading-relaxed">
-            "We need to distinguish between what's temporary and what's permanent. If a business was having losses in earlier years, or if a business had a business model that no longer worked in today's economy, then we wouldn't want to be necessarily propping up such businesses. One distinction I make is between airlines and cruises . . . cruises have long had health issues that are broader than just this one. . . . Some of these judgments can be difficult to make, but I think that the goal is to help companies that you think under the normal course of business would be sustainable, but not to prop up ones whose fundamental business model has been shown to be problematic."
+            {`"We need to distinguish between what's temporary and what's permanent. If a business was having losses in earlier years, or if a business had a business model that no longer worked in today's economy, then we wouldn't want to be necessarily propping up such businesses. One distinction I make is between airlines and cruises . . . cruises have long had health issues that are broader than just this one. . . . Some of these judgments can be difficult to make, but I think that the goal is to help companies that you think under the normal course of business would be sustainable, but not to prop up ones whose fundamental business model has been shown to be problematic."`}
           </p>
           <p className="italic border-l-2 border-zinc-300 pl-4 text-black my-2 leading-relaxed">
-            "We have companies like cruise ships that are conveniently headquartered in tax havens where they're receiving all the full benefits of the countries in which they operate, but they're not paying tax to any government, except for maybe minimal fees. It's hard for me to argue that hardworking taxpayers should be subsidizing the survival of such companies. In my view, it's sort of a pay-to-play system. If you want to be a responsible corporate citizen and pay your taxes and do the normal things that we expect people to do, then you expect society as a whole to support you in your time of need. But if you've gone out of your way to invert the company and put it into a tax haven so that you wouldn't ever have to owe the U.S. government anything, then I'm not sure the U.S. taxpayers should be really worried about your future."
+            {`"We have companies like cruise ships that are conveniently headquartered in tax havens where they're receiving all the full benefits of the countries in which they operate, but they're not paying tax to any government, except for maybe minimal fees. It's hard for me to argue that hardworking taxpayers should be subsidizing the survival of such companies. In my view, it's sort of a pay-to-play system. If you want to be a responsible corporate citizen and pay your taxes and do the normal things that we expect people to do, then you expect society as a whole to support you in your time of need. But if you've gone out of your way to invert the company and put it into a tax haven so that you wouldn't ever have to owe the U.S. government anything, then I'm not sure the U.S. taxpayers should be really worried about your future."`}
           </p>
         </div>
 
         <div>
           <h5 className="font-bold text-black uppercase text-sm mt-4 mb-2">On the reach of the CARES Act</h5>
           <p className="italic border-l-2 border-zinc-300 pl-4 text-black my-2 leading-relaxed">
-            "If you look at the legislation in the Coronavirus Aid, Relief, and Economic Security (CARES) Act, there were some elements that I think were well targeted and some that were poorly targeted. There were a lot of companies that got really generous loan forgiveness, even though their operations might have looked pretty indistinguishable from what they were before. I have an example of a friend who has a law firm and it's really had the same amount of business that it had all along, but it qualified for these loans that then let it actually be forgiven if it kept its payroll up. So, what you're really doing is you are now subsidizing a successful firm that hasn't seen a reduction in its business."
+            {`"If you look at the legislation in the Coronavirus Aid, Relief, and Economic Security (CARES) Act, there were some elements that I think were well targeted and some that were poorly targeted. There were a lot of companies that got really generous loan forgiveness, even though their operations might have looked pretty indistinguishable from what they were before. I have an example of a friend who has a law firm and it's really had the same amount of business that it had all along, but it qualified for these loans that then let it actually be forgiven if it kept its payroll up. So, what you're really doing is you are now subsidizing a successful firm that hasn't seen a reduction in its business."`}
           </p>
         </div>
       </div>
@@ -155,11 +156,11 @@ export function BlogSection() {
               onClick={() => setActivePost(BLOGS[0])}
               className="lg:col-span-7 flex flex-col group cursor-pointer"
             >
-              <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm border border-zinc-200/50">
-                <img
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm border border-zinc-200/50">
+                <Image
                   src={BLOGS[0].image}
                   alt={BLOGS[0].title}
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
+                  fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-102 transition-transform duration-500"
                 />
               </div>
               <div className="mt-5 flex justify-between items-start gap-4">
@@ -177,11 +178,11 @@ export function BlogSection() {
               onClick={() => setActivePost(BLOGS[1])}
               className="lg:col-span-5 flex flex-col group cursor-pointer"
             >
-              <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm border border-zinc-200/50">
-                <img
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-zinc-100 shadow-sm border border-zinc-200/50">
+                <Image
                   src={BLOGS[1].image}
                   alt={BLOGS[1].title}
-                  className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
+                  fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-102 transition-transform duration-500"
                 />
               </div>
               <div className="mt-5 flex justify-between items-start gap-4">
@@ -219,10 +220,10 @@ export function BlogSection() {
             >
               {/* Header Image */}
               <div className="w-full h-[240px] md:h-[320px] relative overflow-hidden">
-                <img
+                <Image
                   src={activePost.image}
                   alt={activePost.title}
-                  className="w-full h-full object-cover"
+                  fill sizes="(max-width: 768px) 100vw, 900px" className="object-cover"
                 />
                 <button
                   onClick={() => setActivePost(null)}

@@ -24,7 +24,7 @@ export function Testimonials() {
               transition={{ duration: 6 + i, repeat: Infinity, ease: "easeInOut" }}
               className="glass rounded-2xl p-8"
             >
-              <p className="text-lg leading-relaxed">"{t.q}"</p>
+              <p className="text-lg leading-relaxed">&quot;{t.q}&quot;</p>
               <div className="mt-6 pt-6 border-t border-border">
                 <div className="font-semibold">{t.a}</div>
                 <div className="text-sm text-muted-foreground">{t.r}</div>

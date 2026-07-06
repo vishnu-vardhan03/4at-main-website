@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export function Magnetic({ children, range = 60, strength = 0.35 }: { children: React.ReactElement, range?: number, strength?: number }) {
@@ -19,7 +19,7 @@ export function Magnetic({ children, range = 60, strength = 0.35 }: { children: 
   const quickX = useSpring(x, springConfig);
   const quickY = useSpring(y, springConfig);
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (prefersReducedMotion || !ref.current) return;
     const { clientX, clientY } = e;
     const { left, top, width, height } = ref.current.getBoundingClientRect();
@@ -36,7 +36,7 @@ export function Magnetic({ children, range = 60, strength = 0.35 }: { children: 
       x.set(0);
       y.set(0);
     }
-  };
+  }, [prefersReducedMotion, range, strength, x, y]);
 
   const handleMouseLeave = () => {
     x.set(0);
@@ -48,7 +48,7 @@ export function Magnetic({ children, range = 60, strength = 0.35 }: { children: 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [prefersReducedMotion]);
+  }, [handleMouseMove]);
 
   if (prefersReducedMotion) {
     return children;

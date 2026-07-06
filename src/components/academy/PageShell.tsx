@@ -7,7 +7,6 @@ import { DeferredSection } from "@/components/academy/DeferredSection";
 const SectionLoader = () => <div className="h-[50vh] w-full animate-pulse bg-surface/50" />;
 
 const About = dynamic(() => import("@/components/academy/About").then(mod => mod.About), { loading: () => <SectionLoader /> });
-const CourseRecommender = dynamic(() => import("@/components/academy/CourseRecommender").then(mod => mod.CourseRecommender), { loading: () => <SectionLoader /> });
 const CoreFeatures = dynamic(() => import("@/components/academy/CoreFeatures").then(mod => mod.CoreFeatures), { loading: () => <SectionLoader /> });
 const CredibilityRecruiters = dynamic(() => import("@/components/academy/CredibilityRecruiters").then(mod => mod.CredibilityRecruiters), { loading: () => <SectionLoader /> });
 const Faculty = dynamic(() => import("@/components/academy/Faculty").then(mod => mod.Faculty), { loading: () => <SectionLoader /> });
@@ -19,9 +18,6 @@ import { HowItWorks } from "@/components/academy/HowItWorks";
 export function PageShell({ ctaRoute }: { ctaRoute: string }) {
   return (
     <>
-      <section id="contact-us" className="site-shell relative scroll-mt-28 bg-transparent section-padding">
-        <RegisterForm />
-      </section>
       <About />
       <CoreFeatures />
       <ProductCurtain>
@@ -32,6 +28,9 @@ export function PageShell({ ctaRoute }: { ctaRoute: string }) {
         <TestimonialsSocialProof />
         <DeferredSection section="enrollment-cta" sectionId="enroll" href={ctaRoute} />
       </ProductCurtain>
+      <section id="contact-us" className="site-shell relative scroll-mt-28 bg-transparent section-padding">
+        <RegisterForm />
+      </section>
     </>
   );
 }

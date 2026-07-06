@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import type { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import client1 from "@/assets/client1.png";
 import client2 from "@/assets/client2.png";
 import client3 from "@/assets/client3.png";
@@ -139,10 +139,10 @@ export function ClientVoices() {
             >
               {/* Header Image */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-zinc-900">
-                <img 
-                  src={current.image.src} 
+                <Image 
+                  src={current.image} fill sizes="(max-width: 768px) 100vw, 50vw"
                   alt={current.name} 
-                  className="w-full h-full object-cover object-center"
+                  className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
                 
@@ -262,10 +262,10 @@ export function ClientVoices() {
                     : "border-zinc-300 hover:border-zinc-500 scale-100 opacity-80"
                 }`}
               >
-                <img 
-                  src={t.image.src} 
+                <Image 
+                  src={t.image} fill sizes="80px"
                   alt={t.name} 
-                  className="w-full h-full object-cover"
+                  className="object-cover"
                 />
               </button>
             ))}

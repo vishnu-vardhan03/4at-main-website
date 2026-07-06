@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import contactBg from "@/assets/contact_bg.png";
+import Image from "next/image";
 
 export function Contact() {
   return (
@@ -7,10 +8,10 @@ export function Contact() {
 
       {/* Background Image with Dark Shading */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src={contactBg.src}
+        <Image
+          src={contactBg} fill sizes="100vw"
           alt="Contact Background"
-          className="w-full h-full object-cover opacity-50"
+          className="object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black z-10" />
         <div className="absolute inset-0 bg-black/45 z-10" />
@@ -23,7 +24,7 @@ export function Contact() {
 
           {/* Header Chip */}
           <span className="text-[10px] tracking-[0.25em] font-black text-white/95 uppercase border border-white/20 rounded-md px-4 py-1.5 bg-white/5 block mb-8">
-            We're here to help
+            We&apos;re here to help
           </span>
 
           {/* Heading */}

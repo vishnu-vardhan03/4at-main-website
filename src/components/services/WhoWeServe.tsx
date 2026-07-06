@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { TiltCard } from "./3d-card";
 import { useRef, useState, useEffect } from "react";
 import { SegmentDoodle } from "./SegmentDoodle";
 
@@ -65,12 +64,12 @@ export function WhoWeServe() {
               <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
                 Built for the four kinds of teams
                 <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-                  who can't afford to get this wrong
+                  who can&apos;t afford to get this wrong
                 </span>
               </h2>
             </div>
             <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white leading-relaxed">
-              The teams who switch to 4AT Hybrid all share one thing: they're done choosing between expensive firms and risky AI.
+              The teams who switch to 4AT Hybrid all share one thing: they&apos;re done choosing between expensive firms and risky AI.
             </p>
           </div>
 

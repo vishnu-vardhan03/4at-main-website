@@ -2,7 +2,6 @@
 
 import { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CountUpNumber } from "@/components/academy/CountUpNumber";
@@ -12,7 +11,7 @@ interface CardProps {
   id: string;
   title: string;
   body: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   badges?: string[];
   graphic: React.ReactNode;
   spanClass?: string;
@@ -96,19 +95,16 @@ function BentoCard({
     imageContainerBorderClass = "border-cyan-500/15 group-hover:border-cyan-500/35 shadow-[0_0_10px_rgba(6,182,212,0.06)] group-hover:shadow-[0_0_15px_rgba(6,182,212,0.16)]";
   }
 
-  let pColor1 = "rgba(52, 211, 153, 0.5)"; // green
-  let pColor2 = "rgba(6, 182, 212, 0.5)"; // cyan
-  let pColor3 = "rgba(168, 85, 247, 0.5)"; // purple
+  const pColor1 = "rgba(52, 211, 153, 0.5)"; // green
+  const pColor2 = "rgba(6, 182, 212, 0.5)"; // cyan
+  const pColor3 = "rgba(168, 85, 247, 0.5)"; // purple
 
-  let dividerColor = "via-emerald-500/22";
   let borderColor = "rgba(16, 201, 129, 0.35)";
   let glowShadow = "inset 0 0 18px rgba(16,201,129,0.18), inset 0 0 60px rgba(16,201,129,0.07)";
   if (glowColor.includes("168") || glowColor.includes("139") || glowColor.includes("purple") || glowColor.includes("indigo")) {
-    dividerColor = "via-purple-500/22";
     borderColor = "rgba(168, 85, 247, 0.35)";
     glowShadow = "inset 0 0 18px rgba(168,85,247,0.18), inset 0 0 60px rgba(168,85,247,0.07)";
   } else if (glowColor.includes("6,") || glowColor.includes("cyan")) {
-    dividerColor = "via-cyan-500/22";
     borderColor = "rgba(6, 182, 212, 0.35)";
     glowShadow = "inset 0 0 18px rgba(6,182,212,0.18), inset 0 0 60px rgba(6,182,212,0.07)";
   }

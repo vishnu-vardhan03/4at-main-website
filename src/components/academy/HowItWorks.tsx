@@ -9,7 +9,7 @@ interface StepData {
   step: string;
   title: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   accentColor: string;
   accentRgb: string;
   glowColor: string;

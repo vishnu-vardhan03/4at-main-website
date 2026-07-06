@@ -1,4 +1,4 @@
-import { Building2 } from "lucide-react";
+import Image from "next/image";
 
 const items = [
   {
@@ -80,15 +80,15 @@ export function Testimonials() {
               {/* Subtle top indicator line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-sky-500/30 opacity-40 group-hover:opacity-100 transition-opacity" />
               <blockquote className="text-white/80 text-sm md:text-base leading-relaxed font-light mb-8">
-                "{t.quote}"
+                &quot;{t.quote}&quot;
               </blockquote>
 
               <div className="flex items-center justify-between border-t border-white/5 pt-6 mt-auto">
                 <div className="flex items-center gap-3.5">
-                  <img
+                  <Image
                     src={t.avatar}
                     alt={t.name}
-                    className="w-10 h-10 rounded-full object-cover border border-white/10"
+                    width={40} height={40} className="w-10 h-10 rounded-full object-cover border border-white/10"
                   />
                   <div>
                     <div className="font-bold text-white text-xs md:text-sm tracking-wider uppercase">

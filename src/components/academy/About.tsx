@@ -4,25 +4,17 @@ import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { 
-  Database, 
-  Code, 
   Layers, 
-  Terminal, 
   Cpu, 
   BookOpen, 
-  BarChart3, 
   Binary,
   CheckSquare,
-  FileSpreadsheet,
   Target,
   Users,
-  Eye,
-  Rocket,
   ChevronRight,
   Briefcase,
   FileText
 } from "lucide-react";
-import { ScrollRevealText } from "@/components/academy/ScrollRevealText";
 import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
 // --- CUSTOM HIGH-FIDELITY SVG LOGOS MATCHING THE MOCKUP ---
@@ -740,7 +732,7 @@ export function About() {
               <div key={activeTab} className="space-y-3 animate-fade-in transition-all duration-300">
                 {/* Skills wrap list (Unclipped height) */}
                 <div className="space-y-1">
-                  <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Skills you'll learn</div>
+                  <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Skills you&apos;ll learn</div>
                   <div className="flex flex-wrap gap-1.5">
                     {focusData[activeTab].skills.map((skill) => (
                       <span key={skill} className="text-[9px] font-bold px-2.5 h-5 flex items-center justify-center rounded bg-white/[0.03] border border-white/5 text-white/80 whitespace-nowrap">
@@ -754,7 +746,7 @@ export function About() {
                 <div className="grid grid-cols-2 gap-4">
                   {/* Custom logos Tool chips */}
                   <div className="space-y-1">
-                    <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Tools you'll use</div>
+                    <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Tools you&apos;ll use</div>
                     <div className="flex gap-1.5 pt-0.5">
                       {focusData[activeTab].tools.map((tool) => {
                         const getToolGlowStyle = (t: string) => {
@@ -786,7 +778,7 @@ export function About() {
 
                   {/* Projects checklist (Unclipped height) */}
                   <div className="space-y-1">
-                    <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Projects you'll build</div>
+                    <div className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">Projects you&apos;ll build</div>
                     <div className="space-y-1">
                       {focusData[activeTab].projects.map((proj) => (
                         <div key={proj} className="flex items-center gap-1 text-[9.5px] text-white/80 font-medium">
@@ -942,8 +934,6 @@ export function About() {
                   {approachStages.map((stage, idx) => {
                     const StageIcon = stage.icon;
                     const isActive = activeStep === idx;
-                    const isCompleted = activeStep > idx;
-
                     return (
                       <div key={stage.title} className="relative flex items-center justify-center">
                         <button

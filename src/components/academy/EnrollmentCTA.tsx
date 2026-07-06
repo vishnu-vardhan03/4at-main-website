@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./Button";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
 type EnrollmentCTAProps = {
   href: string;
@@ -107,14 +106,14 @@ export function EnrollmentCTA({ href, sectionId = "enroll" }: EnrollmentCTAProps
               Enroll Now →
             </Button>
             <Button
-              href="#recommender"
+              href="/academy#features"
               variant="secondary"
               className="w-full md:w-auto px-10 py-5 text-sm rounded-xl font-bold backdrop-blur-md bg-white/[0.02] border-white/10"
             >
               Assess Your Fit
             </Button>
             <Button
-              href="#contact-us"
+              href="/contact"
               variant="secondary"
               className="w-full md:w-auto px-10 py-5 text-sm rounded-xl font-bold backdrop-blur-md bg-white/[0.02] border-white/10"
             >

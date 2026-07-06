@@ -12,12 +12,12 @@ export function ServiceDoodle({ serviceId, sizeClass = "w-24 h-24" }: DoodleProp
   const floatTransition = {
     duration: 5,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: "easeInOut" as const,
   };
 
   const drawTransition = {
     duration: 1.5,
-    ease: "easeInOut",
+    ease: "easeInOut" as const,
   };
 
   const renderDoodle = () => {

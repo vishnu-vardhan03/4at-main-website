@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import Image from "next/image";
 
 // Images placed in src/assets/
 import consultingEcosystemImg from "@/assets/consulting_ecosystem.png";
@@ -86,10 +87,10 @@ function FlipCard({ service, index }: FlipCardProps) {
             className="absolute inset-0 w-full h-full rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 block bg-zinc-950"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <img
-              src={service.image.src}
+            <Image
+              src={service.image} fill sizes="(max-width: 768px) 100vw, 33vw"
               alt={service.title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-750"
+              className="object-cover hover:scale-105 transition-transform duration-750"
             />
           </a>
         ) : (
@@ -139,10 +140,10 @@ function FlipCard({ service, index }: FlipCardProps) {
               {/* Bottom Image Section: absolute positioned to fit completely to the bottom and side borders */}
               {service.image && (
                 <div className="absolute bottom-0 left-0 right-0 h-[210px] rounded-b-2xl overflow-hidden flex items-center justify-center p-2 bg-transparent">
-                  <img
-                    src={service.image.src}
+                  <Image
+                    src={service.image} fill sizes="(max-width: 768px) 100vw, 33vw"
                     alt={service.title}
-                    className="w-full h-full object-contain scale-95 invert opacity-90"
+                    className="object-contain scale-95 invert opacity-90"
                   />
                 </div>
               )}

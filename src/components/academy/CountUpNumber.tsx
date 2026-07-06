@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useInView, animate } from "framer-motion";
+import { useInView, animate, type AnimationPlaybackControls } from "framer-motion";
 
 interface CountUpNumberProps {
   value: string; // e.g., "1L+", "141+", "92%", "4.9", "2,400+"
@@ -35,7 +35,7 @@ export function CountUpNumber({ value, className = "", duration = 1.5, delay = 0
     const targetNumber = parseFloat(numericMatch[1]);
     const suffix = value.replace(/[\d,.]+/, "");
 
-    let controls: any;
+    let controls: AnimationPlaybackControls | undefined;
 
     const timeout = setTimeout(() => {
       controls = animate(0, targetNumber, {

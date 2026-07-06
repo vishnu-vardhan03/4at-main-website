@@ -258,7 +258,7 @@ export function InteractiveSphere({ categoryIndex = 0, onClick }: { categoryInde
         />
 
         {/* Rotating Concentric Shells (morphing sizes, border styles, and labels) */}
-        {activeGroup.layers.map((layer, idx) => (
+        {activeGroup.layers.map((layer) => (
           <motion.div
             key={layer.id}
             className={`absolute rounded-full border-2 ${layer.borderStyle} flex items-center justify-center`}

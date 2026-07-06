@@ -3,11 +3,12 @@
 import { use, useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Clock, Award, CheckCircle, ChevronDown, BookOpen, AlertCircle, Sparkles, UserCheck } from "lucide-react";
-import { ctaRoute, lmsCourses, type LmsCourse } from "@/lib/site-data";
+import { ctaRoute, lmsCourses } from "@/lib/site-data";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/academy/Button";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const getCourseSlug = (title: string) => {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -614,10 +615,12 @@ export default function CourseDetailsPage({
               
               {/* Course Preview Banner */}
               <div className="relative aspect-video w-full bg-[#0b0e1a]">
-                <img
+                <Image
                   src={course.image}
                   alt={course.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
                 {course.locked && (
                   <div className="absolute inset-0 bg-[#0b0e1a]/60 flex items-center justify-center">

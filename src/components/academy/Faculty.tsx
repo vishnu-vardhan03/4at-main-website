@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface TrackItem {
   name: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 interface StatItem {
@@ -131,7 +131,7 @@ export function Faculty({ sectionId = "faculty" }: { sectionId?: string }) {
   const [activeId, setActiveId] = useState<string>("neha-verma");
   const [fadeOpacity, setFadeOpacity] = useState<number>(1);
   const [isAnimated, setIsAnimated] = useState(false);
-  const transitionTimeout = useRef<any>(null);
+  const transitionTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeIndex = mentorsData.findIndex((m) => m.id === activeId);
   const activeMentor = mentorsData[activeIndex] || mentorsData[2];
@@ -397,7 +397,7 @@ export function Faculty({ sectionId = "faculty" }: { sectionId?: string }) {
                   
                   {/* Quote / Bio */}
                   <p className="text-[13px] text-white/70 leading-relaxed font-sans mt-6 italic">
-                    "{activeMentor.bio}"
+                    &quot;{activeMentor.bio}&quot;
                   </p>
                 </div>
 

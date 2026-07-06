@@ -162,7 +162,7 @@ export function ParticleOrb() {
     const timeLoc = gl.getUniformLocation(program, "u_time");
     const resolutionLoc = gl.getUniformLocation(program, "u_resolution");
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     let animationFrameId: number;
 
     const resize = () => {

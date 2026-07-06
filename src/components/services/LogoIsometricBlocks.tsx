@@ -21,7 +21,7 @@ interface PulseRing {
   opacity: number;
 }
 
-export function LogoIsometricBlocks({ activeIndex = 0, onClick }: { activeIndex?: number; onClick?: () => void }) {
+export function LogoIsometricBlocks({ onClick }: { activeIndex?: number; onClick?: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

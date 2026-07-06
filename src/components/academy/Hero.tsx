@@ -2,16 +2,14 @@
 
 import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { badgeCopy, navigationItems, partnerLogos, ctaRoute } from "@/lib/site-data";
+import { badgeCopy, partnerLogos } from "@/lib/site-data";
 import Image from "next/image";
 import { HeroIllustration } from "@/components/academy/HeroIllustration";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function Hero({ children }: { children?: React.ReactNode }) {
   const containerRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const headerRef = useRef<HTMLElement>(null);
   const heroMarqueeRef = useRef<HTMLDivElement>(null);
   const heroMarqueeTl = useRef<gsap.core.Tween | null>(null);
   const heroMarqueeTargetScale = useRef(1);
@@ -63,13 +61,11 @@ export function Hero({ children }: { children?: React.ReactNode }) {
     };
   }, []);
 
-  const [navState, setNavState] = useState({
+  const [, setNavState] = useState({
     navVisible: true,
     isPastHero: false,
     isAtTop: true,
   });
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const lastScrollRef = useRef(0);
   const navVisibleRef = useRef(true);
@@ -208,8 +204,6 @@ export function Hero({ children }: { children?: React.ReactNode }) {
       }
     };
   }, []);
-
-  const { navVisible, isPastHero, isAtTop } = navState;
 
   return (
     <section

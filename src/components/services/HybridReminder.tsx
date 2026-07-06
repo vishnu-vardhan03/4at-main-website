@@ -142,7 +142,7 @@ export function HybridReminder() {
             transition={{ duration: 0.6 }}
             className="max-w-2xl text-white text-sm md:text-base leading-relaxed font-light"
           >
-            Every service below runs on this same model. The only thing that changes is what we're doing for you.
+            Every service below runs on this same model. The only thing that changes is what we&apos;re doing for you.
           </motion.p>
 
           <motion.div

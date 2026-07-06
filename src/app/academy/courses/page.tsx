@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Search, Filter, BookOpen, Clock, Award, Lock } from "lucide-react";
-import { lmsCourses, type LmsCourse } from "@/lib/site-data";
+import { lmsCourses } from "@/lib/site-data";
 import Image from "next/image";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
