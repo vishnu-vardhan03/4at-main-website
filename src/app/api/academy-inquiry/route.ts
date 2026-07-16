@@ -28,13 +28,13 @@ export async function POST(request: Request) {
       { success: true, inquiry },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Inquiry API Error:", error);
     return NextResponse.json(
       { 
         error: "An error occurred while saving the inquiry.",
         details: error instanceof Error ? error.message : String(error),
-        code: error.code
+        code: error && typeof error === "object" && "code" in error ? String(error.code) : undefined
       },
       { status: 500 }
     );

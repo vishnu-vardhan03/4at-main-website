@@ -41,7 +41,7 @@ export function ExcellenceSection() {
             {/* Sub-headline & Call to Action Button */}
             <div className="flex flex-col items-end gap-4">
               <span className="text-[10px] md:text-xs font-bold tracking-widest text-white/40 uppercase">
-                BOOK A CALL AND LET'S SEE WHAT WE CAN DO.
+                BOOK A CALL AND LET&apos;S SEE WHAT WE CAN DO.
               </span>
               <a 
                 href="#contact" 

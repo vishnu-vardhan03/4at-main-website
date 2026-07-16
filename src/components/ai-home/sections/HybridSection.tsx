@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import AmbientBackground from "@/components/ai-home/3d/AmbientBackground";
 import TiltCard from "@/components/ai-home/ui/TiltCard";
 
@@ -24,6 +23,8 @@ const humanExperts = [
     spec: "FastAPI · NestJS",
   },
 ];
+
+void humanExperts;
 
 const aiItems = [
   "Reconciliation exceptions & variance diagnosis",
@@ -154,13 +155,13 @@ export default function HybridSection() {
               background: "linear-gradient(160deg,rgba(16,12,34,.9),rgba(8,11,26,.9))" }}
           >
             {/* Human-in-the-loop label */}
-            <div className="absolute -top-3 left-4 px-3 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wide z-10"
+            <div className="absolute left-5 top-4 z-10 rounded-lg px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide"
               style={{ background: "linear-gradient(90deg,#2dd4bf,#7dd3fc)", color: "#04060f" }}>
               Human-in-the-Loop
             </div>
 
             {/* Header */}
-            <div className="flex items-center gap-4 px-7 py-6 mt-2"
+            <div className="flex items-center gap-4 px-7 pb-6 pt-16"
               style={{ borderBottom: "1px solid rgba(255,255,255,.07)" }}>
               <div className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl"
                 style={{ background: "linear-gradient(135deg,rgba(45,212,191,.2),rgba(125,211,252,.15))" }}>

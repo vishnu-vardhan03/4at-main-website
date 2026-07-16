@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 type DeferredSectionName =
@@ -71,7 +70,7 @@ function SectionSkeleton({ minHeight }: { minHeight: string }) {
   return (
     <div
       aria-hidden="true"
-      className="site-shell section-frame site-section-y"
+      className="site-shell section-frame py-10"
       style={{ minHeight }}
     >
       <div className="h-full w-full animate-pulse rounded-[28px] border border-border/70 bg-surface/70" />
@@ -87,32 +86,26 @@ export function DeferredSection({ section, sectionId, href }: DeferredSectionPro
     const host = hostRef.current;
     if (!host) return;
 
-    let observer: IntersectionObserver | null = null;
+    // If the element's bottom is already above the viewport top (scrolled past), load it immediately
+    const rect = host.getBoundingClientRect();
+    if (rect.bottom < 0) {
+      setIsReady(true);
+      return;
+    }
 
-    const timer = setTimeout(() => {
-      const rect = host.getBoundingClientRect();
-      if (rect.bottom < 0) {
-        setIsReady(true);
-        return;
-      }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "240px 0px" }
+    );
 
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsReady(true);
-            observer?.disconnect();
-          }
-        },
-        { rootMargin: "240px 0px" }
-      );
+    observer.observe(host);
 
-      observer.observe(host);
-    }, 50);
-
-    return () => {
-      clearTimeout(timer);
-      if (observer) observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -125,28 +118,39 @@ export function DeferredSection({ section, sectionId, href }: DeferredSectionPro
     }
   }, [isReady]);
 
-  if (isReady) {
-    switch (section) {
-      case "course-directory":
-        return <CourseDirectory sectionId={sectionId} />;
-      case "features":
-        return <Features sectionId={sectionId} />;
-      case "how-it-works":
-        return <HowItWorks sectionId={sectionId} />;
-      case "lms-courses":
-        return <LmsCourses sectionId={sectionId} />;
-      case "target-audience":
-        return <TargetAudience sectionId={sectionId} />;
-      case "enrollment-cta":
-        return <EnrollmentCTA sectionId={sectionId} href={href ?? "/register"} />;
-      default:
-        return null;
-    }
-  }
-
   return (
-    <section ref={hostRef} id={sectionId} className="site-shell section-frame site-section-y">
-      <SectionSkeleton minHeight={getSkeletonHeight(section)} />
+    <section 
+      ref={hostRef} 
+      id={sectionId} 
+      className="w-full relative"
+    >
+      {isReady ? (
+        <div key="loaded-wrapper">
+          {(() => {
+            const innerId = `${sectionId}-inner`;
+            switch (section) {
+              case "course-directory":
+                return <CourseDirectory sectionId={innerId} />;
+              case "features":
+                return <Features sectionId={innerId} />;
+              case "how-it-works":
+                return <HowItWorks sectionId={innerId} />;
+              case "lms-courses":
+                return <LmsCourses sectionId={innerId} />;
+              case "target-audience":
+                return <TargetAudience sectionId={innerId} />;
+              case "enrollment-cta":
+                return <EnrollmentCTA sectionId={innerId} href={href ?? "/academy/register"} />;
+              default:
+                return null;
+            }
+          })()}
+        </div>
+      ) : (
+        <div key="skeleton-wrapper" className="site-shell section-frame py-10">
+          <SectionSkeleton minHeight={getSkeletonHeight(section)} />
+        </div>
+      )}
     </section>
   );
 }

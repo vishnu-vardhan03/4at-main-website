@@ -2,107 +2,108 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import Image from "next/image";
-import { partnerLogos } from "@/lib/site-data";
-
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Database, LineChart, Cpu, ShieldAlert, BarChart3, Check, X, Users, TrendingUp, Briefcase, Star } from "lucide-react";
 import { CountUpNumber } from "@/components/academy/CountUpNumber";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
-
-const doubledLogos = [...partnerLogos, ...partnerLogos];
 
 const SECTION_CONTENT = {
   eyebrow: "For Recruiters",
   headline: ["Hire finance talent", "with real baseline", "readiness."],
-    description: "4AT Academy helps employers access candidates who already understand the workflows, tools, and expectations behind modern finance roles, reducing ramp time and lowering the burden of training from scratch.",
-  curriculumLabel: "Curriculum tracks"
+  description: "4AT Academy helps employers access candidates who already understand the workflows, tools, and expectations behind modern finance roles — reducing ramp time and lowering the burden of training from scratch."
 };
 
-const BENTO_CARDS = [
+interface NodeData {
+  id: string;
+  trackIndex: string;
+  title: string;
+  angle: number; // Trigonometric angle (0 to 360)
+  color: string; // Accent color hex
+  rgb: string; // Accent RGB value
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  description: string;
+  tags: string[];
+  outcome: string;
+}
+
+const NODES_DATA: NodeData[] = [
   {
-    id: "01",
+    id: "accounting",
+    trackIndex: "TRACK 01",
     title: "Accounting & ERP",
+    angle: 270, // Top
+    color: "#14F195", // Emerald Green
+    rgb: "20, 241, 149",
+    icon: Database,
     description: "Equipped with real baseline workflow exposure across modern corporate accounting databases and ERP systems.",
     tags: ["SAP", "QuickBooks", "NetSuite", "Tally"],
-    iconType: "ledger"
+    outcome: "Industry-ready from day one"
   },
   {
-    id: "02",
+    id: "fpna",
+    trackIndex: "TRACK 02",
     title: "FP&A & Modeling",
+    angle: 342, // Upper Right
+    color: "#2ACDFF", // Cyan Blue
+    rgb: "42, 205, 255",
+    icon: LineChart,
     description: "Skilled in structural forecasting methods, capital planning models, and data-driven corporate budgeting.",
     tags: ["Budgeting", "Forecasting", "Financial modeling"],
-    iconType: "chart"
+    outcome: "Certified modeling specialist"
   },
   {
-    id: "03",
-    title: "Audit & Controls",
-    description: "Grounded in internal audit frameworks, SOX compliance regulations, and financial risk mitigation controls.",
-    tags: ["Internal audit", "Compliance", "Risk controls"],
-    iconType: "shield"
-  },
-  {
-    id: "04",
+    id: "automation",
+    trackIndex: "TRACK 03",
     title: "Automation & AI",
+    angle: 54, // Lower Right
+    color: "#9C5BFF", // Violet Purple
+    rgb: "156, 91, 255",
+    icon: Cpu,
     description: "Able to automate tabular workflows, build Power BI intelligence, and deploy standard RPA agents.",
     tags: ["Excel automation", "Power BI", "RPA", "AI workflows"],
-    iconType: "automation"
+    outcome: "Process automation expert"
+  },
+  {
+    id: "audit",
+    trackIndex: "TRACK 04",
+    title: "Audit & Controls",
+    angle: 126, // Lower Left
+    color: "#3B82F6", // Deep Blue
+    rgb: "59, 130, 246",
+    icon: ShieldAlert,
+    description: "Grounded in internal audit frameworks, SOX compliance regulations, and financial risk mitigation controls.",
+    tags: ["Internal audit", "Compliance", "Risk controls", "SOX"],
+    outcome: "Controls and compliance ready"
+  },
+  {
+    id: "reporting",
+    trackIndex: "TRACK 05",
+    title: "Reporting & Analytics",
+    angle: 198, // Upper Left
+    color: "#0D9488", // Teal
+    rgb: "13, 148, 136",
+    icon: BarChart3,
+    description: "Skilled in design of management reporting packages, ad-hoc analysis dashboards, and data pipelines.",
+    tags: ["Power BI", "Tableau", "Financial reporting", "SQL"],
+    outcome: "Data-driven insight delivery"
   }
 ];
-
-const renderCardIcon = (iconType: string) => {
-  switch (iconType) {
-    case "ledger":
-      return (
-        <svg className="svg-icon-custom" viewBox="0 0 100 100">
-          <rect x="15" y="20" width="70" height="60" rx="6" strokeOpacity="0.3" />
-          <line x1="15" y1="40" x2="85" y2="40" strokeOpacity="0.3" />
-          <line x1="15" y1="60" x2="85" y2="60" strokeOpacity="0.3" />
-          <line x1="38" y1="20" x2="38" y2="80" strokeOpacity="0.3" />
-          <line x1="62" y1="20" x2="62" y2="80" strokeOpacity="0.3" />
-          <rect className="anim-path-ledger" x="15" y="40" width="70" height="20" fill="var(--accent-color)" fillOpacity="0.05" stroke="var(--accent-color)" strokeWidth="2" />
-        </svg>
-      );
-    case "chart":
-      return (
-        <svg className="svg-icon-custom" viewBox="0 0 100 100">
-          <path d="M15 80 H 85" strokeOpacity="0.3" />
-          <path d="M20 15 V 85" strokeOpacity="0.3" />
-          <path className="anim-path-chart" d="M20 70 Q 40 60 50 45 T 80 25" stroke="var(--accent-color)" strokeWidth="2.5" />
-          <circle className="anim-dot" cx="80" cy="25" r="4" fill="var(--accent-color)" />
-        </svg>
-      );
-    case "shield":
-      return (
-        <svg className="svg-icon-custom" viewBox="0 0 100 100">
-          <path d="M50 15 C 65 15 80 20 80 35 C 80 55 65 75 50 85 C 35 75 20 55 20 35 C 20 20 35 15 50 15 Z" strokeOpacity="0.3" />
-          <path className="anim-path-check" d="M38 48 L 47 57 L 65 38" stroke="var(--accent-color)" strokeWidth="3" />
-          <path d="M50 20 C 62 20 74 24 74 35 C 74 50 62 67 50 76 C 38 67 26 50 26 35 C 26 24 38 20 50 20 Z" stroke="var(--accent-color)" strokeWidth="1" strokeDasharray="6 4" opacity="0.4" />
-        </svg>
-      );
-    case "automation":
-      return (
-        <svg className="svg-icon-custom" viewBox="0 0 100 100">
-          <circle cx="25" cy="50" r="8" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
-          <circle cx="75" cy="30" r="8" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
-          <circle cx="75" cy="70" r="8" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
-          <path d="M33 46 L 67 34" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
-          <path d="M33 54 L 67 66" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
-          <path className="anim-path-connect-1" d="M33 46 L 67 34" stroke="var(--accent-color)" strokeWidth="2" />
-          <path className="anim-path-connect-2" d="M33 54 L 67 66" stroke="var(--accent-color)" strokeWidth="2" />
-          <circle cx="25" cy="50" r="4" fill="var(--accent-color)" />
-          <circle cx="75" cy="30" r="4" fill="var(--accent-color)" />
-          <circle cx="75" cy="70" r="4" fill="var(--accent-color)" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-};
 
 export function CredibilityRecruiters() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isAnimated, setIsAnimated] = useState(false);
 
+  // Interactive capability states
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
+
+  // Fade transition states for card content switching
+  const [renderedNodeId, setRenderedNodeId] = useState<string>("accounting");
+  const [contentOpacity, setContentOpacity] = useState<number>(1);
+  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -118,699 +119,628 @@ export function CredibilityRecruiters() {
       observer.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
+    // Escape key listener to close active details panel
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedNodeId(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Scroll trigger entrance animation for left content
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".recruiters-header-fade",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    }, containerRef.current || undefined);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("keydown", handleKeyDown);
+      ctx.revert();
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+    };
   }, []);
+
+  const handleNodeHover = (id: string | null) => {
+    setHoveredNodeId(id);
+  };
+
+  const handleNodeClick = (id: string) => {
+    if (selectedNodeId === id) {
+      // Toggle closed on secondary click
+      setSelectedNodeId(null);
+    } else if (selectedNodeId === null) {
+      // Direct opening from core state
+      setRenderedNodeId(id);
+      setSelectedNodeId(id);
+      setContentOpacity(1);
+    } else {
+      // Panel stays open, crossfade content transition: fade out (180ms), switch, fade in (250ms)
+      setContentOpacity(0);
+      if (transitionTimeoutRef.current) clearTimeout(transitionTimeoutRef.current);
+
+      transitionTimeoutRef.current = setTimeout(() => {
+        setRenderedNodeId(id);
+        setSelectedNodeId(id);
+        setContentOpacity(1);
+      }, 180);
+    }
+  };
+
+  const renderedNode = NODES_DATA.find((n) => n.id === renderedNodeId) || NODES_DATA[0];
+  const RenderedIcon = renderedNode.icon;
+
+  // Calculates trigonometry positioning percentage on circle
+  const getPositionStyles = (angleDeg: number) => {
+    const rad = (angleDeg * Math.PI) / 180;
+    const x = Math.round((50 + 50 * Math.cos(rad)) * 10000) / 10000;
+    const y = Math.round((50 + 50 * Math.sin(rad)) * 10000) / 10000;
+    return { x, y };
+  };
+
+  const isPanelOpen = selectedNodeId !== null;
 
   return (
     <section
       ref={containerRef}
       id="credibility"
-      className={`w-full section-padding overflow-visible relative recruiters-section-custom ${
-        isAnimated ? "animate-active" : ""
-      }`}
+      className={`site-shell section-padding overflow-x-hidden relative recruiters-section-custom ${isAnimated ? "animate-active" : ""
+        }`}
     >
+      {/* Subtle gradient fade divider replacing the hard border */}
+      <div className="absolute top-0 left-0 right-0 h-[120px] bg-gradient-to-b from-[#9C5BFF]/8 via-[#2ACDFF]/8 to-transparent blur-[60px] pointer-events-none opacity-10 z-20" />
+
       <style>{`
         .recruiters-section-custom {
           background-color: transparent;
           color: #F0EFEB;
-          --accent-color: var(--color-accent);
-          --accent-rgb: 45, 212, 191;
-          --text-color: #F0EFEB;
-          --text-muted: var(--color-ink-secondary);
-          --card-bg: rgba(11, 14, 26, 0.6);
-          --card-border: rgba(255, 255, 255, 0.08);
           --font-display: var(--font-space-grotesk), sans-serif;
           --font-body: var(--font-space-grotesk), sans-serif;
-          --grid-line: rgba(255, 255, 255, 0.03);
           position: relative;
         }
 
-
-
-        .ambient-glow-decor {
-          position: absolute;
-          top: -10%;
-          left: 20%;
-          width: 700px;
-          height: 600px;
-          background: radial-gradient(circle, rgba(var(--accent-rgb), 0.06) 0%, transparent 70%);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .ambient-glow-decor-2 {
-          position: absolute;
-          bottom: 5%;
-          right: 5%;
-          width: 650px;
-          height: 650px;
-          background: radial-gradient(circle, rgba(var(--accent-rgb), 0.05) 0%, transparent 70%);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        /* Eyebrow Label */
-        .eyebrow-custom {
-          display: inline-flex;
-          align-self: flex-start;
-          align-items: center;
-          gap: 8px;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
-          color: rgba(255, 255, 255, 0.85);
-          padding: 8px 20px;
-          border-radius: 999px;
-          /* Skeuomorphic raised glassmorphic pill */
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.06) 0%,
-            rgba(255, 255, 255, 0.02) 100%
-          );
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          /* Subtle depth highlight and border */
-          box-shadow:
-            0 1px 0 0 rgba(255, 255, 255, 0.1) inset,          /* top highlight rim */
-            0 -1px 0 0 rgba(0, 0, 0, 0.3) inset,                /* bottom inner shadow */
-            0 4px 12px rgba(0, 0, 0, 0.4),                      /* soft shadow */
-            0 0 0 1px rgba(255, 255, 255, 0.08);                /* border matching rest of site */
-          border: none;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-          
-          /* Pre-animation state */
-          opacity: 0;
-          transform: translateY(12px);
-          transition: opacity 500ms ease-out, transform 500ms ease-out;
-        }
-
-        /* Headline text lines */
         .headline-custom {
           font-family: var(--font-display);
-          font-size: clamp(2.5rem, 5.5vw, 4rem);
+          font-size: clamp(2.2rem, 4.5vw, 3.5rem);
           font-weight: 800;
-          line-height: 1.05;
+          line-height: 1.1;
           letter-spacing: -0.03em;
-          color: var(--text-color);
-          max-width: 850px;
+          color: #ffffff;
         }
 
-        .headline-custom span {
-          display: block;
-          /* Pre-animation state */
-          clip-path: inset(0 0 100% 0);
-          transition: clip-path 600ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Descriptor paragraph */
         .descriptor-custom {
-          font-size: clamp(1rem, 1.8vw, 1.125rem);
-          font-weight: 300;
-          color: var(--text-muted);
-          max-width: 650px;
+          font-size: 15px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.7);
           line-height: 1.6;
-          
-          /* Pre-animation state */
-          opacity: 0;
-          transform: translateY(8px);
-          transition: opacity 500ms ease-out, transform 500ms ease-out;
         }
 
-        /* Metrics Strip styling */
-        .metrics-strip-container {
-          margin-top: 48px;
-          opacity: 0;
-          transform: translateY(15px);
-          transition: opacity 600ms ease-out, transform 600ms ease-out;
-          transition-delay: 200ms;
+        @keyframes core-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.75; }
+          50% { transform: scale(1.08); opacity: 0.95; }
         }
 
-        .animate-active .metrics-strip-container {
-          opacity: 1;
-          transform: translateY(0);
+        .animate-spin-slow {
+          animation: spinSlow 36s linear infinite;
+        }
+        @keyframes spinSlow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
-        /* Logo Marquee styling */
-        .marquee-container-full {
-          width: 100%;
-          overflow: hidden;
-          position: relative;
-          opacity: 0;
-          transform: translateY(15px);
-          transition: opacity 600ms ease-out, transform 600ms ease-out;
-          transition-delay: 300ms;
+        .animation-play-state-paused {
+          animation-play-state: paused !important;
         }
 
-        .animate-active .marquee-container-full {
-          opacity: 1;
-          transform: translateY(0);
+        @keyframes orbit-ring-glow {
+          0% { opacity: 0.18; }
+          100% { opacity: 0.24; }
+        }
+        .orbit-ring-pulse {
+          animation: orbit-ring-glow 6s ease-in-out infinite alternate;
         }
 
-        .horizontal-mask-fade {
+        @keyframes core-breathing {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); }
+          50% { transform: translate(-50%, -50%) scale(1.03); }
+        }
+        .core-breathing-anim {
+          animation: core-breathing 4s ease-in-out infinite;
+        }
+
+        @keyframes expanding-ring {
+          0% {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0.18;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0;
+          }
+        }
+        .expanding-ring-ripple {
           position: absolute;
-          inset: 0;
+          top: 50%;
+          left: 50%;
+          width: 460px;
+          height: 460px;
+          border: 1.2px solid rgba(80, 220, 255, 0.15);
+          border-radius: 50%;
           pointer-events: none;
-          z-index: 10;
+          z-index: 1;
+          transform: translate(-50%, -50%);
+          animation: expanding-ring 4.5s linear infinite;
         }
 
-        .horizontal-mask-fade::before {
-          content: '';
+        @keyframes slow-float {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(var(--x-drift, 15px), var(--y-drift, -15px)) scale(1.08); }
+        }
+        .floating-particle-custom {
           position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 15%;
-          background: linear-gradient(to right, #04060f, transparent);
-        }
-
-        .horizontal-mask-fade::after {
-          content: '';
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 15%;
-          background: linear-gradient(to left, #04060f, transparent);
-        }
-
-        .marquee-track-custom {
-          display: flex;
-          gap: 64px;
-          width: max-content;
-          animation: marquee-horizontal 35s linear infinite;
-        }
-
-        @keyframes marquee-horizontal {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
-        .marquee-container-full:hover .marquee-track-custom {
-          animation-play-state: paused;
-        }
-
-        /* Section Label "Curriculum tracks" */
-        .section-label-custom {
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.25em;
-          color: var(--text-muted);
-          border-bottom: 1px solid var(--card-border);
-          padding-bottom: 16px;
-          
-          /* Pre-animation state */
-          opacity: 0;
-          transition: opacity 400ms ease-out;
-        }
-
-        /* Custom SVGs line drawings */
-        .svg-icon-custom {
-          width: 24px;
-          height: 24px;
-          stroke: var(--accent-color);
-          stroke-width: 2;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          fill: none;
-          transition: transform 300ms ease;
-        }
-
-        .anim-path-ledger {
-          stroke-dasharray: 260;
-          stroke-dashoffset: 260;
-          transition: stroke-dashoffset 1s ease;
-        }
-
-        .anim-path-chart {
-          stroke-dasharray: 100;
-          stroke-dashoffset: 100;
-          transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .anim-dot {
-          opacity: 0;
-          transform: scale(0.5);
-          transform-origin: 80px 25px;
-          transition: opacity 0.3s ease 1s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 1s;
-        }
-
-        .anim-path-check {
-          stroke-dasharray: 50;
-          stroke-dashoffset: 50;
-          transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
-        }
-
-        .anim-path-connect-1 {
-          stroke-dasharray: 50;
-          stroke-dashoffset: 50;
-        }
-
-        .anim-path-connect-2 {
-          stroke-dasharray: 50;
-          stroke-dashoffset: 50;
-        }
-
-        @keyframes draw-loop-1 {
-          0% { stroke-dashoffset: 50; }
-          100% { stroke-dashoffset: -50; }
-        }
-        @keyframes draw-loop-2 {
-          0% { stroke-dashoffset: 50; }
-          100% { stroke-dashoffset: -50; }
-        }
-
-        /* Bottom CTA Bar */
-        .cta-bar-custom {
-          background: linear-gradient(90deg, #111422 0%, #0a0a0d 100%);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          border-radius: 24px;
-          padding: 48px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 32px;
-          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-          
-          /* Pre-animation state */
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 500ms ease-out, transform 500ms ease-out;
-        }
-
-        .cta-text-custom {
-          max-width: 600px;
-        }
-
-        .cta-title-custom {
-          font-family: var(--font-display);
-          font-size: 20px;
-          font-weight: 800;
-          color: var(--text-color);
-          letter-spacing: -0.01em;
-        }
-
-        .cta-desc-custom {
-          font-size: 14px;
-          color: var(--text-muted);
-          margin-top: 8px;
-          line-height: 1.5;
-        }
-
-        .cta-actions-custom {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          flex-shrink: 0;
-        }
-
-        /* Buttons */
-        .btn-custom {
-          font-family: var(--font-body);
-          font-size: 13px;
-          font-weight: 600;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-          text-decoration: none;
-          padding: 16px 28px;
-          border-radius: 12px;
-          cursor: pointer;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease;
-        }
-
-        .btn-custom:active {
-          transform: scale(0.97);
-        }
-
-        .btn-primary-custom {
-          background: var(--accent-color);
-          color: #000;
-          border: 1px solid var(--accent-color);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .btn-primary-custom::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 50%;
-          height: 100%;
-          background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.4) 50%,
-            rgba(255, 255, 255, 0) 100%
-          );
-          transform: skewX(-25deg);
+          border-radius: 50%;
           pointer-events: none;
-        }
-
-        .btn-primary-custom:hover::after {
-          left: 150%;
-          transition: left 400ms ease-in-out;
-        }
-
-        .btn-primary-custom:hover {
-          box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
-        }
-
-        .btn-ghost-custom {
-          background: transparent;
-          color: var(--text-color);
-          border: 1px solid var(--card-border);
-        }
-
-        .btn-ghost-custom:hover {
-          border-color: rgba(240, 239, 235, 0.2);
-          background: rgba(240, 239, 235, 0.02);
-        }
-
-        /* Animation Active States (triggered by JS observer) */
-        .animate-active .eyebrow-custom {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .animate-active .headline-custom span {
-          clip-path: inset(0 0 0% 0);
-        }
-        .animate-active .headline-custom span:nth-child(1) { transition-delay: 100ms; }
-        .animate-active .headline-custom span:nth-child(2) { transition-delay: 220ms; }
-        .animate-active .headline-custom span:nth-child(3) { transition-delay: 340ms; }
-
-        .animate-active .descriptor-custom {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .animate-active .section-label-custom {
-          opacity: 1;
-        }
-
-        /* CTA Bar animation */
-        .animate-active .cta-bar-custom {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        /* Grid Points Cells styling */
-        .grid-cell-custom {
-          position: relative;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 600ms ease-out, transform 600ms ease-out, background-color 300ms ease, border-color 300ms ease;
-        }
-
-        .animate-active .grid-cell-custom {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .animate-active .grid-cell-custom:nth-child(1) { transition-delay: 150ms; }
-        .animate-active .grid-cell-custom:nth-child(2) { transition-delay: 250ms; }
-        .animate-active .grid-cell-custom:nth-child(3) { transition-delay: 350ms; }
-        .animate-active .grid-cell-custom:nth-child(4) { transition-delay: 450ms; }
-
-        .icon-box-custom {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          background: rgba(var(--accent-rgb), 0.05);
-          border: 1px solid rgba(var(--accent-rgb), 0.1);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--accent-color);
-          transition: transform 300ms cubic-bezier(0.215, 0.61, 0.355, 1), background-color 300ms ease, border-color 300ms ease;
-        }
-
-        .grid-cell-custom:hover .icon-box-custom {
-          transform: scale(1.08);
-          background: rgba(var(--accent-rgb), 0.12);
-          border-color: rgba(var(--accent-rgb), 0.25);
-        }
-
-        /* SVG Line drawing animation triggers on hover */
-        .grid-cell-custom:hover .anim-path-ledger {
-          stroke-dashoffset: 0;
-        }
-
-        .grid-cell-custom:hover .anim-path-chart {
-          stroke-dashoffset: 0;
-        }
-
-        .grid-cell-custom:hover .anim-dot {
-          opacity: 1;
-          transform: scale(1);
-        }
-
-        .grid-cell-custom:hover .anim-path-check {
-          stroke-dashoffset: 0;
-        }
-
-        .grid-cell-custom:hover .anim-path-connect-1 {
-          animation: draw-loop-1 1.5s linear infinite;
-        }
-
-        .grid-cell-custom:hover .anim-path-connect-2 {
-          animation: draw-loop-2 1.5s linear infinite 0.75s;
-        }
-
-        /* Tags container */
-        .tags-container-custom {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-top: 8px;
-        }
-
-        .tag-custom {
-          font-size: 11px;
-          font-weight: 500;
-          color: var(--text-color);
-          border: 1px solid rgba(var(--accent-rgb), 0.15);
-          background: rgba(var(--accent-rgb), 0.02);
-          padding: 6px 14px;
-          border-radius: 100px;
-          opacity: 0;
-          transform: translateX(-6px);
-          transition: opacity 300ms ease-out, transform 300ms ease-out;
-        }
-
-        .animate-active .grid-cell-custom:nth-child(1) .tag-custom { opacity: 1; transform: translateX(0); }
-        .animate-active .grid-cell-custom:nth-child(1) .tag-custom:nth-child(1) { transition-delay: calc(150ms + 60ms); }
-        .animate-active .grid-cell-custom:nth-child(1) .tag-custom:nth-child(2) { transition-delay: calc(150ms + 120ms); }
-        .animate-active .grid-cell-custom:nth-child(1) .tag-custom:nth-child(3) { transition-delay: calc(150ms + 180ms); }
-        .animate-active .grid-cell-custom:nth-child(1) .tag-custom:nth-child(4) { transition-delay: calc(150ms + 240ms); }
-
-        .animate-active .grid-cell-custom:nth-child(2) .tag-custom { opacity: 1; transform: translateX(0); }
-        .animate-active .grid-cell-custom:nth-child(2) .tag-custom:nth-child(1) { transition-delay: calc(250ms + 60ms); }
-        .animate-active .grid-cell-custom:nth-child(2) .tag-custom:nth-child(2) { transition-delay: calc(250ms + 120ms); }
-        .animate-active .grid-cell-custom:nth-child(2) .tag-custom:nth-child(3) { transition-delay: calc(250ms + 180ms); }
-        .animate-active .grid-cell-custom:nth-child(2) .tag-custom:nth-child(4) { transition-delay: calc(250ms + 240ms); }
-
-        .animate-active .grid-cell-custom:nth-child(3) .tag-custom { opacity: 1; transform: translateX(0); }
-        .animate-active .grid-cell-custom:nth-child(3) .tag-custom:nth-child(1) { transition-delay: calc(350ms + 60ms); }
-        .animate-active .grid-cell-custom:nth-child(3) .tag-custom:nth-child(2) { transition-delay: calc(350ms + 120ms); }
-        .animate-active .grid-cell-custom:nth-child(3) .tag-custom:nth-child(3) { transition-delay: calc(350ms + 180ms); }
-        .animate-active .grid-cell-custom:nth-child(3) .tag-custom:nth-child(4) { transition-delay: calc(350ms + 240ms); }
-
-        .animate-active .grid-cell-custom:nth-child(4) .tag-custom { opacity: 1; transform: translateX(0); }
-        .animate-active .grid-cell-custom:nth-child(4) .tag-custom:nth-child(1) { transition-delay: calc(450ms + 60ms); }
-        .animate-active .grid-cell-custom:nth-child(4) .tag-custom:nth-child(2) { transition-delay: calc(450ms + 120ms); }
-        .animate-active .grid-cell-custom:nth-child(4) .tag-custom:nth-child(3) { transition-delay: calc(450ms + 180ms); }
-        .animate-active .grid-cell-custom:nth-child(4) .tag-custom:nth-child(4) { transition-delay: calc(450ms + 240ms); }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-          .cta-bar-custom {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 32px 24px;
-            gap: 24px;
-          }
-
-          .cta-actions-custom {
-            flex-direction: column;
-            width: 100%;
-            gap: 12px;
-          }
-
-          .btn-custom {
-            width: 100%;
-          }
-        }
-
-        /* Prefers Reduced Motion override */
-        @media (prefers-reduced-motion: reduce) {
-          *, ::before, ::after {
-            animation-delay: -1ms !important;
-            animation-duration: 1ms !important;
-            animation-iteration-count: 1 !important;
-            background-attachment: initial !important;
-            scroll-behavior: auto !important;
-            transition-delay: 0s !important;
-            transition-duration: 0s !important;
-          }
-
-          .eyebrow-custom,
-          .descriptor-custom,
-          .headline-custom span,
-          .section-label-custom,
-          .grid-cell-custom,
-          .tag-custom,
-          .cta-bar-custom,
-          .metrics-strip-container,
-          .marquee-container-full {
-            opacity: 1 !important;
-            transform: none !important;
-            clip-path: none !important;
-            transition: none !important;
-          }
-
-          .marquee-track-custom {
-            animation: none !important;
-            transform: none !important;
-          }
+          opacity: 0.25;
+          filter: blur(3px);
+          animation: slow-float 18s ease-in-out infinite alternate;
         }
       `}</style>
 
+      {/* Decorative Grid Mesh & Ambient glows */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293708_1px,transparent_1px),linear-gradient(to_bottom,#1f293708_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
+      <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-[130px] pointer-events-none" />
 
-      <NeonGlowOrb 
-        className="left-[75%] top-[25%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
-      <NeonGlowOrb 
-        className="left-[25%] top-[75%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
+      <div className="site-shell relative z-10">
 
-      <div className="site-shell relative z-10 flex flex-col gap-20">
-        
-        {/* Top: Content zone */}
-        <div className="flex flex-col gap-6 max-w-4xl">
-          <div className="eyebrow-custom">
-            <svg className="w-3.5 h-3.5 stroke-current fill-none mr-2" viewBox="0 0 24 24" strokeWidth="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            {SECTION_CONTENT.eyebrow}
-          </div>
-          <h1 className="headline-custom font-sans font-extrabold">
-            {SECTION_CONTENT.headline.map((line, idx) => (
-              <span key={idx}>{line}</span>
-            ))}
-          </h1>
-          <p className="descriptor-custom font-sans">
-            {SECTION_CONTENT.description}
-          </p>
-        </div>
+        {/* Split Layout: 42% Left, 58% Right */}
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-8 items-center justify-between">
 
-        {/* Curriculum Tracks Section */}
-        <div>
-          {/* Section Label "Curriculum tracks" */}
-          <div className="section-label-custom">{SECTION_CONTENT.curriculumLabel}</div>
+          {/* LEFT SIDE (42% Width on Desktop) */}
+          <div className="w-full lg:w-[41%] flex flex-col gap-8 recruiters-header-fade">
 
-          {/* Glassmorphic wireframe-style grid layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-12 md:gap-0 gap-6">
-            {BENTO_CARDS.map((card, idx) => {
-              const gridCellClasses = `
-                grid-cell-custom flex flex-col gap-6 relative group p-6 md:p-8 lg:p-12
-                bg-[#121212] hover:bg-[#1a1a1a]
-                border border-white/8 rounded-xl
-                md:border-0 md:rounded-none
-                ${idx === 0 ? "md:border-r md:border-b md:border-white/8 md:rounded-tl-2xl" : ""}
-                ${idx === 1 ? "md:border-b md:border-white/8 md:rounded-tr-2xl" : ""}
-                ${idx === 2 ? "md:border-r md:border-white/8 md:rounded-bl-2xl" : ""}
-                ${idx === 3 ? "md:rounded-br-2xl" : ""}
-              `.trim().replace(/\s+/g, " ");
+            {/* Header Content */}
+            <div className="flex flex-col gap-5">
+              <span className="section-eyebrow self-start">
+                {SECTION_CONTENT.eyebrow}
+              </span>
+              <h2 className="section-title">
+                Hire finance talent with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 font-sans">real baseline</span> readiness.
+              </h2>
+              <p className="section-desc">
+                4AT Academy helps employers access candidates who already understand the workflows, tools, and expectations behind modern finance roles — reducing ramp time and training burden.
+              </p>
+            </div>
 
-              return (
-                <div key={idx} className={gridCellClasses}>
-                  {/* Header block with Index, Title and Icon */}
-                  <div className="flex items-center justify-between gap-4 select-none">
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-sm font-mono text-white/30 group-hover:text-accent transition-colors duration-300">
-                        {card.id}
-                      </span>
-                      <h3 className="text-xl lg:text-2xl font-bold tracking-tight text-white group-hover:text-accent transition-colors duration-300 font-sans">
-                        {card.title}
-                      </h3>
-                    </div>
-                    <div className="icon-box-custom shrink-0">
-                      {renderCardIcon(card.iconType)}
-                    </div>
+            {/* Recruiter Metrics Panel (Mockup aligned) */}
+            <div className="metrics-panel-custom rounded-[24px] border border-white/8 bg-[#0b0e1a]/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.4)] transition-all duration-300">
+              <div className="grid grid-cols-2">
+
+                {/* Metric 1 */}
+                <div className="flex items-center gap-4 py-6 px-5 border-r border-b border-white/[0.08]">
+                  <div className="w-10 h-10 rounded-full border border-[#2DD4BF]/30 flex items-center justify-center text-[#2DD4BF] bg-[#2DD4BF]/5 shrink-0">
+                    <Users className="w-5 h-5" />
                   </div>
-
-                  {/* Body and Tags */}
-                  <p className="text-sm lg:text-base text-ink-secondary leading-relaxed font-sans group-hover:text-white/80 transition-colors duration-300">
-                    {card.description}
-                  </p>
-                  <div className="tags-container-custom mt-auto pt-2">
-                    {card.tags.map((tag, tagIdx) => (
-                      <span key={tagIdx} className="tag-custom">
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex flex-col items-start text-left">
+                    <span className="text-xl font-extrabold tracking-tight text-white leading-none font-sans">
+                      <CountUpNumber value="2,400+" />
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.08em] text-white/50 font-sans font-semibold mt-1">
+                      Learners Enrolled
+                    </span>
                   </div>
                 </div>
-              );
-            })}
+
+                {/* Metric 2 */}
+                <div className="flex items-center gap-4 py-6 px-5 border-b border-white/[0.08]">
+                  <div className="w-10 h-10 rounded-full border border-[#60A5FA]/30 flex items-center justify-center text-[#60A5FA] bg-[#60A5FA]/5 shrink-0">
+                    <TrendingUp className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <span className="text-xl font-extrabold tracking-tight text-white leading-none font-sans">
+                      <CountUpNumber value="87%" />
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.08em] text-white/50 font-sans font-semibold mt-1">
+                      Placed in 90 Days
+                    </span>
+                  </div>
+                </div>
+
+                {/* Metric 3 */}
+                <div className="flex items-center gap-4 py-6 px-5 border-r border-white/[0.08]">
+                  <div className="w-10 h-10 rounded-full border border-[#A855F7]/30 flex items-center justify-center text-[#A855F7] bg-[#A855F7]/5 shrink-0">
+                    <Briefcase className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <span className="text-xl font-extrabold tracking-tight text-white leading-none font-sans">
+                      <CountUpNumber value="140+" />
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.08em] text-white/50 font-sans font-semibold mt-1">
+                      Recruiters Network
+                    </span>
+                  </div>
+                </div>
+
+                {/* Metric 4 */}
+                <div className="flex items-center gap-4 py-6 px-5">
+                  <div className="w-10 h-10 rounded-full border border-[#34D399]/30 flex items-center justify-center text-[#34D399] bg-[#34D399]/5 shrink-0">
+                    <Star className="w-5 h-5" />
+                  </div>
+                  <div className="flex flex-col items-start text-left">
+                    <span className="text-xl font-extrabold tracking-tight text-[#34D399] leading-none font-sans">
+                      <CountUpNumber value="4.9★" />
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.08em] text-white/50 font-sans font-semibold mt-1">
+                      Average Rating
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
+
+          {/* RIGHT SIDE: Radial Orbital Visualization (58% Width on Desktop) */}
+          <div className="w-full lg:w-[57%] flex items-center justify-center relative min-h-[640px]">
+
+            {/* Click Catcher Background Overlay: Closes detail panel on outside click */}
+            {isPanelOpen && (
+              <div
+                className="absolute inset-0 cursor-default z-10"
+                onClick={() => setSelectedNodeId(null)}
+              />
+            )}
+
+            {/* Aspect Scale wrapper to shrink layout on mobile screens */}
+            <div className="w-[500px] h-[500px] scale-[0.62] sm:scale-[0.8] md:scale-100 transform origin-center transition-transform duration-300 relative flex items-center justify-center">
+
+              {/* Floating Background Particles */}
+              <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden rounded-full">
+                {[...Array(10)].map((_, i) => {
+                  const size = 6 + (i % 3) * 3;
+                  const left = 15 + (i * 27) % 70;
+                  const top = 10 + (i * 23) % 80;
+                  const driftX = 10 + (i * 12) % 25;
+                  const driftY = -15 - (i * 9) % 20;
+                  const duration = 12 + (i % 4) * 4;
+                  return (
+                    <div
+                      key={i}
+                      className="floating-particle-custom bg-white/10"
+                      style={{
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        left: `${left}%`,
+                        top: `${top}%`,
+                        opacity: 0.25,
+                        filter: "blur(3px)",
+                        animation: `slow-float ${duration}s ease-in-out infinite alternate`,
+                        "--x-drift": `${driftX}px`,
+                        "--y-drift": `${driftY}px`
+                      } as React.CSSProperties}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* Core SVG Connecting lines layer */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+                {NODES_DATA.map((node) => {
+                  const isNodeSelected = selectedNodeId === node.id;
+                  const isNodeHovered = hoveredNodeId === node.id;
+                  const isLineActive = isNodeSelected || (selectedNodeId === null && isNodeHovered);
+
+                  const pos = getPositionStyles(node.angle);
+                  return (
+                    <line
+                      key={node.id}
+                      x1="50%"
+                      y1="50%"
+                      x2={`${pos.x}%`}
+                      y2={`${pos.y}%`}
+                      stroke={isLineActive ? node.color : "rgba(255, 255, 255, 0.16)"}
+                      strokeWidth={isLineActive ? "2" : "1"}
+                      strokeDasharray={isLineActive ? "none" : "3 5"}
+                      className="transition-all duration-500 ease-out"
+                    />
+                  );
+                })}
+              </svg>
+              {/* Dotted Circular Orbit track with Polar/Radar Concentric Rings */}
+              <svg className="absolute w-[460px] h-[460px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+                <defs>
+                  <linearGradient id="outer-orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.45" />
+                    <stop offset="50%" stopColor="#A855F7" stopOpacity="0.45" />
+                    <stop offset="100%" stopColor="#34D399" stopOpacity="0.45" />
+                  </linearGradient>
+                  <linearGradient id="outer-orbit-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.6" />
+                    <stop offset="50%" stopColor="#A855F7" stopOpacity="0.55" />
+                    <stop offset="100%" stopColor="#34D399" stopOpacity="0.5" />
+                  </linearGradient>
+                </defs>
+                {/* Wide outer halo — very soft, large spread */}
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="229"
+                  fill="none"
+                  stroke="url(#outer-orbit-glow)"
+                  strokeWidth="28"
+                  className="orbit-ring-pulse"
+                  style={{ filter: "blur(22px)", opacity: 0.22 }}
+                />
+                {/* Tight glow backing — closer bloom around the ring line */}
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="229"
+                  fill="none"
+                  stroke="url(#outer-orbit-glow)"
+                  strokeWidth="6"
+                  className="orbit-ring-pulse"
+                  style={{ filter: "blur(5px)", opacity: 0.55 }}
+                />
+                {/* Main Sharp Ring */}
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="229"
+                  fill="none"
+                  stroke="url(#outer-orbit-gradient)"
+                  strokeWidth="1.4"
+                  className="orbit-ring-pulse"
+                  style={{ filter: "drop-shadow(0 0 14px rgba(34,211,238,0.6)) drop-shadow(0 0 6px rgba(168,85,247,0.45))" }}
+                />
+                {/* White specular highlight on the ring */}
+                <circle
+                  cx="50%"
+                  cy="50%"
+                  r="229"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.15)"
+                  strokeWidth="0.7"
+                  className="orbit-ring-pulse"
+                />
+                <circle cx="50%" cy="50%" r="190" fill="none" stroke="url(#outer-orbit-gradient)" strokeWidth="1" className="orbit-ring-pulse" style={{ opacity: 0.18 }} />
+                <circle cx="50%" cy="50%" r="150" fill="none" stroke="url(#outer-orbit-gradient)" strokeWidth="1" className="orbit-ring-pulse" style={{ opacity: 0.16 }} />
+                <circle cx="50%" cy="50%" r="110" fill="none" stroke="url(#outer-orbit-gradient)" strokeWidth="1" className="orbit-ring-pulse" style={{ opacity: 0.14 }} />
+                <circle cx="50%" cy="50%" r="70" fill="none" stroke="url(#outer-orbit-gradient)" strokeWidth="1" className="orbit-ring-pulse" style={{ opacity: 0.12 }} />
+                <circle cx="50%" cy="50%" r="30" fill="none" stroke="url(#outer-orbit-gradient)" strokeWidth="1" className="orbit-ring-pulse" style={{ opacity: 0.1 }} />
+              </svg>
+
+              {/* Radar Expanding Pulse Ripples */}
+              {!isPanelOpen && (
+                <div className="expanding-ring-ripple" />
+              )}
+
+              {/* Orbiting dots / Rotating particle container (Slow Clockwise, Pauses on selected lock) */}
+              <div
+                className={`absolute w-[460px] h-[460px] rounded-full pointer-events-none z-10 animate-spin-slow ${isPanelOpen ? "animation-play-state-paused" : ""
+                  }`}
+                style={{ animationDirection: "normal", animationDuration: "20s" }}
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#22D3EE] shadow-[0_0_10px_#22D3EE,0_0_5px_#22D3EE] border border-white/20" />
+                <div className="absolute bottom-[10%] right-[15%] w-2 h-2 rounded-full bg-[#34D399] shadow-[0_0_10px_#34D399,0_0_5px_#34D399] border border-white/20" />
+                <div className="absolute left-[8%] top-[30%] w-2 h-2 rounded-full bg-[#A855F7] shadow-[0_0_10px_#A855F7,0_0_5px_#A855F7] border border-white/20" />
+                <div className="absolute bottom-[20%] left-[25%] w-2 h-2 rounded-full bg-[#22D3EE] shadow-[0_0_10px_#22D3EE,0_0_5px_#22D3EE] border border-white/20" />
+                <div className="absolute top-[25%] right-[20%] w-2 h-2 rounded-full bg-[#A855F7] shadow-[0_0_10px_#A855F7,0_0_5px_#A855F7] border border-white/20" />
+              </div>
+
+              {/* Animated energy core shown in center when no node is selected (scales down when panel is active) */}
+              <div
+                className={`absolute left-1/2 top-1/2 w-[180px] h-[180px] flex items-center justify-center pointer-events-none z-10 transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${isPanelOpen ? "opacity-0 scale-50" : "opacity-100 scale-100 core-breathing-anim"
+                  }`}
+                style={{ transform: "translate(-50%, -50%)" }}
+              >
+                {/* Breathing radial glow that maps to active hovered node accent */}
+                <div
+                  className="absolute w-[280px] h-[280px] rounded-full blur-[60px] opacity-60 transition-all duration-500 ease-out"
+                  style={{
+                    background: "radial-gradient(circle, rgba(30,255,190,0.3) 0%, rgba(34,211,238,0.2) 30%, rgba(168,85,247,0.28) 65%, rgba(147,51,234,0.12) 85%, transparent 100%)",
+                    filter: "blur(40px)"
+                  }}
+                />
+                {/* Center Core dot (Glowing teal circle) */}
+                <div className="absolute w-3.5 h-3.5 rounded-full bg-[#22D3EE] shadow-[0_0_12px_#22D3EE] border border-white/20" />
+              </div>
+
+              {/* Interactive Details Information Panel (Center aligned, scales/fades in) */}
+              <div
+                className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] rounded-[22px] border p-6 backdrop-blur-xl z-20 pointer-events-auto transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] origin-center select-none ${isPanelOpen ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"
+                  }`}
+                style={{
+                  background: "linear-gradient(145deg, #071020 0%, #050c1a 60%, #04091a 100%)",
+                  borderColor: `${renderedNode.color}4d`,
+                  boxShadow: `0 24px 60px rgba(2,6,20,0.92), 0 0 0 1px rgba(255,255,255,0.04), 0 0 24px ${renderedNode.color}3a, 0 0 60px ${renderedNode.color}18, inset 0 0 20px ${renderedNode.color}0a`
+                }}
+              >
+                {/* Panel Close Button */}
+                <button
+                  onClick={() => setSelectedNodeId(null)}
+                  className="absolute top-5 right-5 text-white/30 hover:text-white/80 active:scale-95 transition-all p-1.5 rounded-lg hover:bg-white/5 cursor-pointer z-30"
+                  aria-label="Close details"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+
+                {/* Inner Content Wrapper transitions opacity during updates */}
+                <div
+                  className="transition-all duration-300 flex flex-col"
+                  style={{
+                    opacity: contentOpacity,
+                    transitionDuration: contentOpacity === 0 ? "180ms" : "250ms"
+                  }}
+                >
+                  {/* Track Badge and Node Icon */}
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="text-[9px] font-bold font-mono tracking-widest uppercase px-2 py-0.5 rounded-full border bg-white/[0.01]"
+                      style={{
+                        borderColor: `${renderedNode.color}3a`,
+                        color: renderedNode.color
+                      }}
+                    >
+                      {renderedNode.trackIndex}
+                    </span>
+                    <div style={{ color: renderedNode.color }}>
+                      <RenderedIcon className="w-4 h-4 shrink-0" />
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold tracking-tight text-white mt-4 font-sans leading-tight">
+                    {renderedNode.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs text-white/70 leading-relaxed mt-2.5 min-h-[50px] font-sans">
+                    {renderedNode.description}
+                  </p>
+
+                  {/* Technologies Tags */}
+                  <div className="mt-4">
+                    <span className="text-[9px] font-bold font-mono tracking-widest text-white/40 uppercase">
+                      Technologies
+                    </span>
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {renderedNode.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] border border-white/5 bg-white/[0.02] px-2 py-1 rounded-lg text-white/85 font-sans"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Outcome block */}
+                  <div className="mt-4">
+                    <span className="text-[9px] font-bold font-mono tracking-widest text-white/40 uppercase">
+                      Employer Outcome
+                    </span>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span className="text-xs font-semibold text-white/95 font-sans">
+                        {renderedNode.outcome}
+                      </span>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+              {/* Distributed Node Circle buttons */}
+              {NODES_DATA.map((node) => {
+                const isNodeSelected = selectedNodeId === node.id;
+                const isNodeHovered = hoveredNodeId === node.id;
+                const isNodeActive = isNodeSelected || (selectedNodeId === null && isNodeHovered);
+
+                // If a panel is open, dim all nodes except the selected one
+                const isDimmed = isPanelOpen && !isNodeSelected;
+
+                const pos = getPositionStyles(node.angle);
+                const NodeIcon = node.icon;
+
+                return (
+                  <button
+                    key={node.id}
+                    className={`absolute w-[68px] h-[68px] z-30 select-none group cursor-pointer flex flex-col items-center justify-center outline-none focus:outline-none transition-opacity duration-300 ${isDimmed ? "opacity-35" : "opacity-100"
+                      }`}
+                    style={{
+                      left: `${pos.x}%`,
+                      top: `${pos.y}%`,
+                      transform: "translate(-50%, -50%)"
+                    }}
+                    onMouseEnter={() => handleNodeHover(node.id)}
+                    onMouseLeave={() => handleNodeHover(null)}
+                    onClick={() => handleNodeClick(node.id)}
+                  >
+
+                    {/* Ring expand halo hover/selected animation */}
+                    <div
+                      className={`absolute w-[82px] h-[82px] rounded-full border border-dashed animate-spin-slow transition-all duration-500 pointer-events-none ${isNodeActive ? "opacity-20 scale-100" : "opacity-0 scale-[0.8]"
+                        }`}
+                      style={{ borderColor: node.color, animationDuration: "16s" }}
+                    />
+
+                    {/* Outer pulse glow halo backing */}
+                    <div
+                      className={`absolute inset-[-6px] rounded-full blur-[10px] transition-opacity duration-300 pointer-events-none ${isNodeActive ? "opacity-15" : isNodeHovered ? "opacity-12" : "opacity-0"
+                        }`}
+                      style={{ backgroundColor: node.color }}
+                    />
+
+                    {/* Main Node Circle */}
+                    <div
+                      className="w-14 h-14 rounded-full border-[1.5px] flex items-center justify-center relative overflow-hidden z-10 transition-all duration-[220ms] ease-out"
+                      style={{
+                        background: isNodeActive
+                          ? `radial-gradient(circle at center, ${node.color}1a 0%, #07090D 100%)`
+                          : "#07090D",
+                        borderColor: isNodeActive ? node.color : `${node.color}55`,
+                        boxShadow: isNodeActive
+                          ? `0 0 15px ${node.color}66`
+                          : `0 0 8px ${node.color}22`,
+                        transform: isNodeActive ? "scale(1.15)" : isNodeHovered ? "scale(1.04)" : "scale(1)"
+                      }}
+                    >
+                      <NodeIcon
+                        className="w-5 h-5 stroke-[1.8] transition-all duration-500 group-hover:scale-108"
+                        style={{ color: isNodeActive ? node.color : "rgba(255, 255, 255, 0.3)" }}
+                      />
+                    </div>
+
+                    {/* Centered Node Label positioned below */}
+                    <div
+                      className="absolute top-[68px] left-1/2 -translate-x-1/2 text-center w-[120px] transition-all duration-300 pointer-events-none"
+                    >
+                      <span
+                        className="text-[10px] font-bold tracking-tight block transition-colors duration-500 font-sans"
+                        style={{ color: isNodeActive ? "#ffffff" : "rgba(255,255,255,0.4)" }}
+                      >
+                        {node.title}
+                      </span>
+                    </div>
+
+                    {/* Hover Tooltip (Title only) */}
+                    <div
+                      className={`absolute bottom-[76px] left-1/2 -translate-x-1/2 bg-[#0D1016] border border-white/10 rounded-lg px-2.5 py-1 z-40 transition-all duration-300 pointer-events-none shadow-xl ${isNodeHovered && !isNodeSelected ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
+                        }`}
+                    >
+                      <span className="text-[10px] font-semibold text-white whitespace-nowrap block">
+                        {node.title}
+                      </span>
+                    </div>
+
+                  </button>
+                );
+              })}
+
+            </div>
+
+          </div>
+
         </div>
 
-        {/* Metrics Horizontal Strip */}
-        <div className="metrics-strip-container w-full">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 bg-[#121212] hover:bg-[#1a1a1a] border border-white/8 rounded-xl transition-all duration-300">
-              <span className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold tracking-tight text-white leading-none font-sans font-mono">
-                <CountUpNumber value="2,400+" />
-              </span>
-              <span className="text-[11px] uppercase tracking-wider text-ink-secondary mt-2.5 font-sans font-medium">
-                Learners Enrolled
-              </span>
-            </div>
- 
-            <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 bg-[#121212] hover:bg-[#1a1a1a] border border-white/8 rounded-xl transition-all duration-300">
-              <span className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold tracking-tight text-white leading-none font-sans font-mono">
-                <CountUpNumber value="87%" />
-              </span>
-              <span className="text-[11px] uppercase tracking-wider text-ink-secondary mt-2.5 font-sans font-medium">
-                Placed in 90 Days
-              </span>
-            </div>
- 
-            <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 bg-[#121212] hover:bg-[#1a1a1a] border border-white/8 rounded-xl transition-all duration-300">
-              <span className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold tracking-tight text-white leading-none font-sans font-mono">
-                <CountUpNumber value="140+" />
-              </span>
-              <span className="text-[11px] uppercase tracking-wider text-ink-secondary mt-2.5 font-sans font-medium">
-                Recruiters Network
-              </span>
-            </div>
- 
-            <div className="flex flex-col items-center justify-center text-center p-6 md:p-8 bg-[#121212] hover:bg-[#1a1a1a] border border-white/8 rounded-xl transition-all duration-300">
-              <span className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold tracking-tight text-accent leading-none font-sans font-mono">
-                <CountUpNumber value="4.9★" />
-              </span>
-              <span className="text-[11px] uppercase tracking-wider text-ink-secondary mt-2.5 font-sans font-medium">
-                Average Rating
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

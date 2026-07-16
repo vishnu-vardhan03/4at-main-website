@@ -1,38 +1,5 @@
-<<<<<<< HEAD
 # dependencies
-node_modules/
-.pnp
-.pnp.js
-
-# production
-.next/
-out/
-dist/
-
-# env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-=======
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
+/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -42,36 +9,39 @@ yarn-error.log*
 !.yarn/versions
 
 # testing
-/coverage
+/coverage/
 
-# next.js
+# Next.js and production output
 /.next/
+/.next-dev/
+/.next-corrupt-*/
 /out/
+/dist/
+/build/
 
-# production
-/build
+# environment files
+.env*
 
-# misc
+# Vercel
+.vercel/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# OS and IDE
 .DS_Store
-*.pem
+Thumbs.db
+.vscode/
+.idea/
 
-# debug
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-# Next.js development cache
-.next-dev/
 .codex-dev.log
 .codex-dev.err.log
->>>>>>> eba822a4ba5f89e709ef2d53a3641fd0d3b52552
+
+# certificates
+*.pem

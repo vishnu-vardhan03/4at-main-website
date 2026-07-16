@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, AlertCircle, ArrowRight, X } from "lucide-react";
-import { TiltCard } from "./3d-card";
 import { ServiceDoodle } from "./ServiceDoodle";
 import { ServiceBlueprintDoodle } from "./ServiceBlueprintDoodle";
 
@@ -759,12 +758,12 @@ export function Services() {
               <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
                 Eleven services
                 <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
-                  Grouped by what's keeping you up at night
+                  Grouped by what&apos;s keeping you up at night
                 </span>
               </h2>
             </div>
             <p className="lg:col-span-4 lg:col-start-9 self-end text-lg text-white leading-relaxed font-light">
-              Most buyers don't shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here's the shortcut.
+              Most buyers don&apos;t shop service-by-service. They have a problem (close cycles too long, audit coming, growing too fast) and they want to know what fixes it. Here&apos;s the shortcut.
             </p>
           </div>
 
@@ -848,7 +847,7 @@ export function Services() {
                           <div>
                             <span className="text-[10px] uppercase tracking-wider text-zinc-500 flex items-center gap-1.5 mb-1.5">
                               <Check className="h-3 w-3 text-sky-400" />
-                              What's Standard
+                              What&apos;s Standard
                             </span>
                             <p className="text-xs text-zinc-300 font-light leading-relaxed">
                               {service.standard}
@@ -877,7 +876,7 @@ export function Services() {
                           Learn More
                         </button>
                         <a
-                          href="#contact"
+                          href="/contact"
                           className="w-full inline-flex items-center gap-1.5 rounded-full bg-white/5 border border-white/10 px-4 py-2.5 text-[11px] font-semibold text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 justify-center select-none"
                         >
                           {service.cta.replace(/[\[\]]/g, '').replace(/→/g, '').trim()}
@@ -986,7 +985,7 @@ export function Services() {
                       {/* Modal CTA Button */}
                       <div className="pt-4 pb-2 flex justify-center">
                         <a
-                          href="#contact"
+                          href="/contact"
                           onClick={() => setSelectedService(null)}
                           className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-sm font-semibold text-black hover:bg-sky-400 transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] cursor-pointer select-none"
                         >
@@ -1008,7 +1007,7 @@ export function Services() {
                       </div>
                       <div className="pt-4">
                         <a
-                          href="#contact"
+                          href="/contact"
                           onClick={() => setSelectedService(null)}
                           className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-sm font-semibold text-black hover:bg-sky-400 transition-all duration-300 shadow-[0_0_20px_rgba(14,165,233,0.3)] hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] cursor-pointer select-none"
                         >

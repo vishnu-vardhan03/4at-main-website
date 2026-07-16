@@ -4,6 +4,8 @@ import { useRef } from "react";
 import Image from "next/image";
 import AmbientBackground from "@/components/3d/AmbientBackground";
 
+const demoVideoSrc: string | null = null;
+
 export default function GlimpseSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -73,8 +75,7 @@ export default function GlimpseSection() {
               aria-label="Play demo video"
             >
               <span
-                className="w-20 h-20 rounded-full flex items-center justify-center text-2xl
-                  transition-transform duration-200 group-hover:scale-110"
+                className="w-20 h-20 rounded-full flex items-center justify-center text-2xl transition-transform duration-200 group-hover:scale-110"
                 style={{
                   background: "linear-gradient(135deg,#a78bfa,#c084fc)",
                   boxShadow: "0 0 0 16px rgba(167,139,250,.12), 0 0 0 32px rgba(167,139,250,.05)",
@@ -84,12 +85,14 @@ export default function GlimpseSection() {
                 ▶
               </span>
             </button>
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity"
-              src="" /* Replace with actual video URL */
-              playsInline
-            />
+            {demoVideoSrc && (
+              <video
+                ref={videoRef}
+                className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity"
+                src={demoVideoSrc}
+                playsInline
+              />
+            )}
           </div>
         </div>
 

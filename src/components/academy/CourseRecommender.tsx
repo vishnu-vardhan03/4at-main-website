@@ -15,7 +15,7 @@ interface CourseInfo {
 const coursesData: Record<string, Record<string, CourseInfo>> = {
   graduate: {
     mnc: {
-    title: "MNC Finance Readiness: Level 1",
+      title: "MNC Finance Readiness — Level 1",
       subtitle: "PREPARATION PATHWAY: MNC FINANCE READINESS",
       description: "Best for beginners targeting accounting, ERP, reporting, and finance operations roles in growing or global companies.",
       bullets: [
@@ -99,20 +99,25 @@ export function CourseRecommender() {
     answers.profile && answers.target
       ? coursesData[answers.profile]?.[answers.target]
       : null;
-
   return (
-    <section id="recommender" className="section-padding bg-transparent relative overflow-visible flex flex-col items-center">
-      {/* Background circle covering the tool */}
+    <section id="recommender" className="site-shell section-padding bg-transparent relative overflow-visible flex flex-col items-center">
+      {/* Big background circle covering the tool */}
       <NeonGlowOrb 
-        className="left-[68%] top-[50%] -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
+        className="left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 z-0"
+        size={650}
+        opacity={0.16}
+        blur={60}
       />
 
       <style>{`
         .recommender-wizard-container {
-          background: #121212;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.03) 0%,
+            rgba(255, 255, 255, 0.01) 100%
+          );
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
           box-shadow:
             0 1px 0 0 rgba(255, 255, 255, 0.08) inset,
             0 -1px 0 0 rgba(0, 0, 0, 0.4) inset,
@@ -160,7 +165,13 @@ export function CourseRecommender() {
         }
 
         .recommended-course-card-skeuo {
-          background: #0f1c1a;
+          background: linear-gradient(
+            180deg,
+            rgba(0, 229, 195, 0.05) 0%,
+            rgba(0, 229, 195, 0.01) 100%
+          );
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
           box-shadow:
             0 1px 0 0 rgba(0, 229, 195, 0.2) inset,
             0 -1px 0 0 rgba(0, 0, 0, 0.4) inset,

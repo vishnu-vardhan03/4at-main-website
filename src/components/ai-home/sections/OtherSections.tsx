@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import TiltCard from "@/components/ai-home/ui/TiltCard";
 import AmbientBackground from "@/components/ai-home/3d/AmbientBackground";
 

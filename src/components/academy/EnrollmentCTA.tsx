@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "./Button";
-import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
 type EnrollmentCTAProps = {
   href: string;
@@ -42,9 +41,10 @@ export function EnrollmentCTA({ href, sectionId = "enroll" }: EnrollmentCTAProps
       ScrollTrigger.refresh();
 
       if (twitchRef.current) {
-        // Oscillate letter-spacing to create the "twitch" effect specified
+        // Oscillate transform scale to create the "twitch" effect without triggering layout reflows
         gsap.to(twitchRef.current, {
-          letterSpacing: "-0.04em",
+          scaleX: 0.97,
+          scaleY: 1.01,
           duration: 1.5,
           yoyo: true,
           repeat: -1,
@@ -55,13 +55,14 @@ export function EnrollmentCTA({ href, sectionId = "enroll" }: EnrollmentCTAProps
 
     return () => ctx.revert();
   }, []);
-
   return (
     <section
       ref={sectionRef}
       id={sectionId}
-      className="w-full bg-transparent section-padding overflow-visible relative flex items-center justify-center min-h-[70vh]"
+      className="site-shell bg-transparent section-padding overflow-x-hidden relative flex items-center justify-center min-h-[70vh]"
     >
+      {/* Subtle gradient fade divider replacing the hard border */}
+      <div className="absolute top-0 left-0 right-0 h-[120px] bg-gradient-to-b from-[#9C5BFF]/8 via-[#2ACDFF]/8 to-transparent blur-[60px] pointer-events-none opacity-10 z-20" />
       <style>{`
         @keyframes pulseGlow {
           0%, 100% { opacity: 0.12; transform: translate(-50%, -50%) scale(1); }
@@ -72,36 +73,31 @@ export function EnrollmentCTA({ href, sectionId = "enroll" }: EnrollmentCTAProps
         }
       `}</style>
 
-      {/* Glow behind CTA */}
-      <NeonGlowOrb 
-        className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-        size={450}
-        opacity={0.18}
-        blur={50}
-      />
 
-      <div className="site-shell relative z-10 text-center">
-        <div className="max-w-[800px] mx-auto flex flex-col items-center">
+
+      <div className="site-shell relative z-10 text-left">
+        <div className="max-w-[800px] flex flex-col items-start">
           
           <span className="cta-element-animate section-eyebrow mb-6">
             TAKE THE NEXT STEP
           </span>
 
-          <h2 className="cta-element-animate section-title text-center mb-8 mt-0">
+          <h2 className="cta-element-animate section-title text-left mb-8 mt-0">
             Ready to transition from learning to{" "}
             <span
               ref={twitchRef}
-              className="font-serif italic text-accent inline-block tracking-[-0.02em] select-none"
+              style={{ willChange: "transform" }}
+              className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400 inline-block tracking-[-0.02em] select-none"
             >
               outcomes?
             </span>
           </h2>
 
-          <p className="cta-element-animate section-desc text-center max-w-[620px] mb-12 border-t border-b border-white/5 py-4 mt-6">
+          <p className="cta-element-animate section-desc text-left max-w-[620px] mb-12 border-t border-b border-white/5 py-4 mt-6">
             Start your enrollment today. Join the ranks of finance professionals trained for the demands of the modern industry.
           </p>
 
-          <div className="cta-element-animate flex flex-col md:flex-row gap-4 justify-center items-center w-full md:w-auto">
+          <div className="cta-element-animate flex flex-col md:flex-row gap-4 justify-start items-start w-full md:w-auto">
             <Button
               href={href}
               variant="primary"
@@ -110,14 +106,14 @@ export function EnrollmentCTA({ href, sectionId = "enroll" }: EnrollmentCTAProps
               Enroll Now →
             </Button>
             <Button
-              href="#recommender"
+              href="/academy#features"
               variant="secondary"
               className="w-full md:w-auto px-10 py-5 text-sm rounded-xl font-bold backdrop-blur-md bg-white/[0.02] border-white/10"
             >
               Assess Your Fit
             </Button>
             <Button
-              href="#contact-us"
+              href="/contact"
               variant="secondary"
               className="w-full md:w-auto px-10 py-5 text-sm rounded-xl font-bold backdrop-blur-md bg-white/[0.02] border-white/10"
             >

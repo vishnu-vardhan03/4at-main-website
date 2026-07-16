@@ -61,18 +61,21 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     const init = () => {
       lenis = new Lenis({
-        lerp: 0.065,
+        lerp: 0.1,
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        wheelMultiplier: 1.05,
+        wheelMultiplier: 0.95,
       });
 
       lenis.on("scroll", ScrollTrigger.update);
+      // Broadcast velocity as a DOM event so isolated components can sync without coupling to Lenis
+      lenis.on("scroll", ({ velocity }: { velocity: number }) => {
+        window.dispatchEvent(new CustomEvent("lenis-velocity", { detail: { velocity } }));
+      });
       tickerCallback = (time) => lenis?.raf(time * 1000);
-
       gsap.ticker.add(tickerCallback);
-      gsap.ticker.lagSmoothing(0);
+      gsap.ticker.lagSmoothing(500, 33);
     };
 
     init();

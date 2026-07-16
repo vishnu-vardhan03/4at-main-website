@@ -212,6 +212,13 @@
 }
 .float { animation: float 6s ease-in-out infinite; }
 
+/* Subtler bob used for small fixed UI elements (e.g. the lead widget CTA) */
+@keyframes lead-widget-float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.lead-widget-float { animation: lead-widget-float 5s ease-in-out infinite; }
+
 /* Glass card */
 .glass {
   background: rgba(255,255,255,0.03);

@@ -1,6 +1,7 @@
 "use client";
 
 import AmbientBackground from "@/components/3d/AmbientBackground";
+import Image from "next/image";
 
 const integrations = [
   { name: "SAP",        type: "ERP",         emoji: "📊", img: null },
@@ -70,9 +71,10 @@ export default function IntegrationsSection() {
        {/* /* Architecture reference image */}
         <div className="relative mx-auto mb-10 rounded-xl overflow-hidden"
           style={{ maxWidth: 860, height: 200 }}>
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80"
             className="object-cover opacity-35"
+            fill
             alt="System integration architecture showing ERP, banking API, and payment gateway connections"
             sizes="860px"
           />
@@ -126,7 +128,7 @@ export default function IntegrationsSection() {
             </div>
           </div>
           <a
-            href="#cta-final"
+            href="/contact"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold
               text-white transition-all duration-250 hover:-translate-y-0.5 flex-shrink-0
               hover:shadow-[0_12px_30px_rgba(167,139,250,.4)]"

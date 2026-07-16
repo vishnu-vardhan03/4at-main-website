@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactElement } from "react";
 import TiltCard from "@/components/ui/TiltCard";
 import AmbientBackground from "@/components/3d/AmbientBackground";
 
@@ -249,7 +250,7 @@ function ErpViz() {
   );
 }
 
-const vizComponents: Record<string, () => JSX.Element> = {
+const vizComponents: Record<string, () => ReactElement> = {
   reconcile: ReconcileViz,
   anomaly: AnomalyViz,
   document: DocumentViz,

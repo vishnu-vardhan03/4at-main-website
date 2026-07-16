@@ -58,7 +58,7 @@ export function Hero() {
           <span className="block max-w-4xl text-[clamp(2rem,3.4vw,4rem)] leading-[1.12]">
             Adopting the new age technology innovation to the proven professional services…
           </span>
-          <span className="relative mt-5 block min-h-[1.3em] max-w-5xl pb-3 text-[clamp(2.4rem,5vw,5.6rem)] leading-[1.12]">
+          <span className="relative mt-5 block min-h-[1.35em] max-w-5xl overflow-visible pb-3 text-[clamp(2.4rem,5vw,5.6rem)] leading-[1.12]">
             <AnimatePresence mode="wait">
               <motion.span
                 key={HYBRID_SERVICES[activeService]}
@@ -66,7 +66,7 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -35, filter: "blur(8px)" }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="text-brand-gradient-flow block"
+                className="text-brand-gradient-flow inline-block whitespace-nowrap pb-[0.14em] leading-[1.15]"
               >
                 {HYBRID_SERVICES[activeService]}
               </motion.span>

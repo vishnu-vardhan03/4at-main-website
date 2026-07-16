@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
 import { client, urlFor } from "@/lib/sanity";
 import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";
 
@@ -10,8 +9,8 @@ interface TestimonialItem {
   description: string;
   avatar?: string;
   image?: string;
-  sanityAvatar?: any;
-  sanityLogo?: any;
+  sanityAvatar?: Parameters<typeof urlFor>[0];
+  sanityLogo?: Parameters<typeof urlFor>[0];
   rating?: number;
 }
 
@@ -64,9 +63,9 @@ const FUITestimonialWithSlide = React.memo(function FUITestimonialWithSlide() {
                     "sanityLogo": companyLogo,
                     rating
                 }`;
-                const data = await client.fetch(query);
+                const data = await client.fetch<TestimonialItem[]>(query);
                 if (data && data.length > 0) {
-                    const sanityNames = new Set(data.map((m: any) => m.name));
+                    const sanityNames = new Set(data.map((member) => member.name));
                     const uniqueStatic = STATIC_TESTIMONIALS.filter(m => !sanityNames.has(m.name));
                     setTestimonials([...uniqueStatic, ...data]);
                 }
