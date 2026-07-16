@@ -1,6 +1,6 @@
 "use client";
 
-import FUITestimonialWithSlide from "@/components/ui/sliding-testimonial";
+import FUITestimonialWithSlide from "@/components/ui/SlidingTestimonial";
 
 export function TestimonialsSocialProof() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { TiltCard } from "@/components/home/ui/3d-card";
+import { TiltCard } from "@/components/home/TiltCard";
 
 const aiTasks = [
   "Document intake and extraction",

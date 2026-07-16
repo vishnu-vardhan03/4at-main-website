@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/layout/MainNav";
+import { Footer } from "@/components/layout/Footer";
 import { RegisterForm } from "@/components/academy/RegisterForm";
 
 export default function RegisterPage() {

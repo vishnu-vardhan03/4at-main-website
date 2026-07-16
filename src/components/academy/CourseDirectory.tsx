@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { offerings } from "@/lib/site-data";
+import { offerings } from "@/components/academy/data";
 
 export function CourseDirectory({ sectionId = "courses" }: { sectionId?: string }) {
   return (

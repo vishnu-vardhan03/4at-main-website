@@ -52,7 +52,7 @@ export function Engagement() {
               <div className="absolute inset-0 bg-sky-400" />
             </div>
 
-            {steps.map((s, index) => {
+            {steps.map((s) => {
               return (
                 <div
                   key={s.title}

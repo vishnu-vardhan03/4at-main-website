@@ -51,7 +51,7 @@ export function WhoWeServe() {
 
         {/* 4 Cards Grid - Static grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {segments.map((s, index) => {
+          {segments.map((s) => {
             return (
               <div
                 key={s.title}

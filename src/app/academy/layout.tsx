@@ -3,7 +3,7 @@ import { AnimationProvider } from "@/components/academy/AnimationProvider";
 import { CustomCursor } from "@/components/academy/CustomCursor";
 import { GlobalParticles } from "@/components/academy/GlobalParticles";
 import { SmoothScroll } from "@/components/academy/SmoothScroll";
-import "./academy.css";
+import "@/styles/academy.css";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",

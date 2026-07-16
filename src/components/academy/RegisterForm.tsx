@@ -163,7 +163,6 @@ export function RegisterForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep(4)) {
-      console.log("Registration successfully submitted:", formData);
       setIsSubmitted(true);
     }
   };

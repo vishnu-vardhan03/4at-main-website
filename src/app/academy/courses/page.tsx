@@ -3,10 +3,10 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Search, Filter, BookOpen, Clock, Award, Lock } from "lucide-react";
-import { lmsCourses } from "@/lib/site-data";
+import { lmsCourses } from "@/components/academy/data";
 import Image from "next/image";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/layout/MainNav";
+import { Footer } from "@/components/layout/Footer";
 
 const getCourseSlug = (title: string) => {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");

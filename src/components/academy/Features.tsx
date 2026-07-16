@@ -3,7 +3,7 @@
 import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { featureCards, ratings, type FeatureCard } from "@/lib/site-data";
+import { featureCards, ratings, type FeatureCard } from "@/components/academy/data";
 import { ScrollRevealText } from "@/components/academy/ScrollRevealText";
 import { DecryptedText } from "@/components/academy/DecryptedText";
 import { NeonGlowOrb } from "@/components/academy/NeonGlowOrb";

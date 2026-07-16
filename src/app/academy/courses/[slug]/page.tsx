@@ -3,9 +3,9 @@
 import { use, useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Clock, Award, CheckCircle, ChevronDown, BookOpen, AlertCircle, Sparkles, UserCheck } from "lucide-react";
-import { ctaRoute, lmsCourses } from "@/lib/site-data";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import { ctaRoute, lmsCourses } from "@/components/academy/data";
+import { Nav } from "@/components/layout/MainNav";
+import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/academy/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";

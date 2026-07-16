@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { lmsCourses } from "@/lib/site-data";
+import { lmsCourses } from "@/components/academy/data";
 import { Lock, ArrowLeft, ArrowRight, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

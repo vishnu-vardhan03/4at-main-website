@@ -1,26 +1,26 @@
 import type { Metadata } from "next";
 
-import HeroSection from "@/components/hero/HeroSection";
-import { Nav } from "@/components/home/Nav";
-import AgentsSection from "@/components/sections/AgentsSection";
-import CapabilitiesSection from "@/components/sections/CapabilitiesSection";
-import { Footer } from "@/components/Footer";
-import GlimpseSection from "@/components/sections/GlimpseSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import HybridSection from "@/components/sections/HybridSection";
-import IntegrationsSection from "@/components/sections/IntegrationsSection";
+import ProductHero from "@/components/product/ProductHero";
+import { Nav } from "@/components/layout/MainNav";
+import AgentsSection from "@/components/product/AgentsSection";
+import CapabilitiesSection from "@/components/product/CapabilitiesSection";
+import { Footer } from "@/components/layout/Footer";
+import GlimpseSection from "@/components/product/GlimpseSection";
+import HowItWorksSection from "@/components/product/HowItWorksSection";
+import HybridSection from "@/components/product/HybridSection";
+import IntegrationsSection from "@/components/product/IntegrationsSection";
 import {
   FaqSection,
   PricingSection,
   SecuritySection,
-} from "@/components/sections/OtherSections";
-import { ParallaxObserver } from "@/components/ai-home/sections/ParallaxObserver";
-import WhySection from "@/components/sections/WhySection";
+} from "@/components/product/OtherSections";
+import { ParallaxObserver } from "@/components/ui/ParallaxObserver";
+import WhySection from "@/components/product/WhySection";
 import MouseGlow from "@/components/ui/MouseGlow";
 import Reveal from "@/components/ui/Reveal";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import ProductCTA from "@/components/ai-home/sections/FooterSection";
+import ProductCTA from "@/components/product/ProductCta";
 
 export const metadata: Metadata = {
   title: "4AT AI | Finance Automation Platform",
@@ -34,7 +34,7 @@ export default function ProductPage() {
       <ScrollProgress />
       <MouseGlow />
       <Nav />
-      <HeroSection />
+      <ProductHero />
 
       <SectionWrapper>
         <Reveal>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ParallaxObserver } from '@/components/sections/ParallaxObserver';
+import { ParallaxObserver } from "@/components/ui/ParallaxObserver";
 import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({

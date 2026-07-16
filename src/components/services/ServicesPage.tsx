@@ -1,7 +1,7 @@
 "use client";
 
-import { Nav } from "@/components/home/Nav";
-import { Footer } from "@/components/Footer";
+import { Nav } from "@/components/layout/MainNav";
+import { Footer } from "@/components/layout/Footer";
 import { Hero } from "./Hero";
 import { TrustBar } from "./TrustBar";
 import { HybridReminder } from "./HybridReminder";
@@ -11,8 +11,8 @@ import { Engagement } from "./Engagement";
 import { Testimonials } from "./Testimonials";
 import { ContactCTA } from "./ContactCTA";
 
-import ScrollProgress from "@/components/ai-home/ui/ScrollProgress";
-import MouseGlow from "@/components/ai-home/ui/MouseGlow";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import MouseGlow from "@/components/ui/MouseGlow";
 
 import { useEffect, useState } from "react";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CardsParallax, type ScrollCardItem } from "@/components/home/ui/scroll-cards";
+import { CardsParallax, type ScrollCardItem } from "@/components/home/ScrollCards";
 
 const scenarios: ScrollCardItem[] = [
   {

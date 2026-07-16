@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { BUDGET_OPTIONS, COMPANY_SIZE_OPTIONS, SERVICE_OPTIONS } from "@/components/LeadCollection/types";
+import { BUDGET_OPTIONS, COMPANY_SIZE_OPTIONS, SERVICE_OPTIONS } from "@/components/lead-collection/types";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Full name is too short").max(120),
