@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
@@ -52,14 +51,11 @@ export async function POST(request: Request) {
     }
 
     // Check if email or username already exists
-    const existingUser = await prisma.registration.findFirst({
-      where: {
-        OR: [
-          { email },
-          { username },
-        ],
-      },
-    });
+    // TODO: reconnect new DB here
+    // const existingUser = await db.registration.findFirst({
+    //   where: { OR: [{ email }, { username }] },
+    // });
+    const existingUser = null;
 
     if (existingUser) {
       return NextResponse.json(
@@ -71,28 +67,31 @@ export async function POST(request: Request) {
     // Securely hash the password using bcrypt (rounds = 10)
     const passwordHash = await bcrypt.hash(password, 10);
 
-    const registration = await prisma.registration.create({
-      data: {
-        firstName,
-        lastName,
-        gender,
-        college,
-        programName: programName || null,
-        academicYear,
-        highestEducation,
-        department,
-        referredBy: referredBy || null,
-        country,
-        state,
-        city,
-        email,
-        mobileNumber,
-        emergencyContact,
-        username,
-        passwordHash,
-        termsAccepted,
-      },
-    });
+    const registrationData = {
+      firstName,
+      lastName,
+      gender,
+      college,
+      programName: programName || null,
+      academicYear,
+      highestEducation,
+      department,
+      referredBy: referredBy || null,
+      country,
+      state,
+      city,
+      email,
+      mobileNumber,
+      emergencyContact,
+      username,
+      passwordHash,
+      termsAccepted,
+    };
+
+    // TODO: reconnect new DB here
+    // const registration = await db.registration.create({ data: registrationData });
+    void registrationData;
+    const registration = { id: null };
 
     return NextResponse.json(
       { success: true, registrationId: registration.id },

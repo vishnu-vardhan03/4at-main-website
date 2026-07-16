@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -14,15 +13,17 @@ export async function POST(request: Request) {
       );
     }
 
-    const inquiry = await prisma.inquiry.create({
-      data: {
-        name,
-        email,
-        phone,
-        courseInterest,
-        message: message || null,
-      },
-    });
+    const inquiryData = {
+      name,
+      email,
+      phone,
+      courseInterest,
+      message: message || null,
+    };
+
+    // TODO: reconnect new DB here
+    // const inquiry = await db.inquiry.create({ data: inquiryData });
+    const inquiry = inquiryData;
 
     return NextResponse.json(
       { success: true, inquiry },
