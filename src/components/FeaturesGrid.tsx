@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 import profilePhoto from "@/assets/ethan_portrait.png";
 import logo from "@/assets/logo.png";
 
@@ -50,7 +51,7 @@ export function FeaturesGrid() {
                 <div className="absolute left-1/2 top-1/2 z-10 grid h-[58px] w-[88px] -translate-x-1/2 -translate-y-1/2 place-items-center"><span aria-label="4AT" role="img" className="brand-logo-gradient h-full w-full drop-shadow-[0_0_20px_rgba(125,211,252,0.7)]" style={{ WebkitMaskImage: `url(${logo.src})`, maskImage: `url(${logo.src})` }} /></div>
                 {AVATARS.map((avatar, index) => {
                   const positions = ["left-[8%] top-[35%]", "left-[27%] top-[5%]", "right-[8%] top-[30%]", "left-[18%] bottom-[10%]", "right-[18%] bottom-[10%]", "right-[27%] top-[5%]"];
-                  return <img key={avatar} src={avatar} alt="4AT specialist" className={`absolute ${positions[index]} size-14 rounded-full border-2 border-slate-200 object-cover shadow-lg`} />;
+                  return <Image key={avatar} src={avatar} width={56} height={56} alt="4AT specialist" className={`absolute ${positions[index]} size-14 rounded-full border-2 border-slate-200 object-cover shadow-lg`} />;
                 })}
               </div>
               <h3 className="mt-auto text-2xl font-bold">Expert professional team</h3>

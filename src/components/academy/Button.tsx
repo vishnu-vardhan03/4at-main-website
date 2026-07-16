@@ -21,7 +21,7 @@ const sizeClasses = {
 };
 
 export const Button = React.forwardRef<
-  HTMLButtonElement & HTMLAnchorElement,
+  HTMLElement,
   ButtonProps
 >(
   (
@@ -31,8 +31,8 @@ export const Button = React.forwardRef<
       target,
       rel,
       children,
-      showHudCorners = true,
-      neon = true,
+      showHudCorners: _showHudCorners = true,
+      neon: _neon = true,
       variant = "primary",
       size = "md",
       type = "button",
@@ -40,15 +40,17 @@ export const Button = React.forwardRef<
     },
     ref
   ) => {
-    const localRef = useRef<any>(null);
+    void _showHudCorners;
+    void _neon;
+    const localRef = useRef<HTMLElement | null>(null);
 
     // Merge refs so parent can still reference the node if needed
-    const combinedRef = (node: any) => {
+    const combinedRef = (node: HTMLElement | null) => {
       localRef.current = node;
       if (typeof ref === "function") {
         ref(node);
       } else if (ref) {
-        (ref as any).current = node;
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
       }
     };
 
@@ -59,16 +61,21 @@ export const Button = React.forwardRef<
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (mediaQuery.matches) return;
 
-      const handleMouseMove = (e: MouseEvent) => {
+      let isPressed = false;
+      let lastEvent: MouseEvent | null = null;
+
+      const updatePosition = () => {
+        if (!lastEvent) return;
         const rect = btn.getBoundingClientRect();
-        const x = e.clientX - (rect.left + rect.width / 2);
-        const y = e.clientY - (rect.top + rect.height / 2);
+        const x = lastEvent.clientX - (rect.left + rect.width / 2);
+        const y = lastEvent.clientY - (rect.top + rect.height / 2);
 
         // Magnetic displacement factor
         const pullX = x * 0.18;
         const pullY = y * 0.18;
+        const scale = isPressed ? 0.96 : 1.02;
 
-        btn.style.transform = `translate3d(${pullX}px, ${pullY}px, 0) scale(1.02)`;
+        btn.style.transform = `translate3d(${pullX}px, ${pullY}px, 0) scale(${scale})`;
 
         const content = btn.querySelector(".btn-content");
         if (content) {
@@ -76,7 +83,24 @@ export const Button = React.forwardRef<
         }
       };
 
+      const handleMouseMove = (e: MouseEvent) => {
+        lastEvent = e;
+        updatePosition();
+      };
+
+      const handleMouseDown = () => {
+        isPressed = true;
+        updatePosition();
+      };
+
+      const handleMouseUp = () => {
+        isPressed = false;
+        updatePosition();
+      };
+
       const handleMouseLeave = () => {
+        isPressed = false;
+        lastEvent = null;
         btn.style.transform = "";
         const content = btn.querySelector(".btn-content");
         if (content) {
@@ -85,18 +109,22 @@ export const Button = React.forwardRef<
       };
 
       btn.addEventListener("mousemove", handleMouseMove);
+      btn.addEventListener("mousedown", handleMouseDown);
+      btn.addEventListener("mouseup", handleMouseUp);
       btn.addEventListener("mouseleave", handleMouseLeave);
 
       return () => {
         btn.removeEventListener("mousemove", handleMouseMove);
+        btn.removeEventListener("mousedown", handleMouseDown);
+        btn.removeEventListener("mouseup", handleMouseUp);
         btn.removeEventListener("mouseleave", handleMouseLeave);
       };
     }, []);
 
     const buttonClass = cn(
       "relative group inline-flex items-center justify-center font-sans font-bold capitalize tracking-[0.08em] transition-[transform,opacity,background-color,border-color,color,box-shadow,backdrop-filter] duration-300 ease-out select-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas active:scale-95 disabled:pointer-events-none disabled:opacity-50",
-      variant === "primary" && "primary-gradient-button",
-      variant === "secondary" && "secondary-gradient-button",
+      variant === "primary" && "fx-primary-btn text-white",
+      variant === "secondary" && "fx-ghost-btn text-white",
       variant === "ghost" && "border border-transparent bg-transparent hover-fine:border-accent/30 hover-fine:bg-accent-subtle/5 text-ink-primary hover-fine:text-accent rounded-full",
       variant === "nav" && "text-xs px-3 py-1 bg-transparent text-ink-secondary hover-fine:text-accent font-medium transition-colors rounded-full",
       sizeClasses[size],
@@ -120,7 +148,7 @@ export const Button = React.forwardRef<
             rel={rel}
             className={buttonClass}
             ref={combinedRef}
-            {...(props as any)}
+            {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
           >
             {innerContent}
           </a>
@@ -134,7 +162,7 @@ export const Button = React.forwardRef<
           rel={rel}
           className={buttonClass}
           ref={combinedRef}
-          {...(props as any)}
+          {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {innerContent}
         </Link>

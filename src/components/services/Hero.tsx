@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import logoMark from "@/assets/services/4at-mark.png";
 import { InteractiveSphere } from "./InteractiveSphere";
@@ -98,7 +98,7 @@ const slides = [
 
 export function Hero() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const paused = false;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -116,8 +116,6 @@ export function Hero() {
     const id = setInterval(handleNextSlide, 10000);
     return () => clearInterval(id);
   }, [index, paused]);
-
-  const current = slides[index];
 
   return (
     <section
@@ -232,7 +230,7 @@ export function Hero() {
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 hover:border-white transition-all duration-300 active:scale-95"
               >
                 Talk to a senior practitioner

@@ -98,13 +98,13 @@ export async function POST(request: Request) {
       { success: true, registrationId: registration.id },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Registration API Error:", error);
     return NextResponse.json(
       { 
         error: "An error occurred during registration.",
         details: error instanceof Error ? error.message : String(error),
-        code: error.code
+        code: error && typeof error === "object" && "code" in error ? String(error.code) : undefined
       },
       { status: 500 }
     );

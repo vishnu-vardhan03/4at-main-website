@@ -100,7 +100,7 @@ export function ContactCTA() {
               className="flex flex-col items-start w-full"
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6 select-none">
-                Let's build
+                Let&apos;s build
               </div>
               <h2 ref={headingRef} className="text-display text-[clamp(2.5rem,4.5vw,4rem)] text-white font-black leading-[1.05] tracking-tight min-h-[85px] sm:min-h-[105px] lg:min-h-[125px] w-full">
                 {typedText1}
@@ -121,7 +121,7 @@ export function ContactCTA() {
                   href="/contact"
                   className="group inline-flex items-center gap-2 rounded-full bg-white text-black px-8 py-4 text-base font-semibold hover:bg-sky-400 hover:text-black transition-all duration-300 shadow-lg shadow-white/5 hover:shadow-sky-400/20 active:scale-95 cursor-pointer select-none"
                 >
-                  Let's talk
+                  Let&apos;s talk
                   <span className="transition-transform group-hover:translate-x-1">→</span>
                 </a>
               </div>

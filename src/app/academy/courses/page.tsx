@@ -3,9 +3,9 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Search, Filter, BookOpen, Clock, Award, Lock } from "lucide-react";
-import { lmsCourses, type LmsCourse } from "@/lib/site-data";
+import { lmsCourses } from "@/lib/site-data";
 import Image from "next/image";
-import { Nav } from "@/components/home/Nav";
+import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
 const getCourseSlug = (title: string) => {
@@ -34,8 +34,9 @@ export default function CoursesPage() {
   }, [searchQuery, selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col pt-0">
+    <>
       <Nav />
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col pt-0">
 
       {/* Hero Banner Section */}
       <section className="relative pt-[120px] pb-16 sm:pt-[132px] sm:pb-20 border-b border-white/5 bg-[#0a0a0a]">
@@ -54,7 +55,7 @@ export default function CoursesPage() {
       </section>
 
       {/* Main Catalog Directory Section */}
-      <section className="site-section-y flex-grow">
+      <section className="py-12 sm:py-16 flex-grow">
         <div className="site-shell flex flex-col lg:flex-row gap-10">
           
           {/* Sidebar Filters (Desktop) */}
@@ -248,7 +249,8 @@ export default function CoursesPage() {
         </div>
       </section>
 
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }

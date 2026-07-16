@@ -2,8 +2,8 @@
 
 import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { RotateCcw } from "lucide-react";
 import raviKrovvidi from "@/assets/executive-team/ravi-krovvidi.png";
 import arunaSharma from "@/assets/executive-team/aruna-sharma.png";
 import prudviRaju from "@/assets/executive-team/vetukuri-prudvi-raju.png";
@@ -125,43 +125,46 @@ export function ExecutiveTeam() {
                 delay: Math.min((index % 4) * 0.07, 0.21),
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="group relative h-[390px] overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/90 shadow-[0_24px_70px_rgba(0,0,0,.34)] backdrop-blur-xl transition-colors duration-300 hover:border-[#7dd3fc]/35"
+              onMouseEnter={() => setExpandedIndex(index)}
+              onMouseLeave={() => setExpandedIndex(null)}
+              className="group relative h-[390px] [perspective:1200px]"
             >
-              <button
+              <motion.button
                 type="button"
                 aria-expanded={expandedIndex === index}
                 aria-controls={`executive-bio-${index}`}
+                aria-label={`${expandedIndex === index ? "Show profile image for" : "Read biography for"} ${member.name}`}
                 onClick={() =>
                   setExpandedIndex((current) => (current === index ? null : index))
                 }
-                className="block h-full w-full cursor-pointer text-left"
+                animate={{ rotateY: expandedIndex === index ? 180 : 0 }}
+                transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+                className="relative block h-full w-full cursor-pointer text-left [transform-style:preserve-3d]"
               >
-                <div className="relative h-[250px] overflow-hidden bg-[#101521]">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition duration-700 ease-out group-hover:scale-[1.045]"
-                    style={{ objectPosition: member.objectPosition ?? "50% 20%" }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#090f1f] via-transparent to-black/10" />
-                  <span
-                    className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full border border-white/15 bg-black/45 font-mono text-xs font-black backdrop-blur-md"
-                    style={{ color: member.accent }}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
+                <div className="absolute inset-0 overflow-hidden rounded-2xl border border-white/12 bg-[#090f1f]/90 shadow-[0_24px_70px_rgba(0,0,0,.34)] [backface-visibility:hidden]">
+                  <div className="relative h-[250px] overflow-hidden bg-[#101521]">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition duration-700 ease-out group-hover:scale-[1.035]"
+                      style={{ objectPosition: member.objectPosition ?? "50% 20%" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090f1f] via-transparent to-black/10" />
+                    <span
+                      className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full border border-white/15 bg-black/45 font-mono text-xs font-black backdrop-blur-md"
+                      style={{ color: member.accent }}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
 
-                <div className="relative h-[140px] px-5 pb-5 pt-4 md:px-6">
-                  <div
-                    className="absolute inset-x-5 top-0 h-px md:inset-x-6"
-                    style={{
-                      background: `linear-gradient(90deg, ${member.accent}, transparent)`,
-                    }}
-                  />
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="relative h-[140px] px-5 pb-5 pt-4 md:px-6">
+                    <div
+                      className="absolute inset-x-5 top-0 h-px md:inset-x-6"
+                      style={{ background: `linear-gradient(90deg, ${member.accent}, transparent)` }}
+                    />
                     <div className="min-w-0">
                       <h3 className="text-xl font-black uppercase leading-tight tracking-tight text-white">
                         {member.name}
@@ -173,60 +176,39 @@ export function ExecutiveTeam() {
                         {member.role}
                       </p>
                     </div>
-                    <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] text-white/55 transition group-hover:border-white/25 group-hover:text-white">
-                      <ChevronDown
-                        className={`size-4 transition-transform duration-300 ${
-                          expandedIndex === index ? "rotate-180" : ""
-                        }`}
-                        aria-hidden="true"
-                      />
+                  </div>
+                </div>
+
+                <div
+                  id={`executive-bio-${index}`}
+                  className="absolute inset-0 grid grid-rows-[124px_1px_1fr_auto] overflow-hidden rounded-2xl border border-[#7dd3fc]/25 bg-[linear-gradient(145deg,#10182a,#070b16)] p-6 shadow-[0_24px_70px_rgba(0,0,0,.38)] [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                >
+                  <div className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full bg-[#7dd3fc]/15 blur-3xl" />
+                  <div className="relative flex min-h-0 items-start justify-between gap-4 overflow-hidden">
+                    <div className="min-w-0">
+                      <span className="font-mono text-xs font-black text-[#7dd3fc]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="mt-3 line-clamp-2 text-xl font-black uppercase leading-tight tracking-tight text-white">
+                        {member.name}
+                      </h3>
+                      <p className="mt-2 line-clamp-2 text-[10px] font-black uppercase leading-snug tracking-[0.12em] text-[#7dd3fc]">
+                        {member.role}
+                      </p>
+                    </div>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#7dd3fc]/25 bg-[#7dd3fc]/10 text-[#7dd3fc]">
+                      <RotateCcw className="size-4" aria-hidden="true" />
                     </span>
                   </div>
-
+                  <div className="relative h-px bg-gradient-to-r from-[#7dd3fc] to-transparent" />
+                  <p className="relative line-clamp-6 overflow-hidden pt-5 text-sm font-semibold leading-relaxed text-white/72">
+                    {member.bio}
+                  </p>
+                  <p className="relative border-t border-white/8 pt-4 text-[10px] font-black uppercase tracking-[0.18em] text-[#7dd3fc]/70">
+                    4AT Executive Leadership
+                  </p>
                 </div>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {expandedIndex === index ? (
-                  <motion.div
-                    id={`executive-bio-${index}`}
-                    initial={{ opacity: 0, y: "100%" }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: "100%" }}
-                    transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0 z-20 flex flex-col bg-[#090f1f]/[0.98] p-6 backdrop-blur-xl"
-                  >
-                    <div className="flex items-start justify-between gap-5">
-                      <div>
-                        <span className="font-mono text-xs font-black text-[#7dd3fc]">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <h3 className="mt-4 text-2xl font-black uppercase leading-tight tracking-tight text-white">
-                          {member.name}
-                        </h3>
-                        <p className="mt-2 text-[11px] font-black uppercase tracking-[0.14em] text-[#7dd3fc]">
-                          {member.role}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        aria-label={`Close ${member.name} biography`}
-                        onClick={() => setExpandedIndex(null)}
-                        className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#7dd3fc]/25 bg-[#7dd3fc]/10 text-[#7dd3fc] transition hover:bg-[#7dd3fc]/20"
-                      >
-                        <ChevronDown className="size-4 rotate-180" aria-hidden="true" />
-                      </button>
-                    </div>
-                    <div className="mt-7 h-px bg-gradient-to-r from-[#7dd3fc] to-transparent" />
-                    <p className="mt-7 text-sm font-semibold leading-relaxed text-white/72 md:text-base">
-                      {member.bio}
-                    </p>
-                    <p className="mt-auto text-[10px] font-black uppercase tracking-[0.2em] text-[#7dd3fc]/60">
-                      4AT Executive Leadership
-                    </p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
+              </motion.button>
             </motion.article>
           ))}
         </div>

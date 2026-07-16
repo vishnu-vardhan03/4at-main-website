@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import AmbientBackground from "@/components/3d/AmbientBackground";
 import TiltCard from "@/components/ui/TiltCard";
 
@@ -24,6 +23,8 @@ const humanExperts = [
     spec: "FastAPI · NestJS",
   },
 ];
+
+void humanExperts;
 
 const aiItems = [
   "Reconciliation exceptions & variance diagnosis",

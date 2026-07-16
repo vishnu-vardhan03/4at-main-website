@@ -42,7 +42,7 @@ export function Engagement() {
             </h2>
           </div>
           <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white leading-relaxed">
-            Every service above runs on the same engagement model, whether you're subscribing to bookkeeping or hiring a Virtual CFO.
+            Every service above runs on the same engagement model, whether you&apos;re subscribing to bookkeeping or hiring a Virtual CFO.
           </p>
         </div>
 

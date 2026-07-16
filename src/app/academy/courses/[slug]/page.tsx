@@ -1,14 +1,14 @@
 "use client";
 
-import { use, useState, useMemo, useEffect } from "react";
+import { use, useState, useMemo } from "react";
 import Link from "next/link";
 import { Star, Clock, Award, CheckCircle, ChevronDown, BookOpen, AlertCircle, Sparkles, UserCheck } from "lucide-react";
-import { lmsCourses, type LmsCourse } from "@/lib/site-data";
-import { Nav } from "@/components/home/Nav";
+import { ctaRoute, lmsCourses } from "@/lib/site-data";
+import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/academy/Button";
 import { motion, AnimatePresence } from "framer-motion";
-import { client, urlFor } from "@/lib/sanity";
+import Image from "next/image";
 
 const getCourseSlug = (title: string) => {
   return title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -367,87 +367,14 @@ export default function CourseDetailsPage({
 
   const [expandedModule, setExpandedModule] = useState<number | null>(0);
 
-  const [course, setCourse] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchCourse() {
-      try {
-        const query = `*[_type == "course" && (slug.current == $slug || title == $titleSlug)] [0] {
-          title,
-          subtitle,
-          badge,
-          rating,
-          reviewsCount,
-          description,
-          bullets,
-          locked,
-          category,
-          instructor,
-          price,
-          originalPrice,
-          badgeType,
-          "sanityImage": image,
-          slug
-        }`;
-        const titleSlug = slug.replace(/-/g, " ");
-        const data = await client.fetch(query, { slug, titleSlug });
-        if (data) {
-          setCourse(data);
-        } else {
-          const staticCourse = lmsCourses.find((c) => getCourseSlug(c.title) === slug);
-          setCourse(staticCourse);
-        }
-      } catch (err) {
-        console.warn("Failed to fetch course details from Sanity:", err);
-        const staticCourse = lmsCourses.find((c) => getCourseSlug(c.title) === slug);
-        setCourse(staticCourse);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchCourse();
+  const course = useMemo(() => {
+    return lmsCourses.find((c) => getCourseSlug(c.title) === slug);
   }, [slug]);
 
   const curriculum = useMemo(() => {
     const key = curriculumKeyMap[slug] || slug;
-    const staticCurriculum = courseCurriculums[key];
-    if (staticCurriculum) return staticCurriculum;
-    
-    if (!course) return null;
-    return {
-      whatYouWillLearn: [course.description, ...(course.bullets || [])],
-      requirements: ["Baseline finance background or undergraduate degree in finance/accounting."],
-      modules: [
-        {
-          title: "Module 1: General Core Overview",
-          duration: "15 Hours · 6 Lectures",
-          lectures: course.bullets || ["Core lectures", "Practical drills"]
-        }
-      ],
-      instructorBio: {
-        name: course.instructor || "4AT Faculty",
-        title: "Industry Expert",
-        rating: "4.8★",
-        reviews: "100+",
-        students: "500+",
-        bio: "Experienced professional teaching modern finance readiness."
-      }
-    };
-  }, [slug, course]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col justify-between pt-[72px]">
-        <Nav />
-        <div className="max-w-md mx-auto text-center flex flex-col items-center justify-center py-20 px-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
-          <p className="text-slate-400 text-xs mt-4">Loading course details...</p>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+    return courseCurriculums[key] || null;
+  }, [slug]);
 
   if (!course || !curriculum) {
     return (
@@ -538,7 +465,7 @@ export default function CourseDetailsPage({
       </section>
 
       {/* Main Section layout with Sidebar widget */}
-      <section className="site-section-y flex-grow relative">
+      <section className="py-12 sm:py-16 flex-grow relative">
         <div className="site-shell relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-12">
           
           {/* Main Body Contents (Left Column) */}
@@ -609,7 +536,7 @@ export default function CourseDetailsPage({
                             className="overflow-hidden"
                           >
                             <div className="px-6 pb-6 pt-2 bg-[#0b0e1a]/40 flex flex-col gap-3">
-                              {mod.lectures.map((lecture: string, lIdx: number) => (
+                              {mod.lectures.map((lecture, lIdx) => (
                                 <div key={lIdx} className="flex items-start gap-3.5 text-xs text-slate-300 border-b border-white/[0.03] last:border-b-0 pb-2.5 last:pb-0">
                                   <BookOpen className="size-4 text-accent shrink-0 mt-0.5" />
                                   <span className="leading-relaxed">{lecture}</span>
@@ -688,19 +615,12 @@ export default function CourseDetailsPage({
               
               {/* Course Preview Banner */}
               <div className="relative aspect-video w-full bg-[#0b0e1a]">
-                <img
-                  src={(() => {
-                    if (course.sanityImage?.asset) {
-                      return urlFor(course.sanityImage).url();
-                    }
-                    if (course.image) {
-                      return course.image;
-                    }
-                    const staticCourse = lmsCourses.find((c) => c.title === course.title);
-                    return staticCourse?.image || "/default-thumbnail.jpg";
-                  })()}
+                <Image
+                  src={course.image}
                   alt={course.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
                 />
                 {course.locked && (
                   <div className="absolute inset-0 bg-[#0b0e1a]/60 flex items-center justify-center">
@@ -727,7 +647,7 @@ export default function CourseDetailsPage({
                 {/* Main CTAs */}
                 <div className="flex flex-col gap-3">
                   <Button
-                    href="/academy/register"
+                    href={ctaRoute}
                     variant="primary"
                     className="w-full font-bold tracking-wider py-4 shadow-[0_0_20px_rgba(0,229,195,0.2)] text-center justify-center"
                   >

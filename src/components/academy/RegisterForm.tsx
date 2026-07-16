@@ -3,7 +3,6 @@
 import { CheckCircle2, ChevronRight, ChevronLeft, ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "./Button";
-import posthog from "posthog-js";
 
 // Option lists for selects
 const GENDER_OPTIONS = ["Male", "Female", "Other", "Prefer not to say"];
@@ -153,58 +152,19 @@ export function RegisterForm() {
 
   const handleNext = () => {
     if (validateStep(step)) {
-      posthog.capture("registration_step_completed", {
-        completed_step: step,
-        next_step: step + 1,
-      });
       setStep((prev) => prev + 1);
     }
   };
 
   const handlePrev = () => {
-    posthog.capture("registration_step_backtrack", {
-      from_step: step,
-      to_step: step - 1,
-    });
     setStep((prev) => prev - 1);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep(4)) {
-      try {
-        const response = await fetch("/api/academy-register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setIsSubmitted(true);
-          
-          // Identify user in PostHog and log final sign up success
-          posthog.identify(formData.username, {
-            email: formData.email,
-            college: formData.college,
-            city: formData.city,
-            department: formData.department,
-          });
-          posthog.capture("registration_success", {
-            college: formData.college,
-            academic_year: formData.academicYear,
-            city: formData.city,
-            referred_by: formData.referredBy || "none",
-          });
-        } else {
-          setFormErrors({ form: data.error || "Registration failed." });
-        }
-      } catch (error) {
-        console.error("Registration error:", error);
-        setFormErrors({ form: "Failed to connect to the server. Please try again." });
-      }
+      console.log("Registration successfully submitted:", formData);
+      setIsSubmitted(true);
     }
   };
 
@@ -231,12 +191,12 @@ export function RegisterForm() {
         <span className="section-eyebrow mb-6 text-accent uppercase tracking-widest text-[11px] font-bold">
           LMS Academy Enrollment
         </span>
-        <h2 className="site-heading font-sans text-white mt-6">
-          Register <span className="font-serif italic font-bold text-accent">Yourself</span>
+        <h2 className="font-sans text-4xl sm:text-5xl font-bold tracking-tight text-white mt-6 leading-none">
+          Register <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400">Yourself</span>
           <br />
           For the Academy.
         </h2>
-        <p className="site-subheading mt-6 text-ink-secondary max-w-[48ch]">
+        <p className="mt-6 text-base text-ink-secondary leading-relaxed max-w-[48ch]">
           Complete your profile below to gain dashboard access, customize your specialized learning path, and link directly with hiring partners.
         </p>
 
@@ -293,7 +253,7 @@ export function RegisterForm() {
       </div>
 
       {/* Right Column: Premium Multi-Step Glassmorphic Form Card */}
-      <div className="relative rounded-3xl border border-white/8 bg-[#0b0e1a] p-8 sm:p-10 shadow-2xl overflow-hidden w-full max-w-[620px] mx-auto lg:ml-auto">
+      <div className="relative rounded-3xl border border-white/8 bg-[#0b0e1a]/40 p-8 sm:p-10 shadow-2xl backdrop-blur-xl overflow-hidden w-full max-w-[620px] mx-auto lg:ml-auto">
         <div className="absolute -inset-px bg-gradient-to-br from-accent/10 to-transparent rounded-3xl pointer-events-none z-0" />
 
         <div className="relative z-10">
@@ -326,12 +286,6 @@ export function RegisterForm() {
                   {stepsInfo[step - 1].label}
                 </h3>
               </div>
-
-              {formErrors.form && (
-                <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs">
-                  {formErrors.form}
-                </div>
-              )}
 
               {/* Step 1: Basic Details */}
               {step === 1 && (

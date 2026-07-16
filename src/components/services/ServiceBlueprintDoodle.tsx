@@ -10,19 +10,19 @@ export function ServiceBlueprintDoodle({ serviceId }: BlueprintProps) {
   const floatTransition = {
     duration: 5,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: "easeInOut" as const,
   };
 
   const pulseTransition = {
     duration: 2.5,
     repeat: Infinity,
-    ease: "easeInOut",
+    ease: "easeInOut" as const,
   };
 
   const rotateTransition = (duration: number) => ({
     duration,
     repeat: Infinity,
-    ease: "linear",
+    ease: "linear" as const,
   });
 
   const getBlueprintContent = () => {

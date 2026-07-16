@@ -18,13 +18,13 @@ const productMenuItems = [
 
 const serviceMenuItems = [
   { label: "Run My Finance Operations", href: "/services#run-finance-operations" },
-  { label: "Get Audit-Ready (and Stay That Way)", href: "/services#audit-ready" },
+  { label: "Get Audit-Ready", href: "/services#audit-ready" },
   { label: "Prepare for a Transaction", href: "/services#prepare-transaction" },
   { label: "Modernize Your Finance Stack", href: "/services#modernize-finance-stack" },
 ];
 
 const academyMenuItems = [
-  { label: "Program", href: "/academy#programs" },
+  { label: "Program", href: "/academy#courses" },
   { label: "Blueprint", href: "/academy#features" },
   { label: "Launch", href: "/academy#enroll" },
   { label: "Connect", href: "/academy#contact-us" },
@@ -194,7 +194,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             <motion.span
               aria-label="4AT Logo"
               role="img"
-              className="brand-logo-gradient relative z-10 !h-7 !w-11"
+              className="brand-logo-gradient relative z-10 !h-8 !w-12"
               style={{ WebkitMaskImage: `url(${logo.src})`, maskImage: `url(${logo.src})` }}
               variants={{
                 initial: { scale: 1 },
@@ -217,7 +217,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           </motion.div>
         </Link>
         <nav
-          className={`hidden items-center justify-self-center gap-5 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-8 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
+          className={`hidden items-center justify-self-center gap-6 text-[16px] font-semibold leading-7 transition-colors duration-300 md:flex xl:gap-10 ${isDarkBg ? "text-zinc-300" : "text-zinc-800"
           }`}
         >
           <NavDropdown
@@ -294,7 +294,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
           <NavDropdown
             label="Academy"
             href="/academy"
-            imageHref="/academy#programs"
+            imageHref="/academy#courses"
             imageSrc="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
             imageAlt="Placeholder for 4AT Academy"
             eyebrow="4AT Academy"

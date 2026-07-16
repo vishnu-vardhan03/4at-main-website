@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactElement } from "react";
 import TiltCard from "@/components/ui/TiltCard";
 import AmbientBackground from "@/components/3d/AmbientBackground";
 
@@ -299,7 +300,7 @@ function MacOSWindow({
 }
 
 export default function WhySection() {
-  const vizMap: Record<string, () => JSX.Element> = {
+  const vizMap: Record<string, () => ReactElement> = {
     architecture: ArchitectureViz,
     compliance: ComplianceViz,
     human: HumanViz,
