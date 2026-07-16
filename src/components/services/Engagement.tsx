@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+import { useRef, useState, useEffect } from "react";
+
+>>>>>>> 3070fe8c3e359892847b4d04d3c462376ec0b9ef
+>>>>>>> ad78f2960345f3e26f469a1fedd42a2318fbed21
 const steps = [
   {
     n: "1",
@@ -34,12 +42,24 @@ export function Engagement() {
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-950/10 backdrop-blur-md px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sky-400 mb-6">
               How an engagement works
             </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ad78f2960345f3e26f469a1fedd42a2318fbed21
             <h2 className="text-display text-[clamp(2.5rem,5.2vw,4.5rem)] text-white font-black leading-[0.95]">
               Four steps
               <span className="block mt-2 py-2 px-1 text-[clamp(1.4rem,3vw,2.6rem)] tracking-tight bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(99,102,241,0.25)] animate-gradient-x">
                 No procurement cycle
               </span>
             </h2>
+<<<<<<< HEAD
+=======
+=======
+            <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white leading-relaxed">
+              Every service above runs on the same engagement model, whether you&apos;re subscribing to bookkeeping or hiring a Virtual CFO.
+            </p>
+>>>>>>> 3070fe8c3e359892847b4d04d3c462376ec0b9ef
+>>>>>>> ad78f2960345f3e26f469a1fedd42a2318fbed21
           </div>
           <p className="md:col-span-4 md:col-start-9 self-end text-lg text-white leading-relaxed">
             Every service above runs on the same engagement model, whether you&apos;re subscribing to bookkeeping or hiring a Virtual CFO.
