@@ -32,11 +32,12 @@ function ScrollCard({
      * Each card gets a higher z-index so the next card slides over the previous.
      */
     <div
-      className="sticky top-0 flex h-[480px] items-start pt-16 px-4 md:px-8"
+      data-scroll-card
+      className="sticky top-24 flex h-[430px] items-start px-4 pt-4 md:top-[17rem] md:px-8"
       style={{ zIndex: index + 1 }}
     >
       <article
-        className="relative mx-auto w-full max-w-[1150px] overflow-hidden rounded-3xl border border-white/15 bg-[#091120]/95 p-5 shadow-[0_35px_100px_rgba(0,0,0,.4)] backdrop-blur-xl md:p-7"
+        className="relative mx-auto w-full max-w-[1150px] overflow-hidden rounded-3xl border border-white/15 bg-[#091120] p-5 shadow-[0_35px_100px_rgba(0,0,0,.55)] md:p-7"
       >
         {/* Accent glow */}
         <div
@@ -105,6 +106,13 @@ function ScrollCard({
           </div>
         </div>
       </article>
+      {index === total - 1 && (
+        <span
+          data-scroll-cards-end
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 size-px"
+        />
+      )}
     </div>
   );
 }

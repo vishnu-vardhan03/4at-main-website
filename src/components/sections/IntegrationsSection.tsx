@@ -96,10 +96,16 @@ export default function IntegrationsSection() {
           <div className="absolute top-0 bottom-0 right-0 w-28 z-10 pointer-events-none"
             style={{ background: "linear-gradient(to left, #04060f, transparent)" }} />
 
-          <div className="flex gap-4 mb-4" style={{ animation: "marquee 25s linear infinite" }}>
+          <div
+            className="flex w-max gap-4 mb-4 will-change-transform"
+            style={{ animation: "product-marquee 25s linear infinite" }}
+          >
             {[...row1, ...row1].map((i, idx) => <IntCard key={`r1-${idx}`} i={i} />)}
           </div>
-          <div className="flex gap-4" style={{ animation: "marquee 30s linear infinite reverse" }}>
+          <div
+            className="flex w-max gap-4 will-change-transform"
+            style={{ animation: "product-marquee 30s linear infinite reverse" }}
+          >
             {[...row2, ...row2].map((i, idx) => <IntCard key={`r2-${idx}`} i={i} />)}
           </div>
         </div>

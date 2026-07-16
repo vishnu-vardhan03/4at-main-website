@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -130,8 +130,10 @@ function NavDropdown({
 export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
   const pathname = usePathname();
   const [isDarkBg, setIsDarkBg] = useState(true);
+  const [isNavHidden, setIsNavHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
+  const lastScrollY = useRef(0);
 
   const closeMobileMenu = () => {
     setMobileOpen(false);
@@ -140,6 +142,7 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
 
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
       const headerPos = 60; // position of navbar on screen
       const sections = document.querySelectorAll("section, div[id]");
       let activeBgIsLight = false;
@@ -154,12 +157,24 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
         }
       });
       setIsDarkBg(!activeBgIsLight);
+
+      const scrollDelta = currentScrollY - lastScrollY.current;
+
+      if (currentScrollY <= 24 || mobileOpen) {
+        setIsNavHidden(false);
+      } else if (scrollDelta > 10) {
+        setIsNavHidden(true);
+      } else if (scrollDelta < -10) {
+        setIsNavHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mobileOpen]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -175,8 +190,8 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      animate={isNavHidden ? { opacity: 0, y: -88 } : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.28, ease: "easeOut" }}
       className="fixed left-1/2 top-3 z-50 w-[min(1400px,calc(100%-2rem))] -translate-x-1/2 font-[family-name:var(--font-geist-sans)]"
     >
       <div
@@ -303,13 +318,6 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             isDarkBg={isDarkBg}
             isActive={isPathActive(pathname, "/academy")}
           />
-          <Link
-            href="/contact"
-            aria-current={isPathActive(pathname, "/contact") ? "page" : undefined}
-            className={`transition-colors ${isPathActive(pathname, "/contact") ? activeNavClass : isDarkBg ? "hover:text-white" : "hover:text-black"}`}
-          >
-            Contact us
-          </Link>
         </nav>
         <div className="flex items-center justify-self-end gap-2">
           <Link
@@ -387,14 +395,6 @@ export function Nav({ contactHref = "/contact" }: { contactHref?: string }) {
             );
           })}
 
-          <Link
-            href="/contact"
-            onClick={closeMobileMenu}
-            aria-current={isPathActive(pathname, "/contact") ? "page" : undefined}
-            className={`flex min-h-12 items-center rounded-xl border-t border-white/8 px-4 text-sm font-semibold transition hover:bg-white/[.06] ${isPathActive(pathname, "/contact") ? "bg-sky-400/10 text-sky-300" : ""}`}
-          >
-            Contact us
-          </Link>
           <Link
             href={contactHref}
             onClick={closeMobileMenu}

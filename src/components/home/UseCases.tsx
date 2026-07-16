@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { CardsParallax, type ScrollCardItem } from "@/components/home/ui/scroll-cards";
 
 const scenarios: ScrollCardItem[] = [
@@ -41,30 +42,81 @@ const scenarios: ScrollCardItem[] = [
 ];
 
 export function UseCases() {
+  const cardsGroupRef = useRef<HTMLDivElement>(null);
+  const [cardsFinished, setCardsFinished] = useState(false);
+
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    const observeCardEnd = () => {
+      observer?.disconnect();
+
+      const marker = cardsGroupRef.current?.querySelector<HTMLElement>(
+        "[data-scroll-cards-end]",
+      );
+      const lastCard = marker?.parentElement;
+      const cardPanel = lastCard?.firstElementChild as HTMLElement | null;
+
+      if (!marker || !cardPanel || window.innerWidth < 768) {
+        setCardsFinished(false);
+        return;
+      }
+
+      const triggerLine = 17 * 16 + cardPanel.offsetHeight;
+      const bottomMargin = Math.max(0, window.innerHeight - triggerLine);
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setCardsFinished(entry.boundingClientRect.top <= triggerLine);
+        },
+        { rootMargin: `0px 0px -${bottomMargin}px 0px` },
+      );
+      observer.observe(marker);
+    };
+
+    observeCardEnd();
+    window.addEventListener("resize", observeCardEnd);
+
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", observeCardEnd);
+    };
+  }, []);
+
   return (
     <section id="use-cases" className="relative text-white [overflow:clip]">
       {/* Ambient glow blobs — overflow:clip lets these be visually clipped without breaking sticky */}
       <div className="pointer-events-none absolute left-0 top-1/3 size-96 rounded-full bg-[#2dd4bf]/10 blur-[120px]" />
       <div className="pointer-events-none absolute right-0 top-1/2 size-96 rounded-full bg-[#a78bfa]/10 blur-[120px]" />
 
-      {/* Section header — sticky at the very top while scroll happens */}
-      <div className="relative mx-auto max-w-[1200px] px-6 pt-14 pb-4 md:px-12 md:pt-24">
-        <span className="section-badge">
-          Where Hybrid creates the most value
-        </span>
-        <h2 className="mt-5 site-heading">
-          Five moments where finance teams{" "}
-          <span className="text-brand-gradient-flow">switch to 4AT.</span>
-        </h2>
-        <p className="site-subheading mt-6 max-w-3xl text-white/75">
-          The buyers who pick us aren&apos;t shopping for &quot;an accounting firm&quot; or
-          &quot;an AI tool.&quot; They&apos;re stuck in a specific situation. Here are the
-          five we hear most.
-        </p>
-      </div>
+      <div className="relative">
+        {/* Opaque sticky layer prevents stacked cards showing through the heading. */}
+        <div
+          className={`relative z-30 transition-opacity duration-300 md:sticky md:top-0 md:bg-[#030712]/95 md:backdrop-blur-md ${
+            cardsFinished ? "md:pointer-events-none md:opacity-0" : "md:opacity-100"
+          }`}
+        >
+          <div className="mx-auto max-w-[1200px] px-6 pt-14 pb-10 md:px-12 md:pt-6">
+            <span className="section-badge">
+              Where Hybrid creates the most value
+            </span>
+            <h2 className="mt-5 site-heading">
+              Five moments where finance teams{" "}
+              <span className="text-brand-gradient-flow">switch to 4AT.</span>
+            </h2>
+            <p className="site-subheading mt-6 max-w-3xl text-white/75">
+              The buyers who pick us aren&apos;t shopping for &quot;an accounting firm&quot; or
+              &quot;an AI tool.&quot; They&apos;re stuck in a specific situation. Here are the
+              five we hear most.
+            </p>
+          </div>
+        </div>
 
-      {/* Sticky scroll cards */}
-      <CardsParallax items={scenarios} />
+        {/* Sticky scroll cards */}
+        <div ref={cardsGroupRef} className="relative z-20">
+          <CardsParallax items={scenarios} />
+        </div>
+      </div>
 
       {/* Footer CTA row */}
       <div className="relative mx-auto max-w-[1200px] px-6 pb-14 md:px-12 md:pb-24">

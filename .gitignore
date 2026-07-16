@@ -13,6 +13,7 @@
 
 # Next.js and production output
 /.next/
+/.next-stale-*/
 /.next-dev/
 /.next-corrupt-*/
 /out/
