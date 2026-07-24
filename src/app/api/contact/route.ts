@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { prisma } from "@/lib/prisma";
 import { BUDGET_OPTIONS, COMPANY_SIZE_OPTIONS, SERVICE_OPTIONS } from "@/components/lead-collection/types";
 
 const contactSchema = z.object({
@@ -39,10 +40,7 @@ export async function POST(request: Request) {
 
     const leadData = { name, company, email, phone, service, companySize, budget, description };
 
-    // TODO: reconnect new DB here
-    // const lead = await db.lead.create({ data: leadData });
-    void leadData;
-    const lead = { id: null };
+    const lead = await prisma.lead.create({ data: leadData });
 
     return NextResponse.json({ success: true, leadId: lead.id }, { status: 201 });
   } catch (error) {

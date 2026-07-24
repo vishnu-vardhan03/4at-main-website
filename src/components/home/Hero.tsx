@@ -21,7 +21,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="hero-ecosystem relative min-h-screen overflow-hidden bg-transparent px-6 pb-20 pt-32 text-white md:px-12 lg:px-20" style={{ fontFamily: "Inter, sans-serif" }}>
+    <section className="hero-ecosystem relative min-h-screen overflow-hidden bg-transparent px-6 pb-20 pt-32 text-white md:px-12 lg:px-20">
       <div className="hero-ecosystem-grid" aria-hidden="true" />
       <div className="hero-ecosystem-glow hero-ecosystem-glow-left" aria-hidden="true" />
       <div className="hero-ecosystem-glow hero-ecosystem-glow-right" aria-hidden="true" />
